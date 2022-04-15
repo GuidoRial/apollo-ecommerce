@@ -1,40 +1,31 @@
 import { gql } from "@apollo/client";
 
-export const getTechCategory = gql`
+export const getItems = gql`
     query {
-        category(input: { title: "tech" }) {
-            name
+        category {
             products {
                 name
                 gallery
+                inStock
                 prices {
-                    amount
                     currency {
                         label
                         symbol
                     }
-                }
-                inStock
-            }
-        }
-    }
-`;
-
-export const getClothesCategory = gql`
-    query {
-        category(input: { title: "tech" }) {
-            name
-            products {
-                name
-                gallery
-                prices {
                     amount
-                    currency {
-                        label
-                        symbol
+                }
+                category
+                description
+                attributes {
+                    id
+                    name
+                    type
+                    items {
+                        displayValue
+                        value
+                        id
                     }
                 }
-                inStock
             }
         }
     }
@@ -42,19 +33,70 @@ export const getClothesCategory = gql`
 
 export const getAllProducts = gql`
     query {
-        category(input: { title: "tech" }) {
+        category {
             name
             products {
+                id
                 name
                 gallery
+                inStock
+                description
                 prices {
-                    amount
                     currency {
                         label
                         symbol
                     }
+                    amount
                 }
+                attributes {
+                    id
+                    name
+                    type
+                    items {
+                        value
+                        displayValue
+                        id
+                    }
+                    items {
+                        displayValue
+                        value
+                        id
+                    }
+                }
+                brand
+            }
+        }
+    }
+`;
+
+export const getItemsByCategory = gql`
+    query getItemsByCategory($title: String!) {
+        category(input: { title: $title }) {
+            products {
+                id
+                name
+                brand
+                gallery
                 inStock
+                prices {
+                    currency {
+                        label
+                        symbol
+                    }
+                    amount
+                }
+                category
+                description
+                attributes {
+                    id
+                    name
+                    type
+                    items {
+                        displayValue
+                        value
+                        id
+                    }
+                }
             }
         }
     }
@@ -70,6 +112,40 @@ export const getCategories = gql`
 
 export const getCurrencies = gql`
     query {
-        currencies
+        currencies {
+            label
+            symbol
+        }
+    }
+`;
+
+export const getItemsById = gql`
+    query getItemsById($id: String!) {
+        product(id: $id) {
+            id
+            brand
+            name
+            gallery
+            inStock
+            prices {
+                currency {
+                    label
+                    symbol
+                }
+                amount
+            }
+            category
+            description
+            attributes {
+                id
+                name
+                type
+                items {
+                    displayValue
+                    value
+                    id
+                }
+            }
+        }
     }
 `;
