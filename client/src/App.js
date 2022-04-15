@@ -1,18 +1,33 @@
 import "./App.css";
 import { client } from "./index";
-import { gql } from "@apollo/client";
 import { Component } from "react";
+import {
+    getItems,
+    getAllProducts,
+    getItemsByCategory,
+    getCategories,
+    getCurrencies,
+    getItemsById,
+} from "./queries";
 
 class App extends Component {
     constructor() {
         super();
-        
-        client
-            .query({
-                query: gql``,
-            })
-            .then((result) => console.log(result.data));
+
+        const testFunction = async () => {
+            const result = await client
+                .query({
+                    query: getItemsByCategory,
+                    variables: {
+                        title: "clothes",
+                    },
+                })
+                .then((result) => console.log(result.data));
+        };
+
+        testFunction();
     }
+
     render() {
         return <div className="App"></div>;
     }
