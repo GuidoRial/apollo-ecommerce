@@ -1,9 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { client } from "./index";
-import {
-    gql,
-} from "@apollo/client";
+import { gql } from "@apollo/client";
 
 function App() {
     client
