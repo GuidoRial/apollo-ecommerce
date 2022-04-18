@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Logo from "../../Assets/Icons/logo.svg";
 import EmptyCart from "../../Assets/Icons/EmptyCart.svg";
 import DropdownOff from "../../Assets/Icons/DropdownOff.svg";
-import DropdownOn from "../../Assets/Icons/DropdownOn.svg";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import DropdownMenu from "./DropdownMenu/DropdownMenu";
