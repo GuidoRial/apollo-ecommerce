@@ -19,30 +19,43 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            categories: ["ALL", "CLOTHES", "TECH"],
-            currentCategory: "",
-            selectedCurrency: "",
+            categories: [],
+            currentCategory: "all",
+            selectedCurrency: "$",
             cartItems: [],
+            storeItems: [],
+        };
+        console.log(this.state);
+
+        const fetchCategories = async () => {
+            const result = await client
+                .query({
+                    query: getCategories,
+                })
+                .then((result) => {
+                    const categories = result.data.categories;
+                    this.state.categories = categories;
+                });
         };
 
-        /*
-        const testFunction = async () => {
+        const fetchStoreItems = async (category) => {
             const result = await client
                 .query({
                     query: getItemsByCategory,
                     variables: {
-                        title: "clothes",
+                        title: category,
                     },
                 })
-                .then((result) => console.log(result.data));
+                .then((result) => {
+                    const items = result.data.category.products;
+                    this.state.storeItems = items;
+                });
         };
 
-        testFunction();
-        */
-
-        //Get categories
-        //Get currencies
+        fetchCategories();
+        fetchStoreItems(this.state.currentCategory);
     }
+
     getProductFromCart(product) {
         return this.state.cartItems.find((item) => item.id === product.id);
     }
@@ -97,7 +110,7 @@ class App extends Component {
             <div className="App">
                 <BrowserRouter>
                     <Header />
-                    <p>{this.state.categories[0]}</p>
+
                     <Routes>
                         <Route path="/" element={<ProductListingPage />} />
                         <Route
