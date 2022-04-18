@@ -25,37 +25,50 @@ class App extends Component {
             cartItems: [],
             storeItems: [],
         };
-        console.log(this.state);
 
-        const fetchCategories = async () => {
-            const result = await client
-                .query({
-                    query: getCategories,
-                })
-                .then((result) => {
-                    const categories = result.data.categories;
-                    this.state.categories = categories;
-                });
-        };
-
-        const fetchStoreItems = async (category) => {
-            const result = await client
-                .query({
-                    query: getItemsByCategory,
-                    variables: {
-                        title: category,
-                    },
-                })
-                .then((result) => {
-                    const items = result.data.category.products;
-                    this.state.storeItems = items;
-                });
-        };
-
-        fetchCategories();
-        fetchStoreItems(this.state.currentCategory);
+        this.fetchCategories = this.fetchCategories.bind(this);
+        this.fetchStoreItems = this.fetchStoreItems.bind(this);
     }
+    fetchCategories = async () => {
+        const result = await client
+            .query({
+                query: getCategories,
+            })
+            .then((result) => {
+                const container = [];
+                const categories = result.data.categories;
+                categories.forEach((item) => container.push(item.name));
+                this.setState({ categories: [...container] });
+            });
+    };
 
+    fetchStoreItems = async (category) => {
+        const result = await client
+            .query({
+                query: getItemsByCategory,
+                variables: {
+                    title: category,
+                },
+            })
+            .then((result) => {
+                const container = [];
+                const items = result.data.category.products;
+                items.forEach((item) => container.push(item));
+                this.state.storeItems = items;
+            });
+    };
+
+    componentDidMount() {
+        this.fetchCategories();
+        this.fetchStoreItems(this.state.currentCategory);
+    }
+    /*
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.currentCategory !== this.props.currentCategory) {
+            this.fetchStoreItems(this.props.currentCategory);
+        }
+    }
+*/
     getProductFromCart(product) {
         return this.state.cartItems.find((item) => item.id === product.id);
     }
@@ -106,11 +119,11 @@ class App extends Component {
     };
 
     render() {
+        console.log(this.state);
         return (
             <div className="App">
                 <BrowserRouter>
-                    <Header />
-
+                    <Header categories={this.state.categories} />
                     <Routes>
                         <Route path="/" element={<ProductListingPage />} />
                         <Route
