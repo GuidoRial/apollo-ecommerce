@@ -15,7 +15,7 @@ export default class Header extends Component {
         const { categories, currentCategory, handleCategoryChange } =
             this.props;
 
-        console.log(currentCategory);
+        //console.log(currentCategory);
         return (
             <nav className="nav-bar">
                 <div className="categories">
@@ -23,9 +23,7 @@ export default class Header extends Component {
                         <div
                             className="category"
                             key={category.name}
-                            onClick={() =>
-                                handleCategoryChange(category.name)
-                            }
+                            onClick={() => handleCategoryChange(category.name)}
                         >
                             {category.name}
                         </div>

@@ -33,6 +33,7 @@ class App extends Component {
 
     handleCategoryChange = (newCategory) => {
         this.setState({ currentCategory: newCategory });
+        this.fetchStoreItems(newCategory);
     };
 
     fetchCategories = async () => {
@@ -64,13 +65,14 @@ class App extends Component {
         this.fetchCategories();
         this.fetchStoreItems(this.state.currentCategory);
     }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.currentCategory !== this.props.currentCategory) {
-            this.fetchStoreItems(this.props.currentCategory);
+    /*
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log(prevProps, prevState, snapshot);
+        if (prevState.currentCategory !== this.state.currentCategory) {
+            this.fetchStoreItems(this.state.currentCategory);
         }
     }
-
+*/
     getProductFromCart(product) {
         return this.state.cartItems.find((item) => item.id === product.id);
     }
