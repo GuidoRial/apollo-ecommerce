@@ -35,10 +35,8 @@ class App extends Component {
                 query: getCategories,
             })
             .then((result) => {
-                const container = [];
                 const categories = result.data.categories;
-                categories.forEach((item) => container.push(item.name));
-                this.setState({ categories: [...container] });
+                this.setState({ categories: categories });
             });
     };
 

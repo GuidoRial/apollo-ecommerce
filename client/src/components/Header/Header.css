@@ -1,0 +1,36 @@
+.nav-bar {
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.categories {
+    text-transform: uppercase;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.category {
+    cursor: pointer;
+}
+
+.category:hover {
+    color: var(--primary-color);
+}
+
+.currency-cart {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+@media (max-width: 500px) {
+    .e-logo {
+        display: none;
+    }
+}

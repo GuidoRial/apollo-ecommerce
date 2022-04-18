@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import Logo from "../../Assets/Icons/logo.svg";
 import EmptyCart from "../../Assets/Icons/EmptyCart.svg";
+import DropdownOff from "../../Assets/Icons/DropdownOff.svg";
+import DropdownOn from "../../Assets/Icons/DropdownOn.svg";
+import "./Header.css";
+import { Link } from "react-router-dom";
 
 export default class Header extends Component {
     constructor(props) {
@@ -13,10 +17,19 @@ export default class Header extends Component {
         console.log(categories);
         return (
             <nav className="nav-bar">
-                <div className="categories"></div>
-                <img src={Logo} alt="e-commerce-logo" />
+                <div className="categories">
+                    {categories.map((category) => (
+                        <div className="category" key={category.name}>
+                            {category.name}
+                        </div>
+                    ))}
+                </div>
+                <Link to="/">
+                    <img className="e-logo" src={Logo} alt="e-commerce-logo" />
+                </Link>
                 <div className="currency-cart">
-                    $ <img src={EmptyCart} alt="empty-cart" />
+                    $<img src={DropdownOff} />{" "}
+                    <img src={EmptyCart} alt="empty-cart" />
                 </div>
             </nav>
         );
