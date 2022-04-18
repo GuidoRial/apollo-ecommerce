@@ -28,7 +28,13 @@ class App extends Component {
 
         this.fetchCategories = this.fetchCategories.bind(this);
         this.fetchStoreItems = this.fetchStoreItems.bind(this);
+        this.handleCategoryChange = this.handleCategoryChange.bind(this);
     }
+
+    handleCategoryChange = (newCategory) => {
+        this.setState({ currentCategory: newCategory });
+    };
+
     fetchCategories = async () => {
         const result = await client
             .query({
@@ -49,10 +55,8 @@ class App extends Component {
                 },
             })
             .then((result) => {
-                const container = [];
                 const items = result.data.category.products;
-                items.forEach((item) => container.push(item));
-                this.state.storeItems = items;
+                this.setState({ storeItems: items });
             });
     };
 
@@ -60,13 +64,13 @@ class App extends Component {
         this.fetchCategories();
         this.fetchStoreItems(this.state.currentCategory);
     }
-    /*
+
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.currentCategory !== this.props.currentCategory) {
             this.fetchStoreItems(this.props.currentCategory);
         }
     }
-*/
+
     getProductFromCart(product) {
         return this.state.cartItems.find((item) => item.id === product.id);
     }
@@ -121,7 +125,11 @@ class App extends Component {
         return (
             <div className="App">
                 <BrowserRouter>
-                    <Header categories={this.state.categories} />
+                    <Header
+                        categories={this.state.categories}
+                        currentCategory={this.state.currentCategory}
+                        handleCategoryChange={this.handleCategoryChange}
+                    />
                     <Routes>
                         <Route path="/" element={<ProductListingPage />} />
                         <Route

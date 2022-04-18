@@ -12,14 +12,21 @@ export default class Header extends Component {
     }
 
     render() {
-        const { categories } = this.props;
+        const { categories, currentCategory, handleCategoryChange } =
+            this.props;
 
-        console.log(categories);
+        console.log(currentCategory);
         return (
             <nav className="nav-bar">
                 <div className="categories">
                     {categories.map((category) => (
-                        <div className="category" key={category.name}>
+                        <div
+                            className="category"
+                            key={category.name}
+                            onClick={() =>
+                                handleCategoryChange(category.name)
+                            }
+                        >
                             {category.name}
                         </div>
                     ))}
