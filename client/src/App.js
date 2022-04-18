@@ -21,6 +21,7 @@ class App extends Component {
         this.state = {
             categories: [],
             currentCategory: "all",
+            currencies: [],
             selectedCurrency: "$",
             cartItems: [],
             storeItems: [],
@@ -29,12 +30,15 @@ class App extends Component {
         this.fetchCategories = this.fetchCategories.bind(this);
         this.fetchStoreItems = this.fetchStoreItems.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
+        this.fetchCurrencies = this.fetchCurrencies.bind(this);
     }
 
     handleCategoryChange = (newCategory) => {
         this.setState({ currentCategory: newCategory });
         this.fetchStoreItems(newCategory);
-    };
+    }; 
+
+    // Use this to handle currentCurrency change
 
     fetchCategories = async () => {
         const result = await client
@@ -61,18 +65,20 @@ class App extends Component {
             });
     };
 
+    fetchCurrencies = async () => {
+        const result = await client
+            .query({ query: getCurrencies })
+            .then((result) =>
+                this.setState({ currencies: result.data.currencies })
+            );
+    };
+
     componentDidMount() {
         this.fetchCategories();
         this.fetchStoreItems(this.state.currentCategory);
+        this.fetchCurrencies();
     }
-    /*
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log(prevProps, prevState, snapshot);
-        if (prevState.currentCategory !== this.state.currentCategory) {
-            this.fetchStoreItems(this.state.currentCategory);
-        }
-    }
-*/
+
     getProductFromCart(product) {
         return this.state.cartItems.find((item) => item.id === product.id);
     }
@@ -123,7 +129,7 @@ class App extends Component {
     };
 
     render() {
-        console.log(this.state);
+        //console.log(this.state);
         return (
             <div className="App">
                 <BrowserRouter>
@@ -131,6 +137,7 @@ class App extends Component {
                         categories={this.state.categories}
                         currentCategory={this.state.currentCategory}
                         handleCategoryChange={this.handleCategoryChange}
+                        selectedCurrency={this.state.selectedCurrency}
                     />
                     <Routes>
                         <Route path="/" element={<ProductListingPage />} />

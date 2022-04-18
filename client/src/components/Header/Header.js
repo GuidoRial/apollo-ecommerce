@@ -5,17 +5,27 @@ import DropdownOff from "../../Assets/Icons/DropdownOff.svg";
 import DropdownOn from "../../Assets/Icons/DropdownOn.svg";
 import "./Header.css";
 import { Link } from "react-router-dom";
+import DropdownMenu from "./DropdownMenu/DropdownMenu";
 
 export default class Header extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            dropdownMenu: false,
+        };
     }
 
     render() {
-        const { categories, currentCategory, handleCategoryChange } =
-            this.props;
+        const {
+            categories,
+            currentCategory,
+            handleCategoryChange,
+            selectedCurrency,
+        } = this.props;
 
         //console.log(currentCategory);
+        console.log(this.state.dropdownMenu);
+        console.log(selectedCurrency);
         return (
             <nav className="nav-bar">
                 <div className="categories">
@@ -33,9 +43,24 @@ export default class Header extends Component {
                     <img className="e-logo" src={Logo} alt="e-commerce-logo" />
                 </Link>
                 <div className="currency-cart">
-                    $<img src={DropdownOff} />{" "}
+                    <p>{selectedCurrency}</p>
+                    <img
+                        onClick={() =>
+                            this.setState({
+                                dropdownMenu: !this.state.dropdownMenu,
+                            })
+                        }
+                        src={DropdownOff}
+                        alt="currency-menu"
+                        style={
+                            this.state.dropdownMenu === false
+                                ? null
+                                : { transform: "rotate(180deg)" }
+                        }
+                    />
                     <img src={EmptyCart} alt="empty-cart" />
                 </div>
+                <DropdownMenu />
             </nav>
         );
     }
