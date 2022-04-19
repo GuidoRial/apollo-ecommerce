@@ -17,10 +17,10 @@ export default class ProductListingPage extends Component {
         //console.log(storeItems);
         return (
             <section className="product-listing-page">
-                <h2>{currentCategory}</h2>
+                <h2 className="current-category-text">{currentCategory}</h2>
                 {/* First letter mayus */}
 
-                <div className="product-container">
+                <div className="products-container">
                     {storeItems
                         ? storeItems.map((item) => (
                               <Product

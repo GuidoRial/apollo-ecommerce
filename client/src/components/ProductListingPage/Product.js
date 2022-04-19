@@ -43,15 +43,21 @@ export default class Product extends Component {
         //console.log(selectedCurrency);
         //console.log(this.state.productPrice);
         return (
-            <div>
-                <img src={item.gallery[0]} alt="item-preview" />
-                <h3>
-                    {item.brand} {item.name}
-                </h3>
-                <h4>
-                    {this.state.productPrice?.currency?.symbol}
-                    {this.state.productPrice.amount}
-                </h4>
+            <div className="product-card">
+                <img
+                    src={item.gallery[0]}
+                    alt="item-preview"
+                    className="item-preview"
+                />
+                <div className="product-details">
+                    <p className="brand-name">
+                        {item.brand} {item.name}
+                    </p>
+                    <p className="product-price">
+                        {this.state.productPrice?.currency?.symbol}
+                        {this.state.productPrice.amount}
+                    </p>
+                </div>
             </div>
         );
     }
