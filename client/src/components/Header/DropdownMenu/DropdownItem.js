@@ -7,6 +7,7 @@ export default class DropdownItem extends Component {
     }
     render() {
         const { currency } = this.props;
+
         return (
             <a href="#" className="menu-item">
                 {currency.symbol} {currency.label}

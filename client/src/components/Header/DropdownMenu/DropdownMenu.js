@@ -8,16 +8,19 @@ export default class DropdownMenu extends Component {
     }
     render() {
         const { currencies } = this.props;
-        //console.log(currencies);
+        console.log(currencies);
         return (
             <div className="dropdown">
-                {currencies &&
+                {currencies ? (
                     currencies.map((currency) => (
                         <DropdownItem
                             key={currency.label}
                             currency={currency}
                         />
-                    ))}
+                    ))
+                ) : (
+                    <div className="dropdown">Loading...</div>
+                )}
             </div>
         );
     }

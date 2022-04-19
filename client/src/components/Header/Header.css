@@ -43,7 +43,7 @@ a {
 .dropdown {
     z-index: 9999;
     position: absolute;
-    padding: 0.3rem;
+    padding: 0.5rem;
     top: 58px;
     width: 100px;
     transform: translate(-45%);
@@ -59,7 +59,7 @@ a {
 .menu-item {
     z-index: 9999;
     cursor: pointer;
-    height: 40px;
+    height: 20px;
     width: 80%;
     padding: 0.3rem;
     display: flex;
