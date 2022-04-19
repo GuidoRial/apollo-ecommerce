@@ -6,11 +6,17 @@ export default class DropdownItem extends Component {
         super(props);
     }
     render() {
-        const { currency } = this.props;
+        const { currency, selectedCurrency, handleSelectedCurrencyChange } =
+            this.props;
 
         return (
-            <a href="#" className="menu-item">
-                {currency.symbol} {currency.label}
+            // eslint-disable-next-line jsx-a11y/anchor-is-valid
+            <a
+                href="#"
+                className="menu-item"
+                onClick={() => handleSelectedCurrencyChange(currency.symbol)}
+            >
+                <p>{currency.symbol}</p> <p>{currency.label}</p>
             </a>
         );
     }

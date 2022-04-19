@@ -7,8 +7,11 @@ export default class DropdownMenu extends Component {
         super(props);
     }
     render() {
-        const { currencies } = this.props;
-        console.log(currencies);
+        const { currencies, selectedCurrency, handleSelectedCurrencyChange } =
+            this.props;
+        //console.log(currencies);
+        //console.log(selectedCurrency);
+
         return (
             <div className="dropdown">
                 {currencies ? (
@@ -16,6 +19,10 @@ export default class DropdownMenu extends Component {
                         <DropdownItem
                             key={currency.label}
                             currency={currency}
+                            selectedCurrency={selectedCurrency}
+                            handleSelectedCurrencyChange={
+                                handleSelectedCurrencyChange
+                            }
                         />
                     ))
                 ) : (

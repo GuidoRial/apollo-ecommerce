@@ -31,11 +31,18 @@ class App extends Component {
         this.fetchStoreItems = this.fetchStoreItems.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.fetchCurrencies = this.fetchCurrencies.bind(this);
+        this.handleSelectedCurrencyChange =
+            this.handleSelectedCurrencyChange.bind(this);
     }
 
     handleCategoryChange = (newCategory) => {
         this.setState({ currentCategory: newCategory });
         this.fetchStoreItems(newCategory);
+    };
+
+    handleSelectedCurrencyChange = (newSelectedCurrency) => {
+        this.setState({ selectedCurrency: newSelectedCurrency });
+        console.log(this.newSelectedCurrency);
     };
 
     // Use this to handle currentCurrency change
@@ -139,6 +146,9 @@ class App extends Component {
                         handleCategoryChange={this.handleCategoryChange}
                         selectedCurrency={this.state.selectedCurrency}
                         currencies={this.state.currencies}
+                        handleSelectedCurrencyChange={
+                            this.handleSelectedCurrencyChange
+                        }
                     />
                     <Routes>
                         <Route path="/" element={<ProductListingPage />} />

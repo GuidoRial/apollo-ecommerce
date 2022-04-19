@@ -21,6 +21,7 @@ export default class Header extends Component {
             handleCategoryChange,
             selectedCurrency,
             currencies,
+            handleSelectedCurrencyChange,
         } = this.props;
         //console.log(currencies);
         //console.log(currentCategory);
@@ -61,7 +62,13 @@ export default class Header extends Component {
 
                     <img src={EmptyCart} alt="empty-cart" />
                     {this.state.dropdownMenu && (
-                        <DropdownMenu currencies={currencies} />
+                        <DropdownMenu
+                            currencies={currencies}
+                            selectedCurrency={selectedCurrency}
+                            handleSelectedCurrencyChange={
+                                handleSelectedCurrencyChange
+                            }
+                        />
                     )}
                 </div>
             </nav>
