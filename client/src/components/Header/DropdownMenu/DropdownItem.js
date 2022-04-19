@@ -6,9 +6,14 @@ export default class DropdownItem extends Component {
         super(props);
     }
     render() {
-        const { currency, selectedCurrency, handleSelectedCurrencyChange } =
-            this.props;
-
+        const {
+            currency,
+            selectedCurrency,
+            handleSelectedCurrencyChange,
+            dropdownMenu,
+        } = this.props;
+        //console.log(dropdownMenu);
+        //console.log(this.props);
         return (
             // eslint-disable-next-line jsx-a11y/anchor-is-valid
             <a

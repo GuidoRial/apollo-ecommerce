@@ -25,6 +25,7 @@ class App extends Component {
             selectedCurrency: "$",
             cartItems: [],
             storeItems: [],
+            dropdownMenu: false,
         };
 
         this.fetchCategories = this.fetchCategories.bind(this);
@@ -41,8 +42,10 @@ class App extends Component {
     };
 
     handleSelectedCurrencyChange = (newSelectedCurrency) => {
-        this.setState({ selectedCurrency: newSelectedCurrency });
-        console.log(this.newSelectedCurrency);
+        this.setState({
+            selectedCurrency: newSelectedCurrency,
+            dropdownMenu: false,
+        });
     };
 
     // Use this to handle currentCurrency change
@@ -146,6 +149,7 @@ class App extends Component {
                         handleCategoryChange={this.handleCategoryChange}
                         selectedCurrency={this.state.selectedCurrency}
                         currencies={this.state.currencies}
+                        dropdownMenu={this.state.dropdownMenu}
                         handleSelectedCurrencyChange={
                             this.handleSelectedCurrencyChange
                         }
