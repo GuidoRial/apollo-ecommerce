@@ -19,7 +19,15 @@ export default class Product extends Component {
         );
         this.setState({ productPrice: correctPrice });
     };
-
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props.selectedCurrency !== nextProps.selectedCurrency) {
+            this.filterCorrectPrice(
+                this.props.item,
+                nextProps.selectedCurrency
+            );
+        }
+        return true;
+    }
     render() {
         /* 
         1. Show image, title and price
