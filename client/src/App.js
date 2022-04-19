@@ -36,7 +36,7 @@ class App extends Component {
     handleCategoryChange = (newCategory) => {
         this.setState({ currentCategory: newCategory });
         this.fetchStoreItems(newCategory);
-    }; 
+    };
 
     // Use this to handle currentCurrency change
 
@@ -129,7 +129,7 @@ class App extends Component {
     };
 
     render() {
-        //console.log(this.state);
+        console.log(this.state);
         return (
             <div className="App">
                 <BrowserRouter>
@@ -138,6 +138,7 @@ class App extends Component {
                         currentCategory={this.state.currentCategory}
                         handleCategoryChange={this.handleCategoryChange}
                         selectedCurrency={this.state.selectedCurrency}
+                        currencies={this.state.currencies}
                     />
                     <Routes>
                         <Route path="/" element={<ProductListingPage />} />

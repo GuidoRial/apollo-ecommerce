@@ -20,24 +20,25 @@ export default class Header extends Component {
             currentCategory,
             handleCategoryChange,
             selectedCurrency,
+            currencies,
         } = this.props;
-
+        //console.log(currencies);
         //console.log(currentCategory);
-        console.log(this.state.dropdownMenu);
-        console.log(selectedCurrency);
+        //console.log(this.state.dropdownMenu);
+        //console.log(selectedCurrency);
         return (
             <nav className="nav-bar">
-                <div className="categories">
+                <ul className="categories">
                     {categories.map((category) => (
-                        <div
+                        <li
                             className="category"
                             key={category.name}
                             onClick={() => handleCategoryChange(category.name)}
                         >
                             {category.name}
-                        </div>
+                        </li>
                     ))}
-                </div>
+                </ul>
                 <Link to="/">
                     <img className="e-logo" src={Logo} alt="e-commerce-logo" />
                 </Link>
@@ -49,17 +50,20 @@ export default class Header extends Component {
                                 dropdownMenu: !this.state.dropdownMenu,
                             })
                         }
-                        src={DropdownOff}
-                        alt="currency-menu"
                         style={
                             this.state.dropdownMenu === false
                                 ? null
                                 : { transform: "rotate(180deg)" }
                         }
+                        src={DropdownOff}
+                        alt="currency-menu"
                     />
+
                     <img src={EmptyCart} alt="empty-cart" />
+                    {this.state.dropdownMenu && (
+                        <DropdownMenu currencies={currencies} />
+                    )}
                 </div>
-                <DropdownMenu />
             </nav>
         );
     }
