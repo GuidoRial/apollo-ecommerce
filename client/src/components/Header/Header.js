@@ -9,7 +9,7 @@ import DropdownMenu from "./DropdownMenu/DropdownMenu";
 export default class Header extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = { dropdownMenu: false };
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -30,7 +30,6 @@ export default class Header extends Component {
             selectedCurrency,
             currencies,
             handleSelectedCurrencyChange,
-            dropdownMenu,
         } = this.props;
 
         //console.log(currencies);
@@ -79,7 +78,7 @@ export default class Header extends Component {
                             handleSelectedCurrencyChange={
                                 handleSelectedCurrencyChange
                             }
-                            dropdownMenu={dropdownMenu}
+                            dropdownMenu={this.state.dropdownMenu}
                         />
                     )}
                 </div>

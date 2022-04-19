@@ -25,7 +25,6 @@ class App extends Component {
             selectedCurrency: "$",
             cartItems: [],
             storeItems: [],
-            dropdownMenu: false,
         };
 
         this.fetchCategories = this.fetchCategories.bind(this);
@@ -44,7 +43,6 @@ class App extends Component {
     handleSelectedCurrencyChange = (newSelectedCurrency) => {
         this.setState({
             selectedCurrency: newSelectedCurrency,
-            dropdownMenu: false,
         });
     };
 
@@ -139,7 +137,7 @@ class App extends Component {
     };
 
     render() {
-        console.log(this.state);
+        //console.log(this.state.dropdownMenu);
         return (
             <div className="App">
                 <BrowserRouter>
@@ -149,13 +147,23 @@ class App extends Component {
                         handleCategoryChange={this.handleCategoryChange}
                         selectedCurrency={this.state.selectedCurrency}
                         currencies={this.state.currencies}
-                        dropdownMenu={this.state.dropdownMenu}
                         handleSelectedCurrencyChange={
                             this.handleSelectedCurrencyChange
                         }
                     />
                     <Routes>
-                        <Route path="/" element={<ProductListingPage />} />
+                        <Route
+                            path="/"
+                            element={
+                                <ProductListingPage
+                                    storeItems={this.state.storeItems}
+                                    currentCategory={this.state.currentCategory}
+                                    selectedCurrency={
+                                        this.state.selectedCurrency
+                                    }
+                                />
+                            }
+                        />
                         <Route
                             path="/products/:id"
                             element={<ProductDescriptionPage />}
