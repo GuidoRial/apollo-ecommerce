@@ -77,11 +77,15 @@
     border-radius: 50%;
     border: none;
     background-color: var(--primary-color);
-    color: var(--white);
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.mini-add-to-cart-button:hover {
+    opacity: 0.85;
 }
 
 @media (max-width: 850px) {

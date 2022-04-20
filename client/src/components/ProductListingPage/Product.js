@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import WhiteEmptyCart from "../../Assets/Icons/WhiteEmptyCart.svg";
 
 export default class Product extends Component {
@@ -29,6 +30,7 @@ export default class Product extends Component {
         }
         return true;
     }
+
     render() {
         /* 
         1. Show image, title and price
@@ -53,33 +55,35 @@ export default class Product extends Component {
                 className="product-card"
                 style={!item.inStock ? { opacity: "0.55" } : { opacity: "1" }}
             >
-                <div className="img-container">
-                    {!item.inStock && (
-                        <p className="out-of-stock-sign">OUT OF STOCK</p>
-                    )}
-                    <img
-                        src={item.gallery[0]}
-                        alt="item-preview"
-                        className="item-preview"
-                    />
-                </div>
-                {item.attributes.length === 0 && item.inStock && (
-                    <div className="button-container">
-                        <button className="mini-add-to-cart-button">
-                            <img src={WhiteEmptyCart} alt="mini-cart" />
-                        </button>
+                <Link to={`/products/${item.id}`}>
+                    <div className="img-container">
+                        {!item.inStock && (
+                            <p className="out-of-stock-sign">OUT OF STOCK</p>
+                        )}
+                        <img
+                            src={item.gallery[0]}
+                            alt="item-preview"
+                            className="item-preview"
+                        />
                     </div>
-                )}
+                    {item.attributes.length === 0 && item.inStock && (
+                        <div className="button-container">
+                            <button className="mini-add-to-cart-button">
+                                <img src={WhiteEmptyCart} alt="mini-cart" />
+                            </button>
+                        </div>
+                    )}
 
-                <div>
-                    <p className="brand-name">
-                        {item.brand} {item.name}
-                    </p>
-                    <p className="product-price">
-                        {this.state.productPrice?.currency?.symbol}
-                        {this.state.productPrice.amount}
-                    </p>
-                </div>
+                    <div>
+                        <p className="brand-name">
+                            {item.brand} {item.name}
+                        </p>
+                        <p className="product-price">
+                            {this.state.productPrice?.currency?.symbol}
+                            {this.state.productPrice.amount}
+                        </p>
+                    </div>
+                </Link>
             </div>
         );
     }
