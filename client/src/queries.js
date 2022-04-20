@@ -1,76 +1,7 @@
 import { gql } from "@apollo/client";
 
-export const getItems = gql`
-    query {
-        category {
-            products {
-                name
-                gallery
-                inStock
-                prices {
-                    currency {
-                        label
-                        symbol
-                    }
-                    amount
-                }
-                category
-                description
-                attributes {
-                    id
-                    name
-                    type
-                    items {
-                        displayValue
-                        value
-                        id
-                    }
-                }
-            }
-        }
-    }
-`;
-
-export const getAllProducts = gql`
-    query {
-        category {
-            name
-            products {
-                id
-                name
-                gallery
-                inStock
-                description
-                prices {
-                    currency {
-                        label
-                        symbol
-                    }
-                    amount
-                }
-                attributes {
-                    id
-                    name
-                    type
-                    items {
-                        value
-                        displayValue
-                        id
-                    }
-                    items {
-                        displayValue
-                        value
-                        id
-                    }
-                }
-                brand
-            }
-        }
-    }
-`;
-
-export const getItemsByCategory = gql`
-    query getItemsByCategory($title: String!) {
+export const getProductsByCategory = gql`
+    query getProductsByCategory($title: String!) {
         category(input: { title: $title }) {
             products {
                 id
@@ -86,7 +17,6 @@ export const getItemsByCategory = gql`
                     amount
                 }
                 category
-                description
                 attributes {
                     id
                     name
@@ -119,8 +49,8 @@ export const getCurrencies = gql`
     }
 `;
 
-export const getItemsById = gql`
-    query getItemsById($id: String!) {
+export const getProductById = gql`
+    query getProductById($id: String!) {
         product(id: $id) {
             id
             brand

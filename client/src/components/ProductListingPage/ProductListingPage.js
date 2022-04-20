@@ -14,17 +14,24 @@ export default class ProductListingPage extends Component {
             Products
             
         */
-        const { storeItems, currentCategory, selectedCurrency } = this.props;
+        const {
+            storeItems,
+            currentCategory,
+            selectedCurrency,
+            productId,
+            handleProductIdChange,
+        } = this.props;
         //console.log(storeItems);
         return (
             <section className="product-listing-page">
                 <h2 className="current-category-text">{currentCategory}</h2>
-                {/* First letter mayus */}
 
                 <div className="products-container">
                     {storeItems
                         ? storeItems.map((item) => (
                               <Product
+                                  productId={productId}
+                                  handleProductIdChange={handleProductIdChange}
                                   key={item.id}
                                   item={item}
                                   selectedCurrency={selectedCurrency}

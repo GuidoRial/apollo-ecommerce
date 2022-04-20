@@ -43,15 +43,18 @@ export default class Product extends Component {
 
         5. Add mini-cart on products without attributes
         */
-        const { item, selectedCurrency } = this.props;
+        const { item, selectedCurrency, handleProductIdChange, productId } =
+            this.props;
 
         //item.attributes.length === 0 && item.inStock && console.log(item);
 
         //console.log(item.attributes);
         //console.log(selectedCurrency);
         //console.log(this.state.productPrice);
+
         return (
             <div
+                onClick={() => handleProductIdChange(item.id)}
                 className="product-card"
                 style={!item.inStock ? { opacity: "0.55" } : { opacity: "1" }}
             >

@@ -1,15 +1,8 @@
 import "./App.css";
 import { Component } from "react";
 import { client } from "./index";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import {
-    getItems,
-    getAllProducts,
-    getItemsByCategory,
-    getCategories,
-    getCurrencies,
-    getItemsById,
-} from "./queries";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import { getProductsByCategory, getCategories, getCurrencies } from "./queries";
 import ProductListingPage from "./components/ProductListingPage/ProductListingPage";
 import ProductDescriptionPage from "./components/ProductDescriptionPage/ProductDescriptionPage";
 import Cart from "./components/Cart/Cart";
@@ -25,6 +18,7 @@ class App extends Component {
             selectedCurrency: "$",
             cartItems: [],
             storeItems: [],
+            productId: "", //Since I can't use useParams because functional components are not allowed, I'll create a state that stores an item on click from PLP, then pass it to the PDP as props and use it to fetch that item using apollo
         };
 
         this.fetchCategories = this.fetchCategories.bind(this);
@@ -33,6 +27,7 @@ class App extends Component {
         this.fetchCurrencies = this.fetchCurrencies.bind(this);
         this.handleSelectedCurrencyChange =
             this.handleSelectedCurrencyChange.bind(this);
+        this.handleProductIdChange = this.handleProductIdChange.bind(this);
     }
 
     handleCategoryChange = (newCategory) => {
@@ -46,7 +41,11 @@ class App extends Component {
         });
     };
 
-    // Use this to handle currentCurrency change
+    handleProductIdChange = (newId) => {
+        this.setState({
+            productId: newId,
+        });
+    };
 
     fetchCategories = async () => {
         const result = await client
@@ -62,7 +61,7 @@ class App extends Component {
     fetchStoreItems = async (category) => {
         const result = await client
             .query({
-                query: getItemsByCategory,
+                query: getProductsByCategory,
                 variables: {
                     title: category,
                 },
@@ -138,6 +137,7 @@ class App extends Component {
 
     render() {
         //console.log(this.state.dropdownMenu);
+        //console.log(this.state.productId);
         return (
             <div className="App">
                 <BrowserRouter>
@@ -161,12 +161,20 @@ class App extends Component {
                                     selectedCurrency={
                                         this.state.selectedCurrency
                                     }
+                                    productId={this.state.productId}
+                                    handleProductIdChange={
+                                        this.handleProductIdChange
+                                    }
                                 />
                             }
                         />
                         <Route
                             path="/products/:id"
-                            element={<ProductDescriptionPage />}
+                            element={
+                                <ProductDescriptionPage
+                                    productId={this.state.productId}
+                                />
+                            }
                         />
                         <Route path="/cart" element={<Cart />} />
                     </Routes>
