@@ -61,10 +61,33 @@
     object-fit: contain;
 }
 
+.button-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.mini-add-to-cart-button {
+    position: absolute;
+    right: 30px;
+    top: -30px;
+    height: 3.5rem;
+    width: 3.5rem;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
 
 @media (max-width: 850px) {
     .product-card {
         width: 40%;
+        height: 30rem;
     }
 }
 

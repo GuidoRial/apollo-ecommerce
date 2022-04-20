@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import WhiteEmptyCart from "../../Assets/Icons/EmptyCart.svg";
 
 export default class Product extends Component {
     constructor(props) {
@@ -36,10 +37,15 @@ export default class Product extends Component {
         2. Change price with change in selected currency
         3. Style with positions, flex-wrap
         4. OUT OF STOCK 
+
+
         5. Add mini-cart on products without attributes
         */
         const { item, selectedCurrency } = this.props;
-        //console.log(item);
+
+        //item.attributes.length === 0 && item.inStock && console.log(item);
+
+        //console.log(item.attributes);
         //console.log(selectedCurrency);
         //console.log(this.state.productPrice);
         return (
@@ -57,7 +63,15 @@ export default class Product extends Component {
                         className="item-preview"
                     />
                 </div>
-                <div className="product-details">
+                {item.attributes.length === 0 && item.inStock && (
+                    <div className="button-container">
+                        <button className="mini-add-to-cart-button">
+                            <img src={WhiteEmptyCart} alt="mini-cart" />
+                        </button>
+                    </div>
+                )}
+
+                <div>
                     <p className="brand-name">
                         {item.brand} {item.name}
                     </p>
