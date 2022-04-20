@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import WhiteEmptyCart from "../../Assets/Icons/EmptyCart.svg";
+import WhiteEmptyCart from "../../Assets/Icons/WhiteEmptyCart.svg";
 
 export default class Product extends Component {
     constructor(props) {
