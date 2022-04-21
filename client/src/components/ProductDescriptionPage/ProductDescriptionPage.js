@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { client } from "../..";
 import { getProductById } from "../../queries";
+import "./ProductDescriptionPage.css";
 
 export default class ProductDescriptionPage extends Component {
     constructor() {
@@ -52,6 +53,7 @@ export default class ProductDescriptionPage extends Component {
                         <div className="mini-pictures">
                             {individualProduct.gallery.map((image, index) => (
                                 <img
+                                    className="mini-picture"
                                     onClick={() =>
                                         this.setState({
                                             selectedImage: index,
@@ -64,7 +66,7 @@ export default class ProductDescriptionPage extends Component {
                             ))}
                         </div>
 
-                        <img
+                        <img className="big-picture"
                             src={individualProduct.gallery[selectedImage]}
                             alt={`${individualProduct.brand}, ${individualProduct.name}`}
                         />

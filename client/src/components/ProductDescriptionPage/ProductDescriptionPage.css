@@ -1,3 +1,49 @@
 .individual-product {
+    padding: 1rem 3rem;
+}
+
+.product-showcase {
     display: flex;
+    gap: 1rem;
+}
+
+.mini-pictures {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    height: 30rem;
+    overflow: auto;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(92, 92, 92)
+}
+
+.mini-picture {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.big-picture {
+    width: 40rem;
+    height: auto;
+    object-fit: contain;
+    height: 30rem;
 }
