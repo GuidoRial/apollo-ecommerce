@@ -14,13 +14,7 @@ export default class ProductListingPage extends Component {
             Products
             
         */
-        const {
-            storeItems,
-            currentCategory,
-            selectedCurrency,
-            productId,
-            handleProductIdChange,
-        } = this.props;
+        const { storeItems, currentCategory, selectedCurrency } = this.props;
         //console.log(storeItems);
         return (
             <section className="product-listing-page">
@@ -30,8 +24,6 @@ export default class ProductListingPage extends Component {
                     {storeItems
                         ? storeItems.map((item) => (
                               <Product
-                                  productId={productId}
-                                  handleProductIdChange={handleProductIdChange}
                                   key={item.id}
                                   item={item}
                                   selectedCurrency={selectedCurrency}

@@ -1,7 +1,7 @@
 import "./App.css";
 import { Component } from "react";
 import { client } from "./index";
-import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { getProductsByCategory, getCategories, getCurrencies } from "./queries";
 import ProductListingPage from "./components/ProductListingPage/ProductListingPage";
 import ProductDescriptionPage from "./components/ProductDescriptionPage/ProductDescriptionPage";
@@ -18,7 +18,7 @@ class App extends Component {
             selectedCurrency: "$",
             cartItems: [],
             storeItems: [],
-            productId: "", //Since I can't use useParams because functional components are not allowed, I'll create a state that stores an item on click from PLP, then pass it to the PDP as props and use it to fetch that item using apollo
+            
         };
 
         this.fetchCategories = this.fetchCategories.bind(this);
@@ -27,7 +27,7 @@ class App extends Component {
         this.fetchCurrencies = this.fetchCurrencies.bind(this);
         this.handleSelectedCurrencyChange =
             this.handleSelectedCurrencyChange.bind(this);
-        this.handleProductIdChange = this.handleProductIdChange.bind(this);
+        
     }
 
     handleCategoryChange = (newCategory) => {
@@ -41,11 +41,7 @@ class App extends Component {
         });
     };
 
-    handleProductIdChange = (newId) => {
-        this.setState({
-            productId: newId,
-        });
-    };
+    
 
     fetchCategories = async () => {
         const result = await client
@@ -161,10 +157,7 @@ class App extends Component {
                                     selectedCurrency={
                                         this.state.selectedCurrency
                                     }
-                                    productId={this.state.productId}
-                                    handleProductIdChange={
-                                        this.handleProductIdChange
-                                    }
+                                    
                                 />
                             }
                         />
