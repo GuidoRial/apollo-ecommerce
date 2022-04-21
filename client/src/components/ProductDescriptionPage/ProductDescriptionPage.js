@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { client } from "../..";
 import { getProductById } from "../../queries";
+import Attribute from "./Attribute";
 import "./ProductDescriptionPage.css";
 
 export default class ProductDescriptionPage extends Component {
@@ -43,8 +44,8 @@ export default class ProductDescriptionPage extends Component {
 
     render() {
         const { individualProduct, selectedImage } = this.state;
-        console.log(individualProduct);
-        console.log(selectedImage);
+        //console.log(individualProduct.attributes);
+        //console.log(selectedImage);
 
         return (
             <section className="individual-product">
@@ -66,14 +67,21 @@ export default class ProductDescriptionPage extends Component {
                             ))}
                         </div>
 
-                        <img className="big-picture"
+                        <img
+                            className="big-picture"
                             src={individualProduct.gallery[selectedImage]}
                             alt={`${individualProduct.brand}, ${individualProduct.name}`}
                         />
                     </div>
                 )}
 
-                <div className="product-data"></div>
+                <div className="product-data">
+                    <p className="product-brand">{individualProduct.brand}</p>
+                    <p className="product-name">{individualProduct.name}</p>
+                    {individualProduct?.attributes?.map((attribute) => (
+                        <Attribute key={attribute.id} attribute={attribute} />
+                    ))}
+                </div>
             </section>
         );
     }

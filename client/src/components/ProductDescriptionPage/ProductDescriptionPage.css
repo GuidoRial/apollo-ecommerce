@@ -1,4 +1,5 @@
 .individual-product {
+    display: flex;
     padding: 1rem 3rem;
 }
 
@@ -14,12 +15,12 @@
     align-items: center;
     gap: 1rem;
     cursor: pointer;
-    height: 30rem;
+    height: 40rem;
     overflow: auto;
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -27,12 +28,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: rgb(199, 199, 199);
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(92, 92, 92)
+    background: rgb(194, 194, 194);
 }
 
 .mini-picture {
@@ -45,5 +46,14 @@
     width: 40rem;
     height: auto;
     object-fit: contain;
-    height: 30rem;
+    height: 40rem;
+}
+
+.product-brand {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.product-name {
+    font-size: 1.5rem;
 }
