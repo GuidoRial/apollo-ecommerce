@@ -10,10 +10,20 @@ export default class ProductDescriptionPage extends Component {
         this.state = {
             individualProduct: {},
             selectedImage: 0,
+            productPrice: "",
         };
         this.getId = this.getId.bind(this);
         this.fetchProduct = this.fetchProduct.bind(this);
+        this.filterCorrectPrice = this.filterCorrectPrice.bind(this);
     }
+
+    filterCorrectPrice = (item, selectedCurrency) => {
+        const [correctPrice] = item?.prices?.filter(
+            (price) => price.currency.symbol === selectedCurrency
+        );
+        this.setState({ productPrice: correctPrice });
+    };
+
     fetchProduct = async (productId) => {
         const result = await client
             .query({
@@ -24,8 +34,15 @@ export default class ProductDescriptionPage extends Component {
             })
             .then((result) => {
                 this.setState({ individualProduct: result.data.product });
+            })
+            .then(() => {
+                this.filterCorrectPrice(
+                    this.state.individualProduct,
+                    this.props.selectedCurrency
+                );
             });
     };
+
     getId = () => {
         /* 
             useParams because functional components are not allowed.
@@ -38,14 +55,23 @@ export default class ProductDescriptionPage extends Component {
 
         return idFromURL;
     };
+
     componentDidMount() {
         this.fetchProduct(this.getId());
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props.selectedCurrency !== nextProps.selectedCurrency) {
+            this.filterCorrectPrice(
+                this.state.individualProduct,
+                nextProps.selectedCurrency
+            );
+        }
+        return true;
+    }
+
     render() {
         const { individualProduct, selectedImage } = this.state;
-        //console.log(individualProduct.attributes);
-        //console.log(selectedImage);
 
         return (
             <section className="individual-product">
@@ -81,6 +107,26 @@ export default class ProductDescriptionPage extends Component {
                     {individualProduct?.attributes?.map((attribute) => (
                         <Attribute key={attribute.id} attribute={attribute} />
                     ))}
+
+                    <p className="price-text">PRICE: </p>
+                    <p className="product-price">
+                        {this.state.productPrice?.currency?.symbol}
+                        {this.state.productPrice.amount}
+                    </p>
+                    <button
+                        className="add-to-cart-button"
+                        disabled={!individualProduct.inStock}
+                    >
+                        {individualProduct.inStock
+                            ? "ADD TO CART"
+                            : "OUT OF STOCK"}
+                    </button>
+                    <div
+                        className="product-description"
+                        dangerouslySetInnerHTML={{
+                            __html: individualProduct.description,
+                        }}
+                    />
                 </div>
             </section>
         );

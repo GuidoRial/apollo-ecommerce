@@ -32,11 +32,6 @@ export default class Header extends Component {
             handleSelectedCurrencyChange,
         } = this.props;
 
-        //console.log(currencies);
-        //console.log(currentCategory);
-        //console.log(this.state.dropdownMenu);
-        //console.log(selectedCurrency);       .
-        //console.log(this.state.dropdownMenu);
         return (
             <nav className="nav-bar">
                 <ul className="categories">

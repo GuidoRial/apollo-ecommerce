@@ -1,0 +1,31 @@
+.attribute-button-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.attribute-button {
+    font-family: "Source Sans Pro", sans-serif;
+    cursor: pointer;
+    width: 65px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #1d1f22;
+    background-color: var(--white);
+}
+.attribute-button:hover {
+    opacity: 0.75;
+}
+
+.attribute-title {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: "Roboto Condensed", sans-serif;
+    font-size: 2rem;
+}
+
+#colorButton {
+    opacity: 1;
+    border: 1px solid #d1d1d1;
+}

@@ -13,9 +13,7 @@ export default class DropdownMenu extends Component {
             handleSelectedCurrencyChange,
             dropdownMenu,
         } = this.props;
-        //console.log(currencies);
-        //console.log(selectedCurrency);
-        //console.log(dropdownMenu);
+
         return (
             <div className="dropdown">
                 {currencies ? (

@@ -18,7 +18,6 @@ class App extends Component {
             selectedCurrency: "$",
             cartItems: [],
             storeItems: [],
-            
         };
 
         this.fetchCategories = this.fetchCategories.bind(this);
@@ -27,7 +26,6 @@ class App extends Component {
         this.fetchCurrencies = this.fetchCurrencies.bind(this);
         this.handleSelectedCurrencyChange =
             this.handleSelectedCurrencyChange.bind(this);
-        
     }
 
     handleCategoryChange = (newCategory) => {
@@ -40,8 +38,6 @@ class App extends Component {
             selectedCurrency: newSelectedCurrency,
         });
     };
-
-    
 
     fetchCategories = async () => {
         const result = await client
@@ -132,8 +128,7 @@ class App extends Component {
     };
 
     render() {
-        //console.log(this.state.dropdownMenu);
-        //console.log(this.state.productId);
+
         return (
             <div className="App">
                 <BrowserRouter>
@@ -157,7 +152,6 @@ class App extends Component {
                                     selectedCurrency={
                                         this.state.selectedCurrency
                                     }
-                                    
                                 />
                             }
                         />
@@ -166,6 +160,9 @@ class App extends Component {
                             element={
                                 <ProductDescriptionPage
                                     productId={this.state.productId}
+                                    selectedCurrency={
+                                        this.state.selectedCurrency
+                                    }
                                 />
                             }
                         />

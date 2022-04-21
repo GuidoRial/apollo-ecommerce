@@ -32,24 +32,7 @@ export default class Product extends Component {
     }
 
     render() {
-        /* 
-        1. Show image, title and price
-            a. item.prices.filter((price)=> price.symbol === selectedCurrency)
-            b. Put that into state?
-        2. Change price with change in selected currency
-        3. Style with positions, flex-wrap
-        4. OUT OF STOCK 
-
-
-        5. Add mini-cart on products without attributes
-        */
         const { item, selectedCurrency } = this.props;
-
-        //item.attributes.length === 0 && item.inStock && console.log(item);
-
-        //console.log(item.attributes);
-        //console.log(selectedCurrency);
-        //console.log(this.state.productPrice);
 
         return (
             <div

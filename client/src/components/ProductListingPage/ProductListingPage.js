@@ -4,18 +4,8 @@ import Product from "./Product";
 import "./ProductListingPage.css";
 
 export default class ProductListingPage extends Component {
-    constructor() {
-        super();
-    }
     render() {
-        /* 
-        Pass down:
-            Category
-            Products
-            
-        */
         const { storeItems, currentCategory, selectedCurrency } = this.props;
-        //console.log(storeItems);
         return (
             <section className="product-listing-page">
                 <h2 className="current-category-text">{currentCategory}</h2>
