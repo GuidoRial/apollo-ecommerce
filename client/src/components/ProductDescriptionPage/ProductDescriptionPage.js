@@ -7,6 +7,7 @@ export default class ProductDescriptionPage extends Component {
         super();
         this.state = {
             individualProduct: {},
+            selectedImage: 0,
         };
         this.getId = this.getId.bind(this);
         this.fetchProduct = this.fetchProduct.bind(this);
@@ -40,8 +41,38 @@ export default class ProductDescriptionPage extends Component {
     }
 
     render() {
-        console.log(this.state.individualProduct);
+        const { individualProduct, selectedImage } = this.state;
+        console.log(individualProduct);
+        console.log(selectedImage);
 
-        return <div>ProductDescriptionPage</div>;
+        return (
+            <section className="individual-product">
+                {individualProduct && individualProduct.gallery && (
+                    <div className="product-showcase">
+                        <div className="mini-pictures">
+                            {individualProduct.gallery.map((image, index) => (
+                                <img
+                                    onClick={() =>
+                                        this.setState({
+                                            selectedImage: index,
+                                        })
+                                    }
+                                    key={`image-number-${index}`}
+                                    src={image}
+                                    alt="mini-pic"
+                                />
+                            ))}
+                        </div>
+
+                        <img
+                            src={individualProduct.gallery[selectedImage]}
+                            alt={`${individualProduct.brand}, ${individualProduct.name}`}
+                        />
+                    </div>
+                )}
+
+                <div className="product-data"></div>
+            </section>
+        );
     }
 }
