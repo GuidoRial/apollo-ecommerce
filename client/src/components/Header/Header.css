@@ -77,4 +77,8 @@ a {
     .e-logo {
         display: none;
     }
+    .nav-bar {
+        padding: 1rem 2rem;
+
+    }
 }

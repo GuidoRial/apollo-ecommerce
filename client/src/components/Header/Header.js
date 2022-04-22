@@ -12,7 +12,7 @@ export default class Header extends Component {
         this.state = { dropdownMenu: false };
     }
 
-    shouldComponentUpdate(nextState) {
+    shouldComponentUpdate(nextProps, nextState) {
         if (
             nextState.dropdownMenu === true &&
             this.state.dropdownMenu === true
