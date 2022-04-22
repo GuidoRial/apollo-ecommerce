@@ -118,7 +118,7 @@ export default class ProductDescriptionPage extends Component {
                         style={
                             individualProduct.inStock
                                 ? { opacity: "1" }
-                                : { opacity: "0.9" }
+                                : { opacity: "0.8", cursor: "not-allowed" }
                         }
                     >
                         {individualProduct.inStock

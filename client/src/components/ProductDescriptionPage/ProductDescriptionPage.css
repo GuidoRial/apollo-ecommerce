@@ -8,7 +8,11 @@
     display: flex;
     gap: 1rem;
 }
-
+.mini-picture {
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+}
 .mini-pictures {
     display: flex;
     flex-direction: column;
@@ -16,14 +20,15 @@
     align-items: center;
     gap: 1rem;
     cursor: pointer;
-    height: 80vh;
+    height: 40rem;
+    width: 6rem;
     overflow: auto;
 }
 
 .big-picture {
-    width: 40vw;
+    width: 50rem;
     object-fit: contain;
-    height: 80%;
+    height: 40rem;
 }
 
 ::-webkit-scrollbar {
@@ -43,12 +48,6 @@
     background: rgb(194, 194, 194);
 }
 
-.mini-picture {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-}
-
 .product-brand {
     font-size: 3vw;
     font-weight: 700;
@@ -63,11 +62,11 @@
     text-transform: uppercase;
     font-weight: 700;
     font-family: "Roboto Condensed", sans-serif;
-    font-size: 1.3vw;
+    font-size: 1.2rem;
 }
 
 .product-price {
-    font-size: 1.5vw;
+    font-size: 1.2rem;
 }
 
 .add-to-cart-button {
@@ -83,9 +82,9 @@
 
 .product-description {
     margin-top: 1rem;
-    font-size: 1.5vw;
-    height: 15vh;
-    width: 30vw;
+    font-size: 1.2rem;
+    height: 12rem;
+    width: 35rem;
     overflow: auto;
 }
 
