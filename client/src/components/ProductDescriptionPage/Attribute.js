@@ -7,67 +7,28 @@ export default class Attribute extends Component {
 
         return (
             <div>
-                {attribute.id === "Size" && (
-                    <div>
-                        <p className="attribute-title">{attribute.id}:</p>
-                        <div className="attribute-button-container">
-                            {attribute?.items?.map((item) => (
-                                <button
-                                    className="attribute-button"
-                                    key={item.id}
-                                >
-                                    {item.value}
-                                </button>
-                            ))}
-                        </div>
+                <div>
+                    <p className="attribute-title">{attribute.id}:</p>
+                    <div className="attribute-button-container">
+                        {attribute?.items?.map((item) => (
+                            <button
+                                className="attribute-button"
+                                key={item.id}
+                                style={
+                                    attribute.id === "Color"
+                                        ? {
+                                              backgroundColor: `${item.value}`,
+                                              opacity: "1",
+                                              border: "1px solid #D1D1D1",
+                                          }
+                                        : null
+                                }
+                            >
+                                {attribute.id === "Color" ? null : item.value}
+                            </button>
+                        ))}
                     </div>
-                )}
-                {attribute.id === "Color" && (
-                    <div>
-                        <p className="attribute-title">{attribute.id}:</p>
-                        <div className="attribute-button-container">
-                            {attribute?.items?.map((item) => (
-                                <button
-                                    className="attribute-button"
-                                    id="colorButton"
-                                    key={item.id}
-                                    style={{ backgroundColor: item.value }}
-                                ></button>
-                            ))}
-                        </div>
-                    </div>
-                )}
-                {attribute.id === "Capacity" && (
-                    <div>
-                        <p className="attribute-title">{attribute.id}:</p>
-                        <div className="attribute-button-container">
-                            {attribute?.items?.map((item) => (
-                                <button
-                                    className="attribute-button"
-                                    key={item.id}
-                                >
-                                    {item.value}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                )}
-                {(attribute.id === "With USB 3 ports" ||
-                    attribute.id === "Touch ID in keyboard") && (
-                    <div>
-                        <p className="attribute-title">{attribute.id}:</p>
-                        <div className="attribute-button-container">
-                            {attribute?.items?.map((item) => (
-                                <button
-                                    className="attribute-button"
-                                    key={item.id}
-                                >
-                                    {item.value}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                )}
+                </div>
             </div>
         );
     }

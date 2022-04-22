@@ -115,6 +115,11 @@ export default class ProductDescriptionPage extends Component {
                     <button
                         className="add-to-cart-button"
                         disabled={!individualProduct.inStock}
+                        style={
+                            individualProduct.inStock
+                                ? { opacity: "1" }
+                                : { opacity: "0.9" }
+                        }
                     >
                         {individualProduct.inStock
                             ? "ADD TO CART"
