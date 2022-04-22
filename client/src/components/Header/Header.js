@@ -4,7 +4,7 @@ import EmptyCart from "../../Assets/Icons/EmptyCart.svg";
 import DropdownOff from "../../Assets/Icons/DropdownOff.svg";
 import "./Header.css";
 import { Link } from "react-router-dom";
-import DropdownMenu from "./DropdownMenu/DropdownMenu";
+import DropdownCurrencyMenu from "./DropdownCurrencyMenu/DropdownCurrencyMenu";
 
 export default class Header extends Component {
     constructor(props) {
@@ -66,7 +66,7 @@ export default class Header extends Component {
 
                     <img src={EmptyCart} alt="empty-cart" />
                     {this.state.dropdownMenu && (
-                        <DropdownMenu
+                        <DropdownCurrencyMenu
                             currencies={currencies}
                             selectedCurrency={selectedCurrency}
                             handleSelectedCurrencyChange={

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import DropdownItem from "./DropdownItem";
 import "../Header.css";
 
-export default class DropdownMenu extends Component {
+export default class DropdownCurrencyMenu extends Component {
     render() {
         const {
             currencies,
