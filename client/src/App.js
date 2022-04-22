@@ -1,12 +1,12 @@
-import "./App.css";
 import { Component } from "react";
-import { client } from "./index";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { client } from "./index";
 import { getProductsByCategory, getCategories, getCurrencies } from "./queries";
 import ProductListingPage from "./components/ProductListingPage/ProductListingPage";
 import ProductDescriptionPage from "./components/ProductDescriptionPage/ProductDescriptionPage";
 import Cart from "./components/Cart/Cart";
 import Header from "./components/Header/Header";
+import "./App.css";
 
 class App extends Component {
     constructor() {
@@ -28,6 +28,8 @@ class App extends Component {
             this.handleSelectedCurrencyChange.bind(this);
     }
 
+    /* MAKING THE STORE DYNAMIC */
+
     handleCategoryChange = (newCategory) => {
         this.setState({ currentCategory: newCategory });
         this.fetchStoreItems(newCategory);
@@ -39,8 +41,11 @@ class App extends Component {
         });
     };
 
+
+
+    /* INITIALIZING STORE  */
     fetchCategories = async () => {
-        const result = await client
+        await client
             .query({
                 query: getCategories,
             })
@@ -51,7 +56,7 @@ class App extends Component {
     };
 
     fetchStoreItems = async (category) => {
-        const result = await client
+        await client
             .query({
                 query: getProductsByCategory,
                 variables: {
@@ -65,7 +70,7 @@ class App extends Component {
     };
 
     fetchCurrencies = async () => {
-        const result = await client
+        await client
             .query({ query: getCurrencies })
             .then((result) =>
                 this.setState({ currencies: result.data.currencies })
@@ -78,9 +83,11 @@ class App extends Component {
         this.fetchCurrencies();
     }
 
+    /* CART LOGIC  */
     getProductFromCart(product) {
         return this.state.cartItems.find((item) => item.id === product.id);
     }
+
     updateCartQuantity(operation, product) {
         const indexOfProduct = this.state.cartItems.findIndex(
             (item) => item.id === product.id
@@ -96,9 +103,11 @@ class App extends Component {
 
         return products;
     }
+
     emptyCart = () => {
         this.setState({ cartItems: [] });
     };
+
     handleAddProduct = (product) => {
         let updatedProductList;
 
@@ -113,6 +122,7 @@ class App extends Component {
 
         this.setState({ cartItems: updatedProductList });
     };
+
     handleRemoveProduct = (product) => {
         let updatedProductList;
 
@@ -128,7 +138,6 @@ class App extends Component {
     };
 
     render() {
-
         return (
             <div className="App">
                 <BrowserRouter>

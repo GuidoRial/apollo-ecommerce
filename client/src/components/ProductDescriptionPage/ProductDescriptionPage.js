@@ -5,8 +5,8 @@ import Attribute from "./Attribute";
 import "./ProductDescriptionPage.css";
 
 export default class ProductDescriptionPage extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             individualProduct: {},
             selectedImage: 0,
@@ -25,7 +25,7 @@ export default class ProductDescriptionPage extends Component {
     };
 
     fetchProduct = async (productId) => {
-        const result = await client
+        await client
             .query({
                 query: getProductById,
                 variables: {
@@ -72,7 +72,6 @@ export default class ProductDescriptionPage extends Component {
 
     render() {
         const { individualProduct, selectedImage } = this.state;
-
         return (
             <section className="individual-product">
                 {individualProduct && individualProduct.gallery && (
@@ -111,7 +110,7 @@ export default class ProductDescriptionPage extends Component {
                     <p className="price-text">PRICE: </p>
                     <p className="product-price">
                         {this.state.productPrice?.currency?.symbol}
-                        {this.state.productPrice.amount}
+                        {this.state.productPrice?.amount}
                     </p>
                     <button
                         className="add-to-cart-button"

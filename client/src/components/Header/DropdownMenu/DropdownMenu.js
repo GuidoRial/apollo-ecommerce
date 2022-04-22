@@ -3,15 +3,10 @@ import DropdownItem from "./DropdownItem";
 import "../Header.css";
 
 export default class DropdownMenu extends Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         const {
             currencies,
-            selectedCurrency,
             handleSelectedCurrencyChange,
-            dropdownMenu,
         } = this.props;
 
         return (
@@ -21,15 +16,13 @@ export default class DropdownMenu extends Component {
                         <DropdownItem
                             key={currency.label}
                             currency={currency}
-                            selectedCurrency={selectedCurrency}
                             handleSelectedCurrencyChange={
                                 handleSelectedCurrencyChange
                             }
-                            dropdownMenu={dropdownMenu}
                         />
                     ))
                 ) : (
-                    <div className="dropdown">Loading...</div>
+                    <p>Loading...</p>
                 )}
             </div>
         );

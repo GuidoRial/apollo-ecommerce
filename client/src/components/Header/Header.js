@@ -12,7 +12,7 @@ export default class Header extends Component {
         this.state = { dropdownMenu: false };
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate(nextState) {
         if (
             nextState.dropdownMenu === true &&
             this.state.dropdownMenu === true
@@ -25,7 +25,6 @@ export default class Header extends Component {
     render() {
         const {
             categories,
-            currentCategory,
             handleCategoryChange,
             selectedCurrency,
             currencies,

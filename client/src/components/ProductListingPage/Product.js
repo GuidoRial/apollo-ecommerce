@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import WhiteEmptyCart from "../../Assets/Icons/WhiteEmptyCart.svg";
 
 export default class Product extends Component {
@@ -16,12 +16,13 @@ export default class Product extends Component {
     }
 
     filterCorrectPrice = (item, selectedCurrency) => {
-        const [correctPrice] = item.prices.filter(
+        const [correctPrice] = item?.prices?.filter(
             (price) => price.currency.symbol === selectedCurrency
         );
         this.setState({ productPrice: correctPrice });
     };
-    shouldComponentUpdate(nextProps, nextState) {
+
+    shouldComponentUpdate(nextProps) {
         if (this.props.selectedCurrency !== nextProps.selectedCurrency) {
             this.filterCorrectPrice(
                 this.props.item,
@@ -32,7 +33,7 @@ export default class Product extends Component {
     }
 
     render() {
-        const { item, selectedCurrency } = this.props;
+        const { item } = this.props;
 
         return (
             <div
