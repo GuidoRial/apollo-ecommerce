@@ -11,10 +11,12 @@ export default class ProductDescriptionPage extends Component {
             individualProduct: {},
             selectedImage: 0,
             productPrice: "",
+            selectedAttributes: [],
         };
         this.getId = this.getId.bind(this);
         this.fetchProduct = this.fetchProduct.bind(this);
         this.filterCorrectPrice = this.filterCorrectPrice.bind(this);
+        this.handleSelectedAttribute = this.handleSelectedAttribute.bind(this);
     }
 
     filterCorrectPrice = (item, selectedCurrency) => {
@@ -56,6 +58,28 @@ export default class ProductDescriptionPage extends Component {
         return idFromURL;
     };
 
+    handleSelectedAttribute = (id, value) => {
+        const newSelectedAttribute = { id, value }; //Create a new object with user preferences
+        let userAttributes = [...this.state.selectedAttributes];
+
+        const existingAttribute = userAttributes.find(
+            (attribute) => attribute.id === newSelectedAttribute.id
+        );
+
+        if (existingAttribute) {
+            //find it in userAttributes and replace it
+            for (let i = 0; i < userAttributes.length; i++) {
+                if (userAttributes[i].id === newSelectedAttribute.id) {
+                    userAttributes[i] = { ...newSelectedAttribute };
+                }
+            }
+        } else {
+            userAttributes.push(newSelectedAttribute);
+        }
+
+        this.setState({ selectedAttributes: userAttributes });
+    };
+
     componentDidMount() {
         this.fetchProduct(this.getId());
     }
@@ -72,6 +96,8 @@ export default class ProductDescriptionPage extends Component {
 
     render() {
         const { individualProduct, selectedImage } = this.state;
+        const { cartItems } = this.props;
+        console.log(this.state.selectedAttributes);
         return (
             <section className="individual-product">
                 {individualProduct && individualProduct.gallery && (
@@ -103,8 +129,16 @@ export default class ProductDescriptionPage extends Component {
                 <div className="product-data">
                     <p className="product-brand">{individualProduct.brand}</p>
                     <p className="product-name">{individualProduct.name}</p>
+
                     {individualProduct?.attributes?.map((attribute) => (
-                        <Attribute key={attribute.id} attribute={attribute} />
+                        <Attribute
+                            key={attribute.id}
+                            attribute={attribute}
+                            handleSelectedAttribute={
+                                this.handleSelectedAttribute
+                            }
+                            selectedAttributes={this.state.selectedAttributes}
+                        />
                     ))}
 
                     <p className="price-text">PRICE: </p>

@@ -41,8 +41,6 @@ class App extends Component {
         });
     };
 
-
-
     /* INITIALIZING STORE  */
     fetchCategories = async () => {
         await client
@@ -103,10 +101,6 @@ class App extends Component {
 
         return products;
     }
-
-    emptyCart = () => {
-        this.setState({ cartItems: [] });
-    };
 
     handleAddProduct = (product) => {
         let updatedProductList;
@@ -172,6 +166,7 @@ class App extends Component {
                                     selectedCurrency={
                                         this.state.selectedCurrency
                                     }
+                                    cartItems={this.state.cartItems}
                                 />
                             }
                         />

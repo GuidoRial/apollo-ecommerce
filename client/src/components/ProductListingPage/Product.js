@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import WhiteEmptyCart from "../../Assets/Icons/WhiteEmptyCart.svg";
 
+
 export default class Product extends Component {
     constructor(props) {
         super(props);

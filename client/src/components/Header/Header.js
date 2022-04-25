@@ -68,7 +68,6 @@ export default class Header extends Component {
                     {this.state.dropdownMenu && (
                         <DropdownCurrencyMenu
                             currencies={currencies}
-                            selectedCurrency={selectedCurrency}
                             handleSelectedCurrencyChange={
                                 handleSelectedCurrencyChange
                             }

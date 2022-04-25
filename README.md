@@ -2,11 +2,30 @@
 
 ## Todo
 
-1. Apollo - GraphQL Phase
-    - Write all queries with name
-    - Test that I can actually call what I need
-2. React - React Router DOM Phase
-    - Build UI, consume products
+1. Build cart logic
+   a. Cart should be state in App.js
+   b. cartProductObject = {
+   brand,
+   name,
+   currentPrice
+   selectedAttributes
+   photos
+   }
+   c. By components:
+    1. Header
+        - count cart length and put it over the icon
+        - On cart click, open cart overlay
+        - Cart Overlay
+            - Display cartProductObject
+            - Besides that, it should display:
+                1. Total price
+                2. Button to send you to cart page
+                3. Checkout button
+    2. Product Listing Page
+        - Fast add to cart button
+    3. Product Description Page
+        - Add visual representation of selected attributes
+        - Add to cart button
 
 ## Functionality Requirements
 

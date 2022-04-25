@@ -43,7 +43,6 @@ a {
 .dropdown {
     z-index: 9999;
     position: absolute;
-    padding: 0.5rem;
     top: 58px;
     width: 100px;
     transform: translate(-45%);
@@ -59,18 +58,17 @@ a {
 .menu-item {
     z-index: 9999;
     cursor: pointer;
-    height: 20px;
-    width: 80%;
-    padding: 0.3rem;
+    height: 40px;
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    border-radius: 5px;
+    justify-content: center;
+    gap: 0.3rem;
     transition: background-color 0.3s;
 }
 
 .menu-item:hover {
-    background-color: rgb(233, 233, 233);
+    background-color: #eeeeee;
 }
 
 @media (max-width: 500px) {
@@ -79,6 +77,5 @@ a {
     }
     .nav-bar {
         padding: 1rem 2rem;
-
     }
 }
