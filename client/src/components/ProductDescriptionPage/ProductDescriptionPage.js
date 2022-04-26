@@ -21,6 +21,8 @@ export default class ProductDescriptionPage extends Component {
             this.handleSelectedAttributes.bind(this);
         this.handleAllAttributesAreSelected =
             this.handleAllAttributesAreSelected.bind(this);
+        this.handleProductHasNoAttributes =
+            this.handleProductHasNoAttributes.bind(this);
     }
 
     filterCorrectPrice = (item, selectedCurrency) => {
@@ -46,6 +48,9 @@ export default class ProductDescriptionPage extends Component {
                     this.state.individualProduct,
                     this.props.selectedCurrency
                 );
+            })
+            .then(() => {
+                this.handleProductHasNoAttributes();
             });
     };
 
@@ -89,6 +94,13 @@ export default class ProductDescriptionPage extends Component {
         //Which will let the user actually add this item to the cart
     };
 
+    handleProductHasNoAttributes = () => {
+        //If it has no attributes, the user should be able to add it to cart on component mount
+        if (this.state.individualProduct?.attributes?.length === 0) {
+            this.setState({ allAttributesAreSelected: true });
+        }
+    };
+
     componentDidMount() {
         this.fetchProduct(this.getId());
     }
@@ -117,6 +129,7 @@ export default class ProductDescriptionPage extends Component {
     render() {
         const { individualProduct, selectedImage } = this.state;
         const { cartItems } = this.props;
+        console.log(individualProduct);
 
         return (
             <section className="individual-product">
