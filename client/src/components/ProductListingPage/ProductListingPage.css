@@ -29,6 +29,7 @@
 }
 
 .out-of-stock-sign {
+    z-index: 1;
     position: absolute;
     font-weight: 700;
     font-size: 1.3rem;
@@ -65,7 +66,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
 }
 
 .mini-add-to-cart-button {
@@ -90,13 +92,14 @@
 
 @media (max-width: 850px) {
     .product-card {
-        width: 40%;
+        width: 100%;
         height: 30rem;
     }
 }
 
 @media (max-width: 450px) {
-    .product-card {
-        width: 80%;
+    .product-listing-page {
+        padding: 1rem 2rem;
+
     }
 }

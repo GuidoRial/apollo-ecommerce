@@ -5,6 +5,7 @@
     align-items: center;
     background-color: var(--white);
     color: var(--black);
+    z-index: 9999;
 }
 
 ul {
@@ -65,10 +66,18 @@ a {
     justify-content: center;
     gap: 0.3rem;
     transition: background-color 0.3s;
+    background-color: var(--white);
 }
 
 .menu-item:hover {
     background-color: #eeeeee;
+}
+
+@media (max-width: 769px) {
+    .nav-bar {
+        position: sticky;
+        top: 0;
+    }
 }
 
 @media (max-width: 500px) {
