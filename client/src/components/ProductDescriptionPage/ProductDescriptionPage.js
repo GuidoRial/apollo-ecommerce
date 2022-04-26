@@ -12,11 +12,15 @@ export default class ProductDescriptionPage extends Component {
             selectedImage: 0,
             productPrice: "",
             selectedAttributes: [],
+            allAttributesAreSelected: false,
         };
         this.getId = this.getId.bind(this);
         this.fetchProduct = this.fetchProduct.bind(this);
         this.filterCorrectPrice = this.filterCorrectPrice.bind(this);
-        this.handleSelectedAttributes = this.handleSelectedAttributes.bind(this);
+        this.handleSelectedAttributes =
+            this.handleSelectedAttributes.bind(this);
+        this.handleAllAttributesAreSelected =
+            this.handleAllAttributesAreSelected.bind(this);
     }
 
     filterCorrectPrice = (item, selectedCurrency) => {
@@ -80,24 +84,40 @@ export default class ProductDescriptionPage extends Component {
         this.setState({ selectedAttributes: userAttributes });
     };
 
+    handleAllAttributesAreSelected = () => {
+        this.setState({ allAttributesAreSelected: true });
+        //Which will let the user actually add this item to the cart
+    };
+
     componentDidMount() {
         this.fetchProduct(this.getId());
     }
 
     shouldComponentUpdate(nextProps, nextState) {
         if (this.props.selectedCurrency !== nextProps.selectedCurrency) {
+            //Render correct currency on selectedCurrency change
             this.filterCorrectPrice(
                 this.state.individualProduct,
                 nextProps.selectedCurrency
             );
         }
+
+        if (
+            this.state.selectedAttributes !== nextState.selectedAttributes &&
+            nextState.selectedAttributes.length ===
+                this.state.individualProduct.attributes.length
+        ) {
+            //If there's a change in selected attributes and user selected all attributes then...
+            this.handleAllAttributesAreSelected();
+        }
+
         return true;
     }
 
     render() {
         const { individualProduct, selectedImage } = this.state;
         const { cartItems } = this.props;
-        
+
         return (
             <section className="individual-product">
                 {individualProduct && individualProduct.gallery && (
@@ -148,9 +168,13 @@ export default class ProductDescriptionPage extends Component {
                     </p>
                     <button
                         className="add-to-cart-button"
-                        disabled={!individualProduct.inStock}
+                        disabled={
+                            !individualProduct.inStock ||
+                            !this.state.allAttributesAreSelected
+                        }
                         style={
-                            individualProduct.inStock
+                            individualProduct.inStock &&
+                            this.state.allAttributesAreSelected
                                 ? { opacity: "1" }
                                 : { opacity: "0.8", cursor: "not-allowed" }
                         }
