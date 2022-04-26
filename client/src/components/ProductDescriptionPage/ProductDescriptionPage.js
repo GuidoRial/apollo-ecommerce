@@ -16,7 +16,7 @@ export default class ProductDescriptionPage extends Component {
         this.getId = this.getId.bind(this);
         this.fetchProduct = this.fetchProduct.bind(this);
         this.filterCorrectPrice = this.filterCorrectPrice.bind(this);
-        this.handleSelectedAttribute = this.handleSelectedAttribute.bind(this);
+        this.handleSelectedAttributes = this.handleSelectedAttributes.bind(this);
     }
 
     filterCorrectPrice = (item, selectedCurrency) => {
@@ -58,7 +58,7 @@ export default class ProductDescriptionPage extends Component {
         return idFromURL;
     };
 
-    handleSelectedAttribute = (id, value) => {
+    handleSelectedAttributes = (id, value) => {
         const newSelectedAttribute = { id, value }; //Create a new object with user preferences
         let userAttributes = [...this.state.selectedAttributes];
 
@@ -97,7 +97,7 @@ export default class ProductDescriptionPage extends Component {
     render() {
         const { individualProduct, selectedImage } = this.state;
         const { cartItems } = this.props;
-        console.log(this.state.selectedAttributes);
+        
         return (
             <section className="individual-product">
                 {individualProduct && individualProduct.gallery && (
@@ -134,8 +134,8 @@ export default class ProductDescriptionPage extends Component {
                         <Attribute
                             key={attribute.id}
                             attribute={attribute}
-                            handleSelectedAttribute={
-                                this.handleSelectedAttribute
+                            handleSelectedAttributes={
+                                this.handleSelectedAttributes
                             }
                             selectedAttributes={this.state.selectedAttributes}
                         />

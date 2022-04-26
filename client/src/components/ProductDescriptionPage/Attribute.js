@@ -4,48 +4,77 @@ import "./Attributes.css";
 export default class Attribute extends Component {
     constructor() {
         super();
-        this.state = {};
+        this.state = {
+            shouldBeColored: "false",
+            selectedAttribute: "",
+        };
     }
 
     render() {
-        const { attribute, selectedAttributes, handleSelectedAttribute } =
+        const { attribute, selectedAttributes, handleSelectedAttributes } =
             this.props;
-
-        //console.log(this.state.selectedAttributes);
+        // console.log(selectedAttributes);
+        //console.log(attribute.items);
+        //console.log(this.state.selectedAttribute);
         return (
             <div>
-                <div>
-                    <p className="attribute-title">{attribute.id}:</p>
-                    <div className="attribute-button-container">
-                        {attribute?.items?.map((item) => (
-                            <div
-                                key={item.id}
-                                onClick={() =>
-                                    handleSelectedAttribute(
-                                        attribute.id,
-                                        item.value
-                                    )
-                                }
-                            >
+                <p className="attribute-title">{attribute.id}:</p>
+                <div className="attribute-button-container">
+                    {attribute?.items?.map((item) => (
+                        <div
+                            style={
+                                this.state.selectedAttribute === item.value &&
+                                attribute.id === "Color"
+                                    ? {
+                                          border: "2px solid #9ae0ac",
+                                          padding: "1px",
+                                      }
+                                    : null
+                            }
+                            key={item.id}
+                            onClick={() =>
+                                handleSelectedAttributes(
+                                    attribute.id,
+                                    item.value
+                                )
+                            }
+                        >
+                            {attribute.id === "Color" ? (
                                 <button
                                     className="attribute-button"
+                                    onClick={() =>
+                                        this.setState({
+                                            selectedAttribute: item.value,
+                                        })
+                                    }
+                                    style={{
+                                        backgroundColor: `${item.value}`,
+                                        border: "1px solid #D1D1D1",
+                                    }}
+                                ></button>
+                            ) : (
+                                <button
+                                    className="attribute-button"
+                                    onClick={() =>
+                                        this.setState({
+                                            selectedAttribute: item.value,
+                                        })
+                                    }
                                     style={
-                                        attribute.id === "Color"
+                                        this.state.selectedAttribute ===
+                                        item.value
                                             ? {
-                                                  backgroundColor: `${item.value}`,
-                                                  opacity: "1",
-                                                  border: "1px solid #D1D1D1",
+                                                  backgroundColor: "#1D1F22",
+                                                  color: "#FFFFFF",
                                               }
                                             : null
                                     }
                                 >
-                                    {attribute.id === "Color"
-                                        ? null
-                                        : item.value}
+                                    {item.value}
                                 </button>
-                            </div>
-                        ))}
-                    </div>
+                            )}
+                        </div>
+                    ))}
                 </div>
             </div>
         );
