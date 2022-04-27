@@ -137,7 +137,7 @@ export default class ProductDescriptionPage extends Component {
         } = this.props;
         //console.log(individualProduct);
         //console.log(selectedAttributes);
-        //console.log(cartItems);
+        console.log(cartItems);
 
         return (
             <section className="individual-product">

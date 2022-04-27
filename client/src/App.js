@@ -112,40 +112,57 @@ class App extends Component {
         let updatedProductList;
         let productAlreadyInCart = this.getProductFromCart(product);
 
+        const allAttributesAreTheSame = () => {
+            const objectsAreEqual = (o1, o2) =>
+                Object.values(o1)[1] === Object.values(o2)[1];
+
+            let truthyValuesCounter = 0;
+            let i = 0;
+
+            while (i < selectedAttributes.length) {
+                //Given that you can't add to cart unless you selected one attribute of each of the available ones for that product, the length of the product in cart and the one you're adding right now is always the same
+
+                if (
+                    objectsAreEqual(
+                        selectedAttributes[i],
+                        productAlreadyInCart?.selectedAttributes[i]
+                    )
+                ) {
+                    truthyValuesCounter += 1;
+                }
+                i += 1;
+            }
+
+            if (truthyValuesCounter === selectedAttributes.length) {
+                return true;
+            }
+        };
+
         if (productAlreadyInCart) {
             //If this product already exists in the cart
             //Check that the objects in both attributes array are the same (If I want to buy a blue and a white iPhone on the same session, I should be able to do that)
-            const allAttributesAreTheSame = () => {
-                const objectsAreEqual = (o1, o2) =>
-                    Object.values(o1)[1] === Object.values(o2)[1];
 
-                let truthyValuesCounter = 0;
-                let i = 0;
-
-                while (i < selectedAttributes.length) {
-                    //Given that you can't add to cart unless you selected one attribute of each of the available ones for that product, the length of the product in cart and the one you're adding right now is always the same
-
-                    if (
-                        objectsAreEqual(
-                            selectedAttributes[i],
-                            productAlreadyInCart?.selectedAttributes[i]
-                        )
-                    ) {
-                        truthyValuesCounter += 1;
-                    }
-                    i += 1;
-                }
-
-                if (truthyValuesCounter === selectedAttributes.length) {
-                    return true;
-                }
-            };
             if (allAttributesAreTheSame()) {
-                console.log("all attributes are the same");
+                updatedProductList = this.updateCartQuantity("add", product);
             } else {
-                console.log("there's a difference");
+                updatedProductList = [
+                    ...this.state.cartItems,
+                    {
+                        ...product,
+                        selectedAttributes,
+                        quantity: 1,
+                    },
+                ];
             }
         } else {
+            updatedProductList = [
+                ...this.state.cartItems,
+                {
+                    ...product,
+                    selectedAttributes,
+                    quantity: 1,
+                },
+            ];
         }
         /* 
         If productAlreadyInCart
@@ -155,20 +172,8 @@ class App extends Component {
 
             else
                 add it for the first time
-        */
-        if (this.getProductFromCart(product)) {
-            updatedProductList = this.updateCartQuantity("add", product);
-        } else {
-            updatedProductList = [
-                ...this.state.cartItems,
-                {
-                    ...product,
-                    selectedAttributes,
-                    /* unique productInCartId */ quantity: 1,
-                },
-            ];
-        }
 
+        */
         this.setState({ cartItems: updatedProductList });
     };
 
