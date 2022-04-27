@@ -10,6 +10,7 @@ export default class ProductListingPage extends Component {
             selectedCurrency,
             cartItems,
             handleAddProduct,
+            handleQuickAdd,
         } = this.props;
 
         return (
@@ -25,6 +26,7 @@ export default class ProductListingPage extends Component {
                                   selectedCurrency={selectedCurrency}
                                   cartItems={cartItems}
                                   handleAddProduct={handleAddProduct}
+                                  handleQuickAdd={handleQuickAdd}
                               />
                           ))
                         : "Loading..."}

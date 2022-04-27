@@ -52,6 +52,8 @@
 ## Figma
 
 https://www.figma.com/file/MSyCAqVy1UgNap0pvqH6H3/Junior-Frontend-Test-Designs-(Public)?node-id=0%3A1
+https://mail.google.com/mail/u/0/#inbox/FMfcgzGpFWJwxGztkgZLpfXgjrNlHdnB
+https://www.notion.so/Entry-React-developer-TEST-39f601f8aa3f48ac88c4a8fefda304c1
 
 ## Project Description
 

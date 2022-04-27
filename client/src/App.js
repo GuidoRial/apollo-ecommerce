@@ -33,6 +33,8 @@ class App extends Component {
         this.handleAddProduct = this.handleAddProduct.bind(this);
         this.handleRemoveProduct = this.handleRemoveProduct.bind(this);
         this.allAttributesAreTheSame = this.allAttributesAreTheSame.bind(this);
+        this.getProductById = this.getProductById.bind(this);
+        this.handleQuickAdd = this.handleQuickAdd.bind(this);
     }
 
     /* MAKING THE STORE DYNAMIC */
@@ -101,8 +103,16 @@ class App extends Component {
                 item = product;
             }
         });
+
         return item;
     }
+
+    getProductById = (product) => {
+        let storeItem = this.state.cartItems.find(
+            (item) => item.id === product.id
+        );
+        return storeItem;
+    };
 
     updateCartQuantity(operation, product, selectedAttributes) {
         const item = this.getProductFromCartByProduct(
@@ -149,6 +159,31 @@ class App extends Component {
         }
     };
 
+    handleQuickAdd = (product) => {
+        let updatedProductList;
+
+        let productAlreadyExists = this.getProductById(product);
+
+        if (productAlreadyExists) {
+            const indexOfProduct =
+                this.state.cartItems.indexOf(productAlreadyExists);
+            const products = [...this.state.cartItems];
+
+            products[indexOfProduct].quantity += 1;
+            return products;
+        } else {
+            updatedProductList = [
+                ...this.state.cartItems,
+                {
+                    ...product,
+                    selectedAttributes: [],
+                    quantity: 1,
+                },
+            ];
+        }
+        this.setState({ cartItems: updatedProductList });
+    };
+
     handleAddProduct = (product, selectedAttributes) => {
         let updatedProductList;
         let productAlreadyInCart = this.getProductFromCartByProduct(
@@ -178,13 +213,6 @@ class App extends Component {
         } else {
             addProductForTheFirstTime();
         }
-        /* 
-        if productInCart
-            updateProductlist
-
-        else
-            add for the first time 
-        */
 
         this.setState({ cartItems: updatedProductList });
     };
@@ -229,6 +257,7 @@ class App extends Component {
                                     }
                                     cartItems={this.state.cartItems}
                                     handleAddProduct={this.handleAddProduct}
+                                    handleQuickAdd={this.handleQuickAdd}
                                 />
                             }
                         />
