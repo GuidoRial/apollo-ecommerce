@@ -132,8 +132,6 @@ export default class ProductDescriptionPage extends Component {
         const {
             cartItems,
             handleAddProduct,
-            getProductFromCart,
-            updateCartQuantity,
         } = this.props;
         //console.log(individualProduct);
         //console.log(selectedAttributes);

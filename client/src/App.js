@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import uniqid from "uniqid";
 import { client } from "./index";
 import { getProductsByCategory, getCategories, getCurrencies } from "./queries";
 import ProductListingPage from "./components/ProductListingPage/ProductListingPage";
@@ -26,10 +27,12 @@ class App extends Component {
         this.fetchCurrencies = this.fetchCurrencies.bind(this);
         this.handleSelectedCurrencyChange =
             this.handleSelectedCurrencyChange.bind(this);
-        this.getProductFromCart = this.getProductFromCart.bind(this);
+        this.getProductFromCartByProduct =
+            this.getProductFromCartByProduct.bind(this);
         this.updateCartQuantity = this.updateCartQuantity.bind(this);
         this.handleAddProduct = this.handleAddProduct.bind(this);
         this.handleRemoveProduct = this.handleRemoveProduct.bind(this);
+        this.allAttributesAreTheSame = this.allAttributesAreTheSame.bind(this);
     }
 
     /* MAKING THE STORE DYNAMIC */
@@ -85,17 +88,29 @@ class App extends Component {
         this.fetchCurrencies();
     }
 
-    /* ATTRIBUTES LOGIC */
-
     /* CART LOGIC  */
-    getProductFromCart(product) {
-        return this.state.cartItems.find((item) => item.id === product.id);
-    }
+    getProductFromCartByProduct(product, selectedAttributes) {
+        let item;
 
-    updateCartQuantity(operation, product) {
-        const indexOfProduct = this.state.cartItems.findIndex(
+        let productsById = this.state.cartItems.filter(
             (item) => item.id === product.id
         );
+
+        productsById.forEach((product) => {
+            if (this.allAttributesAreTheSame(selectedAttributes, product)) {
+                item = product;
+            }
+        });
+        return item;
+    }
+
+    updateCartQuantity(operation, product, selectedAttributes) {
+        const item = this.getProductFromCartByProduct(
+            product,
+            selectedAttributes
+        );
+
+        const indexOfProduct = this.state.cartItems.indexOf(item);
 
         const products = [...this.state.cartItems];
 
@@ -108,53 +123,39 @@ class App extends Component {
         return products;
     }
 
+    allAttributesAreTheSame = (firstArray, secondArray) => {
+        const objectsAreEqual = (o1, o2) =>
+            Object.values(o1)[1] === Object.values(o2)[1];
+
+        let truthyValuesCounter = 0;
+        let i = 0;
+
+        while (i < firstArray.length) {
+            //Given that you can't add to cart unless you selected one attribute of each of the available ones for that product, the length of the product in cart and the one you're adding right now is always the same
+
+            if (
+                objectsAreEqual(
+                    firstArray[i],
+                    secondArray?.selectedAttributes[i]
+                )
+            ) {
+                truthyValuesCounter += 1;
+            }
+            i += 1;
+        }
+
+        if (truthyValuesCounter === firstArray.length) {
+            return true;
+        }
+    };
+
     handleAddProduct = (product, selectedAttributes) => {
         let updatedProductList;
-        let productAlreadyInCart = this.getProductFromCart(product);
-
-        const allAttributesAreTheSame = () => {
-            const objectsAreEqual = (o1, o2) =>
-                Object.values(o1)[1] === Object.values(o2)[1];
-
-            let truthyValuesCounter = 0;
-            let i = 0;
-
-            while (i < selectedAttributes.length) {
-                //Given that you can't add to cart unless you selected one attribute of each of the available ones for that product, the length of the product in cart and the one you're adding right now is always the same
-
-                if (
-                    objectsAreEqual(
-                        selectedAttributes[i],
-                        productAlreadyInCart?.selectedAttributes[i]
-                    )
-                ) {
-                    truthyValuesCounter += 1;
-                }
-                i += 1;
-            }
-
-            if (truthyValuesCounter === selectedAttributes.length) {
-                return true;
-            }
-        };
-
-        if (productAlreadyInCart) {
-            //If this product already exists in the cart
-            //Check that the objects in both attributes array are the same (If I want to buy a blue and a white iPhone on the same session, I should be able to do that)
-
-            if (allAttributesAreTheSame()) {
-                updatedProductList = this.updateCartQuantity("add", product);
-            } else {
-                updatedProductList = [
-                    ...this.state.cartItems,
-                    {
-                        ...product,
-                        selectedAttributes,
-                        quantity: 1,
-                    },
-                ];
-            }
-        } else {
+        let productAlreadyInCart = this.getProductFromCartByProduct(
+            product,
+            selectedAttributes
+        );
+        const addProductForTheFirstTime = () => {
             updatedProductList = [
                 ...this.state.cartItems,
                 {
@@ -163,17 +164,28 @@ class App extends Component {
                     quantity: 1,
                 },
             ];
+        };
+        //console.log(productAlreadyInCart);
+
+        if (productAlreadyInCart) {
+            //If this product already exists in the cart
+            //Check that the objects in both attributes array are the same (If I want to buy a blue and a white iPhone on the same session, I should be able to do that)
+            updatedProductList = this.updateCartQuantity(
+                "add",
+                productAlreadyInCart,
+                selectedAttributes
+            );
+        } else {
+            addProductForTheFirstTime();
         }
         /* 
-        If productAlreadyInCart
-            check if productInCart.selectedAttributes === selectedAttributes
-                if true, get that product and quantity += 1
-                if false, add that product again (I'm going to need a different id??)
+        if productInCart
+            updateProductlist
 
-            else
-                add it for the first time
-
+        else
+            add for the first time 
         */
+
         this.setState({ cartItems: updatedProductList });
     };
 
@@ -230,8 +242,6 @@ class App extends Component {
                                     }
                                     cartItems={this.state.cartItems}
                                     handleAddProduct={this.handleAddProduct}
-                                    getProductFromCart={this.getProductFromCart}
-                                    updateCartQuantity={this.updateCartQuantity}
                                 />
                             }
                         />
