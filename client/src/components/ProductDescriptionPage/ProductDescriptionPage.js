@@ -127,9 +127,17 @@ export default class ProductDescriptionPage extends Component {
     }
 
     render() {
-        const { individualProduct, selectedImage } = this.state;
-        const { cartItems } = this.props;
+        const { individualProduct, selectedImage, selectedAttributes } =
+            this.state;
+        const {
+            cartItems,
+            handleAddProduct,
+            getProductFromCart,
+            updateCartQuantity,
+        } = this.props;
         //console.log(individualProduct);
+        //console.log(selectedAttributes);
+        //console.log(cartItems);
 
         return (
             <section className="individual-product">
@@ -180,6 +188,12 @@ export default class ProductDescriptionPage extends Component {
                         {this.state.productPrice?.amount}
                     </p>
                     <button
+                        onClick={() =>
+                            handleAddProduct(
+                                individualProduct,
+                                selectedAttributes
+                            )
+                        }
                         className="add-to-cart-button"
                         disabled={
                             !individualProduct.inStock ||

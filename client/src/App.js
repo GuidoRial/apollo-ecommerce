@@ -85,6 +85,8 @@ class App extends Component {
         this.fetchCurrencies();
     }
 
+    /* ATTRIBUTES LOGIC */
+
     /* CART LOGIC  */
     getProductFromCart(product) {
         return this.state.cartItems.find((item) => item.id === product.id);
@@ -106,15 +108,64 @@ class App extends Component {
         return products;
     }
 
-    handleAddProduct = (product) => {
+    handleAddProduct = (product, selectedAttributes) => {
         let updatedProductList;
+        let productAlreadyInCart = this.getProductFromCart(product);
 
+        if (productAlreadyInCart) {
+            //If this product already exists in the cart
+            //Check that the objects in both attributes array are the same (If I want to buy a blue and a white iPhone on the same session, I should be able to do that)
+            const allAttributesAreTheSame = () => {
+                const objectsAreEqual = (o1, o2) =>
+                    Object.values(o1)[1] === Object.values(o2)[1];
+
+                let truthyValuesCounter = 0;
+                let i = 0;
+
+                while (i < selectedAttributes.length) {
+                    //Given that you can't add to cart unless you selected one attribute of each of the available ones for that product, the length of the product in cart and the one you're adding right now is always the same
+
+                    if (
+                        objectsAreEqual(
+                            selectedAttributes[i],
+                            productAlreadyInCart?.selectedAttributes[i]
+                        )
+                    ) {
+                        truthyValuesCounter += 1;
+                    }
+                    i += 1;
+                }
+
+                if (truthyValuesCounter === selectedAttributes.length) {
+                    return true;
+                }
+            };
+            if (allAttributesAreTheSame()) {
+                console.log("all attributes are the same");
+            } else {
+                console.log("there's a difference");
+            }
+        } else {
+        }
+        /* 
+        If productAlreadyInCart
+            check if productInCart.selectedAttributes === selectedAttributes
+                if true, get that product and quantity += 1
+                if false, add that product again (I'm going to need a different id??)
+
+            else
+                add it for the first time
+        */
         if (this.getProductFromCart(product)) {
             updatedProductList = this.updateCartQuantity("add", product);
         } else {
             updatedProductList = [
                 ...this.state.cartItems,
-                { ...product, quantity: 1 },
+                {
+                    ...product,
+                    selectedAttributes,
+                    /* unique productInCartId */ quantity: 1,
+                },
             ];
         }
 
@@ -173,6 +224,9 @@ class App extends Component {
                                         this.state.selectedCurrency
                                     }
                                     cartItems={this.state.cartItems}
+                                    handleAddProduct={this.handleAddProduct}
+                                    getProductFromCart={this.getProductFromCart}
+                                    updateCartQuantity={this.updateCartQuantity}
                                 />
                             }
                         />
