@@ -36,6 +36,7 @@
 }
 
 .product-card {
+    z-index: 1;
     background-color: var(--white);
     cursor: pointer;
     width: 30%;
@@ -71,6 +72,7 @@
 }
 
 .mini-add-to-cart-button {
+    z-index: 9999;
     position: absolute;
     right: 30px;
     top: -30px;

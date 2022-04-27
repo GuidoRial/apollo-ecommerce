@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import WhiteEmptyCart from "../../Assets/Icons/WhiteEmptyCart.svg";
 
-
 export default class Product extends Component {
     constructor(props) {
         super(props);
@@ -34,8 +33,8 @@ export default class Product extends Component {
     }
 
     render() {
-        const { item } = this.props;
-
+        const { item, cartItems, handleAddProduct } = this.props;
+        console.log(cartItems);
         return (
             <div
                 className="product-card"
@@ -52,14 +51,18 @@ export default class Product extends Component {
                             className="item-preview"
                         />
                     </div>
-                    {item.attributes.length === 0 && item.inStock && (
-                        <div className="button-container">
-                            <button className="mini-add-to-cart-button">
-                                <img src={WhiteEmptyCart} alt="mini-cart" />
-                            </button>
-                        </div>
-                    )}
-
+                </Link>
+                {item.attributes.length === 0 && item.inStock && (
+                    <div className="button-container">
+                        <button
+                            onClick={() => handleAddProduct(item)}
+                            className="mini-add-to-cart-button"
+                        >
+                            <img src={WhiteEmptyCart} alt="mini-cart" />
+                        </button>
+                    </div>
+                )}
+                <Link to={`/products/${item.id}`}>
                     <div>
                         <p className="brand-name">
                             {item.brand} {item.name}

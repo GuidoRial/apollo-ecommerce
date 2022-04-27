@@ -4,7 +4,14 @@ import "./ProductListingPage.css";
 
 export default class ProductListingPage extends Component {
     render() {
-        const { storeItems, currentCategory, selectedCurrency } = this.props;
+        const {
+            storeItems,
+            currentCategory,
+            selectedCurrency,
+            cartItems,
+            handleAddProduct,
+        } = this.props;
+
         return (
             <section className="product-listing-page">
                 <h2 className="current-category-text">{currentCategory}</h2>
@@ -16,6 +23,8 @@ export default class ProductListingPage extends Component {
                                   key={item.id}
                                   item={item}
                                   selectedCurrency={selectedCurrency}
+                                  cartItems={cartItems}
+                                  handleAddProduct={handleAddProduct}
                               />
                           ))
                         : "Loading..."}

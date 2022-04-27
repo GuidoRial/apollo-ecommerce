@@ -26,6 +26,10 @@ class App extends Component {
         this.fetchCurrencies = this.fetchCurrencies.bind(this);
         this.handleSelectedCurrencyChange =
             this.handleSelectedCurrencyChange.bind(this);
+        this.getProductFromCart = this.getProductFromCart.bind(this);
+        this.updateCartQuantity = this.updateCartQuantity.bind(this);
+        this.handleAddProduct = this.handleAddProduct.bind(this);
+        this.handleRemoveProduct = this.handleRemoveProduct.bind(this);
     }
 
     /* MAKING THE STORE DYNAMIC */
@@ -108,8 +112,6 @@ class App extends Component {
         if (this.getProductFromCart(product)) {
             updatedProductList = this.updateCartQuantity("add", product);
         } else {
-            //I also have to add the selectedProperties to this object
-            //
             updatedProductList = [
                 ...this.state.cartItems,
                 { ...product, quantity: 1 },
@@ -157,6 +159,8 @@ class App extends Component {
                                     selectedCurrency={
                                         this.state.selectedCurrency
                                     }
+                                    cartItems={this.state.cartItems}
+                                    handleAddProduct={this.handleAddProduct}
                                 />
                             }
                         />
