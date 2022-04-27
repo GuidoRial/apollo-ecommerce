@@ -108,6 +108,8 @@ class App extends Component {
         if (this.getProductFromCart(product)) {
             updatedProductList = this.updateCartQuantity("add", product);
         } else {
+            //I also have to add the selectedProperties to this object
+            //
             updatedProductList = [
                 ...this.state.cartItems,
                 { ...product, quantity: 1 },

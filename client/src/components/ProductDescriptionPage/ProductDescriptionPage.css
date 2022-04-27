@@ -87,7 +87,7 @@
     width: 60%;
     overflow: auto;
 }
-
+/*
 @media (max-width: 1600px) {
     .add-to-cart-button {
         width: 15rem;
@@ -103,7 +103,7 @@
         height: 25rem;
     }
 }
-
+*/
 @media (max-width: 1200px) {
     .big-picture {
         width: 20rem;
