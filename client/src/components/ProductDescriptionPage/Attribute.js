@@ -12,9 +12,6 @@ export default class Attribute extends Component {
     render() {
         const { attribute, selectedAttributes, handleSelectedAttributes } =
             this.props;
-        //console.log(selectedAttributes);
-        //console.log(attribute.items);
-        //console.log(this.state.selectedAttribute);
         return (
             <div>
                 <p className="attribute-title">{attribute.id}:</p>

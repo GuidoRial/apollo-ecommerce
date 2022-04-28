@@ -129,14 +129,8 @@ export default class ProductDescriptionPage extends Component {
     render() {
         const { individualProduct, selectedImage, selectedAttributes } =
             this.state;
-        const {
-            cartItems,
-            handleAddProduct,
-        } = this.props;
-        //console.log(individualProduct);
-        //console.log(selectedAttributes);
-        console.log(cartItems);
-
+        const { handleAddProduct } = this.props;
+        // console.log(individualProduct);
         return (
             <section className="individual-product">
                 {individualProduct && individualProduct.gallery && (

@@ -5,11 +5,12 @@ import DropdownOff from "../../Assets/Icons/DropdownOff.svg";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import DropdownCurrencyMenu from "./DropdownCurrencyMenu/DropdownCurrencyMenu";
+import CartOverlay from "../CartOverlay/CartOverlay";
 
 export default class Header extends Component {
     constructor(props) {
         super(props);
-        this.state = { dropdownMenu: false };
+        this.state = { dropdownMenu: false, cartOverlayMenu: false };
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -29,8 +30,8 @@ export default class Header extends Component {
             selectedCurrency,
             currencies,
             handleSelectedCurrencyChange,
+            cartItems,
         } = this.props;
-
         return (
             <nav className="nav-bar">
                 <ul className="categories">
@@ -63,8 +64,21 @@ export default class Header extends Component {
                         src={DropdownOff}
                         alt="currency-menu"
                     />
-
-                    <img src={EmptyCart} alt="empty-cart" />
+                    <img
+                        src={EmptyCart}
+                        alt="empty cart"
+                        onClick={() =>
+                            this.setState({
+                                cartOverlayMenu: !this.state.cartOverlayMenu,
+                            })
+                        }
+                    />
+                    {this.state.cartOverlayMenu && (
+                        <CartOverlay
+                            cartItems={cartItems}
+                            selectedCurrency={selectedCurrency}
+                        />
+                    )}
                     {this.state.dropdownMenu && (
                         <DropdownCurrencyMenu
                             currencies={currencies}

@@ -1,6 +1,5 @@
 import { Component } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import uniqid from "uniqid";
 import { client } from "./index";
 import { getProductsByCategory, getCategories, getCurrencies } from "./queries";
 import ProductListingPage from "./components/ProductListingPage/ProductListingPage";
@@ -20,21 +19,20 @@ class App extends Component {
             cartItems: [],
             storeItems: [],
         };
-
-        this.fetchCategories = this.fetchCategories.bind(this);
-        this.fetchStoreItems = this.fetchStoreItems.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
-        this.fetchCurrencies = this.fetchCurrencies.bind(this);
         this.handleSelectedCurrencyChange =
             this.handleSelectedCurrencyChange.bind(this);
+        this.fetchCategories = this.fetchCategories.bind(this);
+        this.fetchStoreItems = this.fetchStoreItems.bind(this);
+        this.fetchCurrencies = this.fetchCurrencies.bind(this);
+        this.getProductById = this.getProductById.bind(this);
+        this.handleQuickAdd = this.handleQuickAdd.bind(this);
         this.getProductFromCartByProduct =
             this.getProductFromCartByProduct.bind(this);
+        this.allAttributesAreTheSame = this.allAttributesAreTheSame.bind(this);
         this.updateCartQuantity = this.updateCartQuantity.bind(this);
         this.handleAddProduct = this.handleAddProduct.bind(this);
         this.handleRemoveProduct = this.handleRemoveProduct.bind(this);
-        this.allAttributesAreTheSame = this.allAttributesAreTheSame.bind(this);
-        this.getProductById = this.getProductById.bind(this);
-        this.handleQuickAdd = this.handleQuickAdd.bind(this);
     }
 
     /* MAKING THE STORE DYNAMIC */
@@ -91,6 +89,39 @@ class App extends Component {
     }
 
     /* CART LOGIC  */
+
+    getProductById = (product) => {
+        let storeItem = this.state.cartItems.find(
+            (item) => item.id === product.id
+        );
+        return storeItem;
+    };
+
+    handleQuickAdd = (product) => {
+        let updatedProductList;
+
+        let productAlreadyExists = this.getProductById(product);
+
+        if (productAlreadyExists) {
+            const indexOfProduct =
+                this.state.cartItems.indexOf(productAlreadyExists);
+            const products = [...this.state.cartItems];
+
+            products[indexOfProduct].quantity += 1;
+            return products;
+        } else {
+            updatedProductList = [
+                ...this.state.cartItems,
+                {
+                    ...product,
+                    selectedAttributes: [],
+                    quantity: 1,
+                },
+            ];
+        }
+        this.setState({ cartItems: updatedProductList });
+    };
+
     getProductFromCartByProduct(product, selectedAttributes) {
         let item;
 
@@ -105,32 +136,6 @@ class App extends Component {
         });
 
         return item;
-    }
-
-    getProductById = (product) => {
-        let storeItem = this.state.cartItems.find(
-            (item) => item.id === product.id
-        );
-        return storeItem;
-    };
-
-    updateCartQuantity(operation, product, selectedAttributes) {
-        const item = this.getProductFromCartByProduct(
-            product,
-            selectedAttributes
-        );
-
-        const indexOfProduct = this.state.cartItems.indexOf(item);
-
-        const products = [...this.state.cartItems];
-
-        if (operation === "add") {
-            products[indexOfProduct].quantity += 1;
-        } else {
-            products[indexOfProduct].quantity -= 1;
-        }
-
-        return products;
     }
 
     allAttributesAreTheSame = (firstArray, secondArray) => {
@@ -159,30 +164,24 @@ class App extends Component {
         }
     };
 
-    handleQuickAdd = (product) => {
-        let updatedProductList;
+    updateCartQuantity(operation, product, selectedAttributes) {
+        const item = this.getProductFromCartByProduct(
+            product,
+            selectedAttributes
+        );
 
-        let productAlreadyExists = this.getProductById(product);
+        const indexOfProduct = this.state.cartItems.indexOf(item);
 
-        if (productAlreadyExists) {
-            const indexOfProduct =
-                this.state.cartItems.indexOf(productAlreadyExists);
-            const products = [...this.state.cartItems];
+        const products = [...this.state.cartItems];
 
+        if (operation === "add") {
             products[indexOfProduct].quantity += 1;
-            return products;
         } else {
-            updatedProductList = [
-                ...this.state.cartItems,
-                {
-                    ...product,
-                    selectedAttributes: [],
-                    quantity: 1,
-                },
-            ];
+            products[indexOfProduct].quantity -= 1;
         }
-        this.setState({ cartItems: updatedProductList });
-    };
+
+        return products;
+    }
 
     handleAddProduct = (product, selectedAttributes) => {
         let updatedProductList;
@@ -190,30 +189,51 @@ class App extends Component {
             product,
             selectedAttributes
         );
-        const addProductForTheFirstTime = () => {
-            updatedProductList = [
-                ...this.state.cartItems,
-                {
-                    ...product,
-                    selectedAttributes,
-                    quantity: 1,
-                },
-            ];
-        };
-        //console.log(productAlreadyInCart);
 
         if (productAlreadyInCart) {
             //If this product already exists in the cart
-            //Check that the objects in both attributes array are the same (If I want to buy a blue and a white iPhone on the same session, I should be able to do that)
+            //Check that the objects in both attributes array are the same
+            //(If I want to buy a blue and a white iPhone on the same session, I should be able to do that)
             updatedProductList = this.updateCartQuantity(
                 "add",
                 productAlreadyInCart,
                 selectedAttributes
             );
         } else {
-            addProductForTheFirstTime();
-        }
+            let modifiedProduct = JSON.parse(JSON.stringify(product));
+            let clone;
 
+            for (let i = 0; i < product?.attributes?.length; i++) {
+                for (
+                    let j = 0;
+                    j < product?.attributes[i]?.items?.length;
+                    j++
+                ) {
+                    if (
+                        product.attributes[i].items[j].value ===
+                        selectedAttributes[i].value
+                    ) {
+                        clone = {
+                            ...product.attributes[i].items[j],
+                        };
+
+                        clone.isSelected = true; // this works
+                        modifiedProduct.attributes[i].items[j] = {
+                            ...clone,
+                        };
+                    }
+                }
+
+            }
+            updatedProductList = [
+                ...this.state.cartItems,
+                {
+                    ...modifiedProduct,
+                    selectedAttributes,
+                    quantity: 1,
+                },
+            ];
+        }
         this.setState({ cartItems: updatedProductList });
     };
 
@@ -244,6 +264,7 @@ class App extends Component {
                         handleSelectedCurrencyChange={
                             this.handleSelectedCurrencyChange
                         }
+                        cartItems={this.state.cartItems}
                     />
                     <Routes>
                         <Route

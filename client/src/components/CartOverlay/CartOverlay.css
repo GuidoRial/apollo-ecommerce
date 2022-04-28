@@ -1,0 +1,16 @@
+#cartOverlay {
+    width: 400px;
+    right: -120px;
+    background-color: var(--white);
+    align-items: flex-start;
+    padding: 1rem;
+    overflow: auto;
+    gap: 0.5rem;
+    height: auto;
+}
+
+.bag-count {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
