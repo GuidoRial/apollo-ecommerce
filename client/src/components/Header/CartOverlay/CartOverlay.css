@@ -45,3 +45,22 @@
     background-color: var(--primary-color);
     color: var(--white);
 }
+
+@media (max-width: 700px) {
+    #cartOverlay {
+        width: 25rem;
+        right: -8rem;
+    }
+}
+
+@media (max-width: 500px) {
+    #cartOverlay {
+        width: 20rem;
+        right: -8rem;
+    }
+    .cart-overlay-action-buttons {
+        font-size: 0.8rem;
+        width: 6rem;
+        height: 3rem;
+    }
+}

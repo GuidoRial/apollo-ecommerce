@@ -72,14 +72,19 @@ a {
 .menu-item:hover {
     background-color: #eeeeee;
 }
-
+html,
+body {
+    height: 100%;
+}
 .curtain {
     z-index: 1000;
-    position: absolute;
+    position: fixed;
     top: 58px;
     right: 0;
+    bottom: 0;
+    left: 0;
     width: 100vw;
-    height: 180vh;
+    height: 100%;
     background-color: var(--black);
     opacity: 0.5;
 }
