@@ -16,14 +16,17 @@ export default class Product extends Component {
     }
 
     filterCorrectPrice = (item, selectedCurrency) => {
+        //Take the object and the user currency preference
         const [correctPrice] = item?.prices?.filter(
             (price) => price.currency.symbol === selectedCurrency
+            //Return the price that matches with the selectedCurrency
         );
         this.setState({ productPrice: correctPrice });
     };
 
     shouldComponentUpdate(nextProps) {
         if (this.props.selectedCurrency !== nextProps.selectedCurrency) {
+            //If selectedCurrency changes, auto-update everything related to this :)
             this.filterCorrectPrice(
                 this.props.item,
                 nextProps.selectedCurrency

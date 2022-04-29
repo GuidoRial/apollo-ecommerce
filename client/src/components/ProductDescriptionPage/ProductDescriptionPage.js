@@ -26,6 +26,10 @@ export default class ProductDescriptionPage extends Component {
     }
 
     filterCorrectPrice = (item, selectedCurrency) => {
+        //In ProductListingPage.js is an exact copy of this function
+        //I considered sending it to an aux.js but
+        //It's really short and works as a setter for productPrice
+        //so it was easier to repeat myself in this case
         const [correctPrice] = item?.prices?.filter(
             (price) => price.currency.symbol === selectedCurrency
         );
@@ -56,11 +60,15 @@ export default class ProductDescriptionPage extends Component {
 
     getId = () => {
         /* 
-            useParams because functional components are not allowed.
-            I thought about using a Higher Order Component but by definition they are a function that takes a component as a parameter and return a component, thus making it a functional component which is not allowed.
-            I considered using withRouter (https://reactrouter.com/docs/en/v6/faq#what-happened-to-withrouter-i-need-it) but I wont because of the reasons disclosed above.
+            useParams was banned because functional components are not allowed.
+            I thought about using a Higher Order Component but 
+            by definition they are a function that takes a component as a parameter and returns a component, 
+            thus making it a functional component which is not allowed.
+            I considered using withRouter (https://reactrouter.com/docs/en/v6/faq#what-happened-to-withrouter-i-need-it) 
+            but I wont because of the reasons disclosed above.
             
-            My solution to this problem was to isolate the id by manipulating the window.location object until it always return whatever is after /products/, therefore, returning the product id
+            My solution to this problem was to isolate the id by manipulating the window.location object
+            until it always return whatever is after /products/, therefore, returning the product id
             */
         const idFromURL = window.location.pathname.toString().substring(10);
 
@@ -69,16 +77,17 @@ export default class ProductDescriptionPage extends Component {
 
     handleSelectedAttributes = (id, value) => {
         const newSelectedAttribute = { id, value }; //Create a new object with user preferences
-        let userAttributes = [...this.state.selectedAttributes];
+        let userAttributes = [...this.state.selectedAttributes]; //Create a clone that I can manipulate
 
         const existingAttribute = userAttributes.find(
             (attribute) => attribute.id === newSelectedAttribute.id
         );
 
         if (existingAttribute) {
-            //find it in userAttributes and replace it
+            //if the user wants to update an attribute
             for (let i = 0; i < userAttributes.length; i++) {
                 if (userAttributes[i].id === newSelectedAttribute.id) {
+                    //look it up and replace it
                     userAttributes[i] = { ...newSelectedAttribute };
                 }
             }
@@ -135,7 +144,6 @@ export default class ProductDescriptionPage extends Component {
             allAttributesAreSelected,
         } = this.state;
         const { handleAddProduct } = this.props;
-        // console.log(individualProduct);
         return (
             <section className="individual-product">
                 {individualProduct && individualProduct.gallery && (

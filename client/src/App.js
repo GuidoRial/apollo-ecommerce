@@ -88,6 +88,9 @@ class App extends Component {
     /* CART LOGIC  */
 
     handleQuickAdd = (product) => {
+        //A much simpler add/updateQuantity function
+        //that will only work in products that
+        //don't have any attributes (see Product.js)
         let updatedProductList;
 
         let productAlreadyInCart = getProductFromCartByProduct(
@@ -142,21 +145,27 @@ class App extends Component {
             product,
             selectedAttributes
         );
+        /*
+            productAlreadyInCart would be a product that has the same id (i.e: "ps-5")
+            and that has the same attributes selected as the product I'm trying to add to the cart
+            because I should be able to buy a black ps5 for me and a white one for my brother 
+            on the same buy :)
+        */
 
         if (productAlreadyInCart) {
-            //If this product already exists in the cart
-            //Check that the objects in both attributes array are the same
-            //(If I want to buy a blue and a white iPhone on the same session, I should be able to do that)
+            //If there's already a product with these attributes, update it's quantity
             updatedProductList = this.updateCartQuantity(
                 "add",
                 productAlreadyInCart,
                 selectedAttributes
             );
         } else {
+            //Create a productClone that let's me update it
             let modifiedProduct = JSON.parse(JSON.stringify(product));
             let clone;
 
             for (let i = 0; i < product?.attributes?.length; i++) {
+                //Find the attributes that I selected
                 for (
                     let j = 0;
                     j < product?.attributes[i]?.items?.length;
@@ -170,7 +179,7 @@ class App extends Component {
                             ...product.attributes[i].items[j],
                         };
 
-                        clone.isSelected = true; // this works
+                        clone.isSelected = true; // add this marker so that it's easier to render later
                         modifiedProduct.attributes[i].items[j] = {
                             ...clone,
                         };
@@ -180,8 +189,8 @@ class App extends Component {
             updatedProductList = [
                 ...this.state.cartItems,
                 {
-                    ...modifiedProduct,
-                    selectedAttributes,
+                    ...modifiedProduct, //updated product with the isSelected marker
+                    selectedAttributes, //array of selectedAttributes to make this object easier to filter by id && selectedAttributes
                     quantity: 1,
                 },
             ];
