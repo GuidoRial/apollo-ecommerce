@@ -56,8 +56,6 @@ a {
     align-items: center;
 }
 
-
-
 .menu-item {
     z-index: 9999;
     cursor: pointer;
@@ -73,6 +71,17 @@ a {
 
 .menu-item:hover {
     background-color: #eeeeee;
+}
+
+.curtain {
+    z-index: 1000;
+    position: absolute;
+    top: 58px;
+    right: 0;
+    width: 100vw;
+    height: 180vh;
+    background-color: var(--black);
+    opacity: 0.5;
 }
 
 @media (max-width: 769px) {

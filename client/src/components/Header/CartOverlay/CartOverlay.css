@@ -1,12 +1,11 @@
 #cartOverlay {
-    width: 500px;
-    right: -160px;
+    width: 32rem;
+    right: -11rem;
     background-color: var(--white);
     align-items: flex-start;
     padding: 1rem;
     overflow: auto;
     gap: 0.5rem;
-    height: auto;
 }
 
 .bag-count {

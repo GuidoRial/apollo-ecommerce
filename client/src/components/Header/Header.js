@@ -67,6 +67,7 @@ export default class Header extends Component {
         const { dropdownMenu, cartOverlayMenu, amountOfItems } = this.state;
         return (
             <nav className="nav-bar">
+                {cartOverlayMenu && <div className="curtain"></div>}
                 <ul className="categories">
                     {categories.map((category) => (
                         <li
@@ -82,7 +83,15 @@ export default class Header extends Component {
                     <img className="e-logo" src={Logo} alt="e-commerce-logo" />
                 </Link>
                 <div className="currency-cart">
-                    <p>{selectedCurrency}</p>
+                    <p
+                        onClick={() =>
+                            this.setState({
+                                dropdownMenu: !dropdownMenu,
+                            })
+                        }
+                    >
+                        {selectedCurrency}
+                    </p>
                     <img
                         onClick={() =>
                             this.setState({

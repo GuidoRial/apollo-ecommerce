@@ -49,13 +49,12 @@ export default class CartOverlay extends Component {
             cartItems,
             selectedCurrency,
             amountOfItems,
-            cartOverlayMenu,
             alternateCartOverlayMenuStatus,
             handleAddProduct,
             handleRemoveProduct,
         } = this.props;
         const { total } = this.state;
-        console.log(cartItems);
+
         return (
             <div className="dropdown" id="cartOverlay">
                 <div className="bag-count">
