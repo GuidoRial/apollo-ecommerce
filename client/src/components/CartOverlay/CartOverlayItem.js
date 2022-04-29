@@ -47,9 +47,9 @@ export default class CartOverlayItem extends Component {
                     ))}
                 </div>
                 <div className="cart-overlay-buttons">
-                    <button>+</button>
+                    <button className="cart-overlay-button">+</button>
                     <p className="bold-text">{item.quantity}</p>
-                    <button>-</button>
+                    <button className="cart-overlay-button">-</button>
                 </div>
                 <div className="cart-overlay-image-container">
                     <img

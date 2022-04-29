@@ -10,7 +10,7 @@ export default class Attribute extends Component {
     }
 
     render() {
-        const { attribute, selectedAttributes, handleSelectedAttributes } =
+        const { attribute, handleSelectedAttributes } =
             this.props;
         return (
             <div>

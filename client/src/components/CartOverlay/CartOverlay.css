@@ -1,6 +1,6 @@
 #cartOverlay {
-    width: 400px;
-    right: -120px;
+    width: 500px;
+    right: -160px;
     background-color: var(--white);
     align-items: flex-start;
     padding: 1rem;
@@ -13,4 +13,10 @@
     display: flex;
     align-items: center;
     gap: 0.3rem;
+}
+
+.cart-overlay-total-price {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
