@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import DropdownCurrencyMenu from "./DropdownCurrencyMenu/DropdownCurrencyMenu";
-import CartOverlay from "../CartOverlay/CartOverlay";
+import CartOverlay from "./CartOverlay/CartOverlay";
 import Logo from "../../Assets/Icons/logo.svg";
 import EmptyCart from "../../Assets/Icons/EmptyCart.svg";
 import DropdownOff from "../../Assets/Icons/DropdownOff.svg";
@@ -17,7 +17,15 @@ export default class Header extends Component {
             amountOfItems: 0,
         };
         this.calculateAmountOfItems = this.calculateAmountOfItems.bind(this);
+        this.alternateCartOverlayMenuStatus =
+            this.alternateCartOverlayMenuStatus.bind(this);
     }
+
+    alternateCartOverlayMenuStatus = () => {
+        this.setState({
+            cartOverlayMenu: !this.state.cartOverlayMenu,
+        });
+    };
 
     calculateAmountOfItems = (cartItems) => {
         let initialValue = 0;
@@ -90,13 +98,9 @@ export default class Header extends Component {
                     <img
                         src={EmptyCart}
                         alt="empty cart"
-                        onClick={() =>
-                            this.setState({
-                                cartOverlayMenu: !cartOverlayMenu,
-                            })
-                        }
+                        onClick={this.alternateCartOverlayMenuStatus}
                     />
-                   
+
                     {cartItems.length > 0 && (
                         <ItemCounter amountOfItems={amountOfItems} />
                     )}
@@ -106,6 +110,10 @@ export default class Header extends Component {
                             cartItems={cartItems}
                             selectedCurrency={selectedCurrency}
                             amountOfItems={amountOfItems}
+                            cartOverlayMenu={cartOverlayMenu}
+                            alternateCartOverlayMenuStatus={
+                                this.alternateCartOverlayMenuStatus
+                            }
                         />
                     )}
                     {dropdownMenu && (

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import uniqid from "uniqid";
 import CartOverlayItem from "./CartOverlayItem";
 import "./CartOverlay.css";
+import { Link } from "react-router-dom";
 
 export default class CartOverlay extends Component {
     constructor(props) {
@@ -33,7 +34,13 @@ export default class CartOverlay extends Component {
     }
 
     render() {
-        const { cartItems, selectedCurrency, amountOfItems } = this.props;
+        const {
+            cartItems,
+            selectedCurrency,
+            amountOfItems,
+            cartOverlayMenu,
+            alternateCartOverlayMenuStatus,
+        } = this.props;
         const { total } = this.state;
 
         return (
@@ -63,8 +70,26 @@ export default class CartOverlay extends Component {
                     </p>
                 </div>
                 <div className="bag-and-checkout-buttons">
-                    <button>VIEW BAG</button>
-                    <button>CHECK OUT</button>
+                    <Link to={"/cart"}>
+                        <button
+                            onClick={() => alternateCartOverlayMenuStatus()}
+                            className="cart-overlay-action-buttons"
+                            id="viewBagButton"
+                        >
+                            VIEW BAG
+                        </button>
+                    </Link>
+                    <button
+                        onClick={() =>
+                            alert(
+                                "I should be a function in charge of handling checkout, I'm just an alert instead"
+                            )
+                        }
+                        className="cart-overlay-action-buttons"
+                        id="checkOutButton"
+                    >
+                        CHECK OUT
+                    </button>
                 </div>
             </div>
         );

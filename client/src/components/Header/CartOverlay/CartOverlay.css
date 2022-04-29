@@ -1,0 +1,48 @@
+#cartOverlay {
+    width: 500px;
+    right: -160px;
+    background-color: var(--white);
+    align-items: flex-start;
+    padding: 1rem;
+    overflow: auto;
+    gap: 0.5rem;
+    height: auto;
+}
+
+.bag-count {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.cart-overlay-total-price {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bag-and-checkout-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.cart-overlay-action-buttons {
+    cursor: pointer;
+    width: 10rem;
+    height: 3rem;
+    border: none;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+#viewBagButton {
+    border: 1px solid var(--black);
+    background-color: var(--white);
+    color: var(--black);
+}
+
+#checkOutButton {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
