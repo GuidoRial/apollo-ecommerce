@@ -6,11 +6,30 @@ import Logo from "../../Assets/Icons/logo.svg";
 import EmptyCart from "../../Assets/Icons/EmptyCart.svg";
 import DropdownOff from "../../Assets/Icons/DropdownOff.svg";
 import "./Header.css";
+import ItemCounter from "./ItemCounter";
 
 export default class Header extends Component {
     constructor(props) {
         super(props);
-        this.state = { dropdownMenu: false, cartOverlayMenu: false };
+        this.state = {
+            dropdownMenu: false,
+            cartOverlayMenu: false,
+            amountOfItems: 0,
+        };
+        this.calculateAmountOfItems = this.calculateAmountOfItems.bind(this);
+    }
+
+    calculateAmountOfItems = (cartItems) => {
+        let initialValue = 0;
+        for (let item of cartItems) {
+            initialValue += item.quantity;
+        }
+
+        this.setState({ amountOfItems: initialValue });
+    };
+
+    componentDidMount() {
+        this.calculateAmountOfItems(this.props.cartItems);
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -20,9 +39,12 @@ export default class Header extends Component {
         ) {
             nextState.dropdownMenu = false;
         }
+        if (this.props.cartItems !== nextProps.cartItems) {
+            this.calculateAmountOfItems(nextProps.cartItems);
+        }
+
         return true;
     }
-
     render() {
         const {
             categories,
@@ -32,7 +54,7 @@ export default class Header extends Component {
             handleSelectedCurrencyChange,
             cartItems,
         } = this.props;
-        const { dropdownMenu, cartOverlayMenu } = this.state;
+        const { dropdownMenu, cartOverlayMenu, amountOfItems } = this.state;
         return (
             <nav className="nav-bar">
                 <ul className="categories">
@@ -74,10 +96,16 @@ export default class Header extends Component {
                             })
                         }
                     />
+                   
+                    {cartItems.length > 0 && (
+                        <ItemCounter amountOfItems={amountOfItems} />
+                    )}
+
                     {cartOverlayMenu && (
                         <CartOverlay
                             cartItems={cartItems}
                             selectedCurrency={selectedCurrency}
+                            amountOfItems={amountOfItems}
                         />
                     )}
                     {dropdownMenu && (
