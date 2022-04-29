@@ -61,6 +61,8 @@ export default class Header extends Component {
             currencies,
             handleSelectedCurrencyChange,
             cartItems,
+            handleAddProduct,
+            handleRemoveProduct,
         } = this.props;
         const { dropdownMenu, cartOverlayMenu, amountOfItems } = this.state;
         return (
@@ -107,6 +109,8 @@ export default class Header extends Component {
 
                     {cartOverlayMenu && (
                         <CartOverlay
+                            handleAddProduct={handleAddProduct}
+                            handleRemoveProduct={handleRemoveProduct}
                             cartItems={cartItems}
                             selectedCurrency={selectedCurrency}
                             amountOfItems={amountOfItems}

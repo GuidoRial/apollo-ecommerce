@@ -198,15 +198,26 @@ class App extends Component {
         this.setState({ cartItems: updatedProductList });
     };
 
-    handleRemoveProduct = (product) => {
+    handleRemoveProduct = (product, selectedAttributes) => {
         let updatedProductList;
 
-        if (this.getProductFromCart(product).quantity > 1) {
-            updatedProductList = this.updateCartQuantity("substract", product);
-        } else {
-            updatedProductList = this.state.cartItems.filter(
-                (item) => item.id === product.id
+        let productAlreadyInCart = getProductFromCartByProduct(
+            this.state.cartItems,
+            product,
+            selectedAttributes
+        );
+
+        if (productAlreadyInCart.quantity > 1) {
+            updatedProductList = this.updateCartQuantity(
+                "subtract",
+                productAlreadyInCart,
+                selectedAttributes
             );
+        } else {
+            const products = [...this.state.cartItems];
+            const indexOfProduct = products.indexOf(productAlreadyInCart);
+            products.splice(indexOfProduct, 1);
+            updatedProductList = products;
         }
 
         this.setState({ cartItems: updatedProductList });
@@ -233,6 +244,8 @@ class App extends Component {
                             this.handleSelectedCurrencyChange
                         }
                         cartItems={cartItems}
+                        handleAddProduct={this.handleAddProduct}
+                        handleRemoveProduct={this.handleRemoveProduct}
                     />
                     <Routes>
                         <Route
@@ -255,7 +268,10 @@ class App extends Component {
                                 />
                             }
                         />
-                        <Route path="/cart" element={<Cart />} />
+                        <Route
+                            path="/cart"
+                            element={<Cart cartItems={cartItems} />}
+                        />
                     </Routes>
                 </BrowserRouter>
             </div>

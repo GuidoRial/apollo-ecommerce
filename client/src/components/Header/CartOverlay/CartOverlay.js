@@ -11,7 +11,7 @@ export default class CartOverlay extends Component {
         this.getTotalPrice = this.getTotalPrice.bind(this);
     }
 
-    getTotalPrice = (selectedCurrency, cart, amountOfItems) => {
+    getTotalPrice = (selectedCurrency, cart) => {
         let totalPrice = 0;
 
         for (let item of cart) {
@@ -33,6 +33,17 @@ export default class CartOverlay extends Component {
         );
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props.cartItems !== nextProps.cartItems) {
+            this.getTotalPrice(
+                this.props.selectedCurrency,
+                nextProps.cartItems,
+                this.props.amountOfItems
+            );
+        }
+        return true;
+    }
+
     render() {
         const {
             cartItems,
@@ -40,9 +51,11 @@ export default class CartOverlay extends Component {
             amountOfItems,
             cartOverlayMenu,
             alternateCartOverlayMenuStatus,
+            handleAddProduct,
+            handleRemoveProduct,
         } = this.props;
         const { total } = this.state;
-
+        console.log(cartItems);
         return (
             <div className="dropdown" id="cartOverlay">
                 <div className="bag-count">
@@ -60,6 +73,8 @@ export default class CartOverlay extends Component {
                         key={uniqid()}
                         item={item}
                         selectedCurrency={selectedCurrency}
+                        handleAddProduct={handleAddProduct}
+                        handleRemoveProduct={handleRemoveProduct}
                     />
                 ))}
                 <div className="cart-overlay-total-price">

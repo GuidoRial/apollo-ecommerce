@@ -24,7 +24,7 @@ export default class CartOverlayItem extends Component {
     }
 
     render() {
-        const { item } = this.props;
+        const { item, handleAddProduct, handleRemoveProduct } = this.props;
         const { productPrice } = this.state;
 
         return (
@@ -47,9 +47,23 @@ export default class CartOverlayItem extends Component {
                     ))}
                 </div>
                 <div className="cart-overlay-buttons">
-                    <button className="cart-overlay-button">+</button>
+                    <button
+                        className="cart-overlay-button"
+                        onClick={() =>
+                            handleAddProduct(item, item.selectedAttributes)
+                        }
+                    >
+                        +
+                    </button>
                     <p className="bold-text">{item.quantity}</p>
-                    <button className="cart-overlay-button">-</button>
+                    <button
+                        className="cart-overlay-button"
+                        onClick={() =>
+                            handleRemoveProduct(item, item.selectedAttributes)
+                        }
+                    >
+                        -
+                    </button>
                 </div>
                 <div className="cart-overlay-image-container">
                     <img
