@@ -7,6 +7,7 @@ import ProductDescriptionPage from "./components/ProductDescriptionPage/ProductD
 import Cart from "./components/Cart/Cart";
 import Header from "./components/Header/Header";
 import "./App.css";
+import { getProductFromCartByProduct } from "./aux";
 
 class App extends Component {
     constructor() {
@@ -25,11 +26,7 @@ class App extends Component {
         this.fetchCategories = this.fetchCategories.bind(this);
         this.fetchStoreItems = this.fetchStoreItems.bind(this);
         this.fetchCurrencies = this.fetchCurrencies.bind(this);
-        this.getProductById = this.getProductById.bind(this);
         this.handleQuickAdd = this.handleQuickAdd.bind(this);
-        this.getProductFromCartByProduct =
-            this.getProductFromCartByProduct.bind(this);
-        this.allAttributesAreTheSame = this.allAttributesAreTheSame.bind(this);
         this.updateCartQuantity = this.updateCartQuantity.bind(this);
         this.handleAddProduct = this.handleAddProduct.bind(this);
         this.handleRemoveProduct = this.handleRemoveProduct.bind(this);
@@ -90,21 +87,20 @@ class App extends Component {
 
     /* CART LOGIC  */
 
-    getProductById = (product) => {
-        let storeItem = this.state.cartItems.find(
-            (item) => item.id === product.id
-        );
-        return storeItem;
-    };
+    /* DELETE SOON */
 
-    handleQuickAdd = (product) => {
+    handleQuickAdd = (product, selectedAttributes) => {
         let updatedProductList;
 
-        let productAlreadyExists = this.getProductById(product);
+        let productAlreadyInCart = getProductFromCartByProduct(
+            this.state.cartItems,
+            product,
+            selectedAttributes
+        );
 
-        if (productAlreadyExists) {
+        if (productAlreadyInCart) {
             const indexOfProduct =
-                this.state.cartItems.indexOf(productAlreadyExists);
+                this.state.cartItems.indexOf(productAlreadyInCart);
             const products = [...this.state.cartItems];
 
             products[indexOfProduct].quantity += 1;
@@ -122,50 +118,9 @@ class App extends Component {
         this.setState({ cartItems: updatedProductList });
     };
 
-    getProductFromCartByProduct(product, selectedAttributes) {
-        let item;
-
-        let productsById = this.state.cartItems.filter(
-            (item) => item.id === product.id
-        );
-
-        productsById.forEach((product) => {
-            if (this.allAttributesAreTheSame(selectedAttributes, product)) {
-                item = product;
-            }
-        });
-
-        return item;
-    }
-
-    allAttributesAreTheSame = (firstArray, secondArray) => {
-        const objectsAreEqual = (o1, o2) =>
-            Object.values(o1)[1] === Object.values(o2)[1];
-
-        let truthyValuesCounter = 0;
-        let i = 0;
-
-        while (i < firstArray.length) {
-            //Given that you can't add to cart unless you selected one attribute of each of the available ones for that product, the length of the product in cart and the one you're adding right now is always the same
-
-            if (
-                objectsAreEqual(
-                    firstArray[i],
-                    secondArray?.selectedAttributes[i]
-                )
-            ) {
-                truthyValuesCounter += 1;
-            }
-            i += 1;
-        }
-
-        if (truthyValuesCounter === firstArray.length) {
-            return true;
-        }
-    };
-
     updateCartQuantity(operation, product, selectedAttributes) {
-        const item = this.getProductFromCartByProduct(
+        const item = getProductFromCartByProduct(
+            this.state.cartItems,
             product,
             selectedAttributes
         );
@@ -185,7 +140,8 @@ class App extends Component {
 
     handleAddProduct = (product, selectedAttributes) => {
         let updatedProductList;
-        let productAlreadyInCart = this.getProductFromCartByProduct(
+        let productAlreadyInCart = getProductFromCartByProduct(
+            this.state.cartItems,
             product,
             selectedAttributes
         );
@@ -223,7 +179,6 @@ class App extends Component {
                         };
                     }
                 }
-
             }
             updatedProductList = [
                 ...this.state.cartItems,
