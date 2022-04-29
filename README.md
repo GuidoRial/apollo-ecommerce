@@ -1,31 +1,22 @@
 # Scandiweb Jr. React Developer TEST - Guido Rial
 
+## useContext candidates
+
+1. currencies
+    - App.js => Header.js => DropdownCurrencyMenu.js
+2. handleSelectedCurrencyChange
+    - App.js => Header.js => DropdownCurrencyMenu.js => DropdownItem.js
+3. cartItems
+    - App.js => Header.js => CartOverlay.js
+4. selectedCurrency
+    - App.js => ProductListingPage.js => Product.js
+5. handleQuickAdd
+    - App.js => ProductListingPage.js => Product.js
+
 ## Todo
 
-1. Build cart logic
-   a. Cart should be state in App.js
-   b. cartProductObject = {
-   brand,
-   name,
-   currentPrice
-   selectedAttributes
-   photos
-   }
-   c. By components:
-    1. Header
-        - count cart length and put it over the icon
-        - On cart click, open cart overlay
-        - Cart Overlay
-            - Display cartProductObject
-            - Besides that, it should display:
-                1. Total price
-                2. Button to send you to cart page
-                3. Checkout button
-    2. Product Listing Page
-        - Fast add to cart button
-    3. Product Description Page
-        - Add visual representation of selected attributes
-        - Add to cart button
+1. Finish cartOverlay
+2. Create Cart
 
 ## Functionality Requirements
 

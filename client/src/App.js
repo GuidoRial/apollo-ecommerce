@@ -1,13 +1,13 @@
 import { Component } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { client } from "./index";
-import { getProductsByCategory, getCategories, getCurrencies } from "./queries";
 import ProductListingPage from "./components/ProductListingPage/ProductListingPage";
 import ProductDescriptionPage from "./components/ProductDescriptionPage/ProductDescriptionPage";
 import Cart from "./components/Cart/Cart";
 import Header from "./components/Header/Header";
-import "./App.css";
 import { getProductFromCartByProduct } from "./aux";
+import { client } from "./index";
+import { getProductsByCategory, getCategories, getCurrencies } from "./queries";
+import "./App.css";
 
 class App extends Component {
     constructor() {
@@ -210,6 +210,7 @@ class App extends Component {
             selectedCurrency,
             currencies,
             cartItems,
+            storeItems,
         } = this.state;
         return (
             <div className="App">
@@ -229,11 +230,9 @@ class App extends Component {
                             path="/"
                             element={
                                 <ProductListingPage
-                                    storeItems={this.state.storeItems}
+                                    storeItems={storeItems}
                                     currentCategory={currentCategory}
                                     selectedCurrency={selectedCurrency}
-                                    cartItems={cartItems}
-                                    handleAddProduct={this.handleAddProduct}
                                     handleQuickAdd={this.handleQuickAdd}
                                 />
                             }

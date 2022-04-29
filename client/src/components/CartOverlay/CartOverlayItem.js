@@ -24,9 +24,9 @@ export default class CartOverlayItem extends Component {
     }
 
     render() {
-        const { item, selectedCurrency } = this.props;
+        const { item } = this.props;
         const { productPrice } = this.state;
-        // console.log(item);
+
         return (
             <div className="cart-overlay-item">
                 <div className="cart-overlay-item-data">
@@ -40,7 +40,6 @@ export default class CartOverlayItem extends Component {
                     </div>
                     {item?.attributes.map((attribute) => (
                         <MiniAttribute
-                            item={item}
                             key={uniqid()}
                             attribute={attribute}
                             selectedAttributes={item.selectedAttributes}

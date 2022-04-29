@@ -4,7 +4,7 @@ import "./CartOverlayItem.css";
 
 export default class MiniAttribute extends Component {
     render() {
-        const { attribute, item } = this.props;
+        const { attribute } = this.props;
         return (
             <div key={uniqid()}>
                 <p className="mini-attribute-title">{attribute.name}:</p>

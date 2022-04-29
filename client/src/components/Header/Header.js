@@ -1,11 +1,11 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import DropdownCurrencyMenu from "./DropdownCurrencyMenu/DropdownCurrencyMenu";
+import CartOverlay from "../CartOverlay/CartOverlay";
 import Logo from "../../Assets/Icons/logo.svg";
 import EmptyCart from "../../Assets/Icons/EmptyCart.svg";
 import DropdownOff from "../../Assets/Icons/DropdownOff.svg";
 import "./Header.css";
-import { Link } from "react-router-dom";
-import DropdownCurrencyMenu from "./DropdownCurrencyMenu/DropdownCurrencyMenu";
-import CartOverlay from "../CartOverlay/CartOverlay";
 
 export default class Header extends Component {
     constructor(props) {
