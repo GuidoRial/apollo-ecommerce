@@ -32,6 +32,7 @@ export default class Header extends Component {
             handleSelectedCurrencyChange,
             cartItems,
         } = this.props;
+        const { dropdownMenu, cartOverlayMenu } = this.state;
         return (
             <nav className="nav-bar">
                 <ul className="categories">
@@ -53,11 +54,11 @@ export default class Header extends Component {
                     <img
                         onClick={() =>
                             this.setState({
-                                dropdownMenu: !this.state.dropdownMenu,
+                                dropdownMenu: !dropdownMenu,
                             })
                         }
                         style={
-                            this.state.dropdownMenu === false
+                            dropdownMenu === false
                                 ? null
                                 : { transform: "rotate(180deg)" }
                         }
@@ -69,23 +70,23 @@ export default class Header extends Component {
                         alt="empty cart"
                         onClick={() =>
                             this.setState({
-                                cartOverlayMenu: !this.state.cartOverlayMenu,
+                                cartOverlayMenu: !cartOverlayMenu,
                             })
                         }
                     />
-                    {this.state.cartOverlayMenu && (
+                    {cartOverlayMenu && (
                         <CartOverlay
                             cartItems={cartItems}
                             selectedCurrency={selectedCurrency}
                         />
                     )}
-                    {this.state.dropdownMenu && (
+                    {dropdownMenu && (
                         <DropdownCurrencyMenu
                             currencies={currencies}
                             handleSelectedCurrencyChange={
                                 handleSelectedCurrencyChange
                             }
-                            dropdownMenu={this.state.dropdownMenu}
+                            dropdownMenu={dropdownMenu}
                         />
                     )}
                 </div>

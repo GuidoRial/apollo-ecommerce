@@ -33,8 +33,7 @@ export default class Product extends Component {
     }
 
     render() {
-        const { item, cartItems, handleAddProduct, handleQuickAdd } =
-            this.props;
+        const { item, handleQuickAdd } = this.props;
         return (
             <div
                 className="product-card"

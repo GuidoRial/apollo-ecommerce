@@ -87,15 +87,12 @@ class App extends Component {
 
     /* CART LOGIC  */
 
-    /* DELETE SOON */
-
-    handleQuickAdd = (product, selectedAttributes) => {
+    handleQuickAdd = (product) => {
         let updatedProductList;
 
         let productAlreadyInCart = getProductFromCartByProduct(
             this.state.cartItems,
-            product,
-            selectedAttributes
+            product
         );
 
         if (productAlreadyInCart) {
@@ -207,19 +204,25 @@ class App extends Component {
     };
 
     render() {
+        const {
+            categories,
+            currentCategory,
+            selectedCurrency,
+            currencies,
+            cartItems,
+        } = this.state;
         return (
             <div className="App">
                 <BrowserRouter>
                     <Header
-                        categories={this.state.categories}
-                        currentCategory={this.state.currentCategory}
+                        categories={categories}
                         handleCategoryChange={this.handleCategoryChange}
-                        selectedCurrency={this.state.selectedCurrency}
-                        currencies={this.state.currencies}
+                        selectedCurrency={selectedCurrency}
+                        currencies={currencies}
                         handleSelectedCurrencyChange={
                             this.handleSelectedCurrencyChange
                         }
-                        cartItems={this.state.cartItems}
+                        cartItems={cartItems}
                     />
                     <Routes>
                         <Route
@@ -227,11 +230,9 @@ class App extends Component {
                             element={
                                 <ProductListingPage
                                     storeItems={this.state.storeItems}
-                                    currentCategory={this.state.currentCategory}
-                                    selectedCurrency={
-                                        this.state.selectedCurrency
-                                    }
-                                    cartItems={this.state.cartItems}
+                                    currentCategory={currentCategory}
+                                    selectedCurrency={selectedCurrency}
+                                    cartItems={cartItems}
                                     handleAddProduct={this.handleAddProduct}
                                     handleQuickAdd={this.handleQuickAdd}
                                 />
@@ -241,11 +242,7 @@ class App extends Component {
                             path="/products/:id"
                             element={
                                 <ProductDescriptionPage
-                                    productId={this.state.productId}
-                                    selectedCurrency={
-                                        this.state.selectedCurrency
-                                    }
-                                    cartItems={this.state.cartItems}
+                                    selectedCurrency={selectedCurrency}
                                     handleAddProduct={this.handleAddProduct}
                                 />
                             }

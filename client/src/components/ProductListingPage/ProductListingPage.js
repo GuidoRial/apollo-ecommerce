@@ -24,8 +24,6 @@ export default class ProductListingPage extends Component {
                                   key={item.id}
                                   item={item}
                                   selectedCurrency={selectedCurrency}
-                                  cartItems={cartItems}
-                                  handleAddProduct={handleAddProduct}
                                   handleQuickAdd={handleQuickAdd}
                               />
                           ))

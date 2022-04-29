@@ -127,8 +127,13 @@ export default class ProductDescriptionPage extends Component {
     }
 
     render() {
-        const { individualProduct, selectedImage, selectedAttributes } =
-            this.state;
+        const {
+            individualProduct,
+            selectedImage,
+            selectedAttributes,
+            productPrice,
+            allAttributesAreSelected,
+        } = this.state;
         const { handleAddProduct } = this.props;
         // console.log(individualProduct);
         return (
@@ -170,14 +175,14 @@ export default class ProductDescriptionPage extends Component {
                             handleSelectedAttributes={
                                 this.handleSelectedAttributes
                             }
-                            selectedAttributes={this.state.selectedAttributes}
+                            selectedAttributes={selectedAttributes}
                         />
                     ))}
 
                     <p className="price-text">PRICE: </p>
                     <p className="product-price">
-                        {this.state.productPrice?.currency?.symbol}
-                        {this.state.productPrice?.amount}
+                        {productPrice?.currency?.symbol}
+                        {productPrice?.amount}
                     </p>
                     <button
                         onClick={() =>
@@ -189,11 +194,11 @@ export default class ProductDescriptionPage extends Component {
                         className="add-to-cart-button"
                         disabled={
                             !individualProduct.inStock ||
-                            !this.state.allAttributesAreSelected
+                            !allAttributesAreSelected
                         }
                         style={
                             individualProduct.inStock &&
-                            this.state.allAttributesAreSelected
+                            allAttributesAreSelected
                                 ? { opacity: "1" }
                                 : { opacity: "0.8", cursor: "not-allowed" }
                         }
