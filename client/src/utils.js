@@ -42,3 +42,11 @@ export const getProductFromCartByProduct = (
 
     return item;
 };
+
+export const getPrice = (prices, currency) => {
+    const [correctPrice] = prices.filter(
+        (price) => price.currency.symbol === currency
+    );
+
+    return correctPrice;
+};

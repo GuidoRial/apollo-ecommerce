@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import uniqid from "uniqid";
 import MiniAttribute from "./MiniAttribute";
 import "./CartOverlayItem.css";
+import { getPrice } from "../../../utils";
 
 export default class CartOverlayItem extends Component {
     constructor(props) {
@@ -9,18 +10,15 @@ export default class CartOverlayItem extends Component {
         this.state = {
             productPrice: "",
         };
-        this.filterCorrectPrice = this.filterCorrectPrice.bind(this);
     }
 
-    filterCorrectPrice = (item, selectedCurrency) => {
-        const [correctPrice] = item?.prices?.filter(
-            (price) => price.currency.symbol === selectedCurrency
-        );
-        this.setState({ productPrice: correctPrice });
-    };
-
     componentDidMount() {
-        this.filterCorrectPrice(this.props.item, this.props.selectedCurrency);
+        this.setState({
+            productPrice: getPrice(
+                this.props.item.prices,
+                this.props.selectedCurrency
+            ),
+        });
     }
 
     render() {

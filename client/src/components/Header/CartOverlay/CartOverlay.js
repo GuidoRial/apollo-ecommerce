@@ -3,6 +3,7 @@ import uniqid from "uniqid";
 import CartOverlayItem from "./CartOverlayItem";
 import "./CartOverlay.css";
 import { Link } from "react-router-dom";
+import { getPrice } from "../../../utils";
 
 export default class CartOverlay extends Component {
     constructor(props) {
@@ -15,11 +16,9 @@ export default class CartOverlay extends Component {
         let totalPrice = 0;
 
         for (let item of cart) {
-            const [correctPrice] = item?.prices?.filter(
-                (price) => price.currency.symbol === selectedCurrency
-            );
-
+            const correctPrice = getPrice(item.prices, selectedCurrency);
             totalPrice += correctPrice.amount * item.quantity;
+            totalPrice.toFixed(2);
         }
 
         this.setState({ total: totalPrice });

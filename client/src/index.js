@@ -11,6 +11,8 @@ import {
 
 export const client = new ApolloClient({
     uri: "http://localhost:4000",
+    //This line would need to be changed if 
+    //
     cache: new InMemoryCache(),
 });
 

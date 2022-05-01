@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { getPrice } from "../../utils";
 import WhiteEmptyCart from "../../Assets/Icons/WhiteEmptyCart.svg";
 
 export default class Product extends Component {
@@ -8,29 +9,26 @@ export default class Product extends Component {
         this.state = {
             productPrice: "",
         };
-        this.filterCorrectPrice = this.filterCorrectPrice.bind(this);
     }
 
     componentDidMount() {
-        this.filterCorrectPrice(this.props.item, this.props.selectedCurrency);
+        this.setState({
+            productPrice: getPrice(
+                this.props.item.prices,
+                this.props.selectedCurrency
+            ),
+        });
     }
-
-    filterCorrectPrice = (item, selectedCurrency) => {
-        //Take the object and the user currency preference
-        const [correctPrice] = item?.prices?.filter(
-            (price) => price.currency.symbol === selectedCurrency
-            //Return the price that matches with the selectedCurrency
-        );
-        this.setState({ productPrice: correctPrice });
-    };
 
     shouldComponentUpdate(nextProps) {
         if (this.props.selectedCurrency !== nextProps.selectedCurrency) {
             //If selectedCurrency changes, auto-update everything related to this :)
-            this.filterCorrectPrice(
-                this.props.item,
-                nextProps.selectedCurrency
-            );
+            this.setState({
+                productPrice: getPrice(
+                    this.props.item.prices,
+                    nextProps.selectedCurrency
+                ),
+            });
         }
         return true;
     }

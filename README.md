@@ -15,8 +15,8 @@
 
 ## Todo
 
-1. Finish cartOverlay
-2. Create Cart
+1. Create Cart
+2. Add LocalStorage
 
 ## Functionality Requirements
 

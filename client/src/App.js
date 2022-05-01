@@ -4,7 +4,7 @@ import ProductListingPage from "./components/ProductListingPage/ProductListingPa
 import ProductDescriptionPage from "./components/ProductDescriptionPage/ProductDescriptionPage";
 import Cart from "./components/Cart/Cart";
 import Header from "./components/Header/Header";
-import { getProductFromCartByProduct } from "./aux";
+import { getProductFromCartByProduct } from "./utils";
 import { client } from "./index";
 import { getProductsByCategory, getCategories, getCurrencies } from "./queries";
 import "./App.css";
@@ -47,36 +47,30 @@ class App extends Component {
 
     /* INITIALIZING STORE  */
     fetchCategories = async () => {
-        await client
-            .query({
-                query: getCategories,
-            })
-            .then((result) => {
-                const categories = result.data.categories;
-                this.setState({ categories: categories });
-            });
+        const result = await client.query({
+            query: getCategories,
+        });
+
+        const categories = await result.data.categories;
+        this.setState({ categories: categories });
     };
 
     fetchStoreItems = async (category) => {
-        await client
-            .query({
-                query: getProductsByCategory,
-                variables: {
-                    title: category,
-                },
-            })
-            .then((result) => {
-                const items = result.data.category.products;
-                this.setState({ storeItems: items });
-            });
+        const result = await client.query({
+            query: getProductsByCategory,
+            variables: {
+                title: category,
+            },
+        });
+
+        const items = await result.data.category.products;
+        this.setState({ storeItems: items });
     };
 
     fetchCurrencies = async () => {
-        await client
-            .query({ query: getCurrencies })
-            .then((result) =>
-                this.setState({ currencies: result.data.currencies })
-            );
+        const result = await client.query({ query: getCurrencies });
+        const currencies = await result.data.currencies;
+        this.setState({ currencies: currencies });
     };
 
     componentDidMount() {

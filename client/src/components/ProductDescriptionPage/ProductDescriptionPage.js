@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import DOMPurify from "dompurify";
 import { client } from "../..";
 import { getProductById } from "../../queries";
 import Attribute from "./Attribute";
+import { getPrice } from "../../utils";
 import "./ProductDescriptionPage.css";
 
 export default class ProductDescriptionPage extends Component {
@@ -16,7 +18,7 @@ export default class ProductDescriptionPage extends Component {
         };
         this.getId = this.getId.bind(this);
         this.fetchProduct = this.fetchProduct.bind(this);
-        this.filterCorrectPrice = this.filterCorrectPrice.bind(this);
+
         this.handleSelectedAttributes =
             this.handleSelectedAttributes.bind(this);
         this.handleAllAttributesAreSelected =
@@ -25,51 +27,36 @@ export default class ProductDescriptionPage extends Component {
             this.handleProductHasNoAttributes.bind(this);
     }
 
-    filterCorrectPrice = (item, selectedCurrency) => {
-        //In ProductListingPage.js is an exact copy of this function
-        //I considered sending it to an aux.js but
-        //It's really short and works as a setter for productPrice
-        //so it was easier to repeat myself in this case
-        const [correctPrice] = item?.prices?.filter(
-            (price) => price.currency.symbol === selectedCurrency
-        );
-        this.setState({ productPrice: correctPrice });
-    };
-
     fetchProduct = async (productId) => {
-        await client
-            .query({
-                query: getProductById,
-                variables: {
-                    id: productId,
-                },
-            })
-            .then((result) => {
-                this.setState({ individualProduct: result.data.product });
-            })
-            .then(() => {
-                this.filterCorrectPrice(
-                    this.state.individualProduct,
-                    this.props.selectedCurrency
-                );
-            })
-            .then(() => {
-                this.handleProductHasNoAttributes();
-            });
+        const result = await client.query({
+            query: getProductById,
+            variables: {
+                id: productId,
+            },
+        });
+        const product = await result.data.product;
+        this.setState({ individualProduct: product });
+
+        this.setState({
+            productPrice: getPrice(product.prices, this.props.selectedCurrency),
+        });
+
+        this.handleProductHasNoAttributes();
     };
+    /*
+     *useParams was banned because functional components are not allowed.
+     *I thought about using a Higher Order Component but
+     *by definition they are a function that takes a component as a parameter and returns a component,
+     *thus making it a functional component which is not allowed.
+     *I considered using withRouter (https://reactrouter.com/docs/en/v6/faq#what-happened-to-withrouter-i-need-it)
+     *but I wont because of the reasons disclosed above.
+     *
+     *My solution to this problem was to isolate the id by manipulating the window.location object
+     *until it always return whatever is after /products/, therefore, returning the product id
+     * @returns productId from URL
+     */
 
     getId = () => {
-        /* 
-            useParams was banned because functional components are not allowed.
-            I thought about using a Higher Order Component but 
-            by definition they are a function that takes a component as a parameter and returns a component, 
-            thus making it a functional component which is not allowed.
-            I considered using withRouter (https://reactrouter.com/docs/en/v6/faq#what-happened-to-withrouter-i-need-it) 
-            but I wont because of the reasons disclosed above.
-            
-            My solution to this problem was to isolate the id by manipulating the window.location object
-            until it always return whatever is after /products/, therefore, returning the product id
-            */
         const idFromURL = window.location.pathname.toString().substring(10);
 
         return idFromURL;
@@ -117,10 +104,13 @@ export default class ProductDescriptionPage extends Component {
     shouldComponentUpdate(nextProps, nextState) {
         if (this.props.selectedCurrency !== nextProps.selectedCurrency) {
             //Render correct currency on selectedCurrency change
-            this.filterCorrectPrice(
-                this.state.individualProduct,
-                nextProps.selectedCurrency
-            );
+
+            this.setState({
+                productPrice: getPrice(
+                    this.state.individualProduct.prices,
+                    nextProps.selectedCurrency
+                ),
+            });
         }
 
         if (
@@ -175,7 +165,6 @@ export default class ProductDescriptionPage extends Component {
                 <div className="product-data">
                     <p className="product-brand">{individualProduct.brand}</p>
                     <p className="product-name">{individualProduct.name}</p>
-
                     {individualProduct?.attributes?.map((attribute) => (
                         <Attribute
                             key={attribute.id}
@@ -186,7 +175,6 @@ export default class ProductDescriptionPage extends Component {
                             selectedAttributes={selectedAttributes}
                         />
                     ))}
-
                     <p className="price-text">PRICE: </p>
                     <p className="product-price">
                         {productPrice?.currency?.symbol}
@@ -218,9 +206,19 @@ export default class ProductDescriptionPage extends Component {
                     <div
                         className="product-description"
                         dangerouslySetInnerHTML={{
-                            __html: individualProduct.description,
+                            __html: DOMPurify.sanitize(
+                                individualProduct.description
+                            ),
                         }}
                     />
+                    {/* 
+                    Cross-Site Scripting (XSS) attacks are a type of injection, in which malicious scripts are injected into otherwise benign and trusted websites.
+                    XSS attacks occur when an attacker uses a web application to send malicious code, 
+                    generally in the form of a browser side script, to a different end user. 
+                    DOMPurify sanitizes HTML and prevents XSS attacks. 
+                    You can feed DOMPurify with string full of dirty HTML and it will return a string (unless configured otherwise) with clean HTML. 
+                    DOMPurify will strip out everything that contains dangerous HTML and thereby prevent XSS attacks and other nastiness.
+                    */}
                 </div>
             </section>
         );
