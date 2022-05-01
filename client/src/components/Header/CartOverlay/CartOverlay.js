@@ -18,9 +18,9 @@ export default class CartOverlay extends Component {
         for (let item of cart) {
             const correctPrice = getPrice(item.prices, selectedCurrency);
             totalPrice += correctPrice.amount * item.quantity;
-            totalPrice.toFixed(2);
         }
 
+        totalPrice = parseFloat(totalPrice.toFixed(2));
         this.setState({ total: totalPrice });
     };
 
