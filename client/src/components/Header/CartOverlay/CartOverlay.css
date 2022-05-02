@@ -1,11 +1,12 @@
 #cartOverlay {
-    width: 32rem;
+    width: 33rem;
     right: -11rem;
     background-color: var(--white);
     align-items: flex-start;
     padding: 1rem;
-    overflow: auto;
+    overflow-y: auto;
     gap: 0.5rem;
+    height: auto;
 }
 
 .bag-count {
@@ -44,6 +45,11 @@
 #checkOutButton {
     background-color: var(--primary-color);
     color: var(--white);
+}
+
+#checkOutButton:hover,
+#viewBagButton:hover {
+    opacity: 0.8;
 }
 
 @media (max-width: 700px) {

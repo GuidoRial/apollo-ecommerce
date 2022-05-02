@@ -4,7 +4,7 @@
     justify-content: space-between;
     gap: 1rem;
     width: 100%;
-    cursor: default;
+
     height: 100%;
 }
 
@@ -13,11 +13,7 @@
     flex-direction: column;
     width: 40%;
 }
-.individual-button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 .mini-attribute-button-container {
     display: flex;
     flex-wrap: wrap;
@@ -30,9 +26,6 @@
     font-family: "Source Sans Pro", sans-serif;
     width: 45px;
     height: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     border: 2px solid #a6a6a6;
 }
 
@@ -55,9 +48,6 @@
 
 .cart-overlay-button {
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: var(--white);
     color: var(--black);
     font-size: 25px;
@@ -67,7 +57,7 @@
 }
 
 .cart-overlay-image {
-    width: 200px;
+    width: 150px;
     height: 200px;
     object-fit: cover;
 }

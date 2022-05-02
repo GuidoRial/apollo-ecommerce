@@ -10,8 +10,7 @@ export default class Attribute extends Component {
     }
 
     render() {
-        const { attribute, handleSelectedAttributes } =
-            this.props;
+        const { attribute, handleSelectedAttributes } = this.props;
         return (
             <div>
                 <p className="attribute-title">{attribute.id}:</p>
@@ -37,7 +36,7 @@ export default class Attribute extends Component {
                         >
                             {attribute.id === "Color" ? (
                                 <button
-                                    className="attribute-button"
+                                    className="attribute-button flex-justify-align"
                                     onClick={() =>
                                         this.setState({
                                             selectedAttribute: item.value,
@@ -50,7 +49,7 @@ export default class Attribute extends Component {
                                 ></button>
                             ) : (
                                 <button
-                                    className="attribute-button"
+                                    className="attribute-button flex-justify-align"
                                     onClick={() =>
                                         this.setState({
                                             selectedAttribute: item.value,

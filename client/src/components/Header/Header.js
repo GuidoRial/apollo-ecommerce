@@ -82,7 +82,7 @@ export default class Header extends Component {
                 <Link to="/">
                     <img className="e-logo" src={Logo} alt="e-commerce-logo" />
                 </Link>
-                <div className="currency-cart">
+                <div className="currency-cart flex-justify-align">
                     <p
                         onClick={() =>
                             this.setState({

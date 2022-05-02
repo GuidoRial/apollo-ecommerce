@@ -6,6 +6,8 @@
     background-color: var(--white);
     color: var(--black);
     z-index: 9999;
+    position: sticky;
+    top: 0;
 }
 
 ul {
@@ -35,9 +37,6 @@ a {
 
 .currency-cart {
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     gap: 0.5rem;
 }
 
@@ -54,6 +53,7 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: default;
 }
 
 .menu-item {
@@ -61,9 +61,6 @@ a {
     cursor: pointer;
     height: 40px;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     gap: 0.3rem;
     transition: background-color 0.3s;
     background-color: var(--white);
@@ -87,13 +84,6 @@ body {
     height: 100%;
     background-color: var(--black);
     opacity: 0.5;
-}
-
-@media (max-width: 769px) {
-    .nav-bar {
-        position: sticky;
-        top: 0;
-    }
 }
 
 @media (max-width: 500px) {

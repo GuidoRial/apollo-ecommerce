@@ -46,7 +46,7 @@ export default class CartOverlayItem extends Component {
                 </div>
                 <div className="cart-overlay-buttons">
                     <button
-                        className="cart-overlay-button"
+                        className="cart-overlay-button flex-justify-align"
                         onClick={() =>
                             handleAddProduct(item, item.selectedAttributes)
                         }
@@ -55,7 +55,7 @@ export default class CartOverlayItem extends Component {
                     </button>
                     <p className="bold-text">{item.quantity}</p>
                     <button
-                        className="cart-overlay-button"
+                        className="cart-overlay-button flex-justify-align"
                         onClick={() =>
                             handleRemoveProduct(item, item.selectedAttributes)
                         }

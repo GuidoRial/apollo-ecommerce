@@ -10,7 +10,8 @@ export default class MiniAttribute extends Component {
                 <p className="mini-attribute-title">{attribute.name}:</p>
                 <div className="mini-attribute-button-container">
                     {attribute?.items?.map((item) => (
-                        <div className="individual-button-container"
+                        <div
+                            className="flex-justify-align"
                             key={uniqid()}
                             style={
                                 attribute.id === "Color" && item.isSelected
@@ -28,7 +29,8 @@ export default class MiniAttribute extends Component {
                                         backgroundColor: `${item.value}`,
                                         border: "2px solid #D1D1D1",
                                     }}
-                                    className="mini-attribute-button" id="miniAttributeColorButton"
+                                    className="mini-attribute-button flex-justify-align"
+                                    id="miniAttributeColorButton"
                                 ></button>
                             ) : (
                                 <button
@@ -43,7 +45,7 @@ export default class MiniAttribute extends Component {
                                                   color: "#A6A6A6",
                                               }
                                     }
-                                    className="mini-attribute-button"
+                                    className="mini-attribute-button flex-justify-align"
                                 >
                                     {item.value}
                                 </button>

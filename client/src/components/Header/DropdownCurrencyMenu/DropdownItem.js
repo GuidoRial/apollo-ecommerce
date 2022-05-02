@@ -8,7 +8,7 @@ export default class DropdownItem extends Component {
             // eslint-disable-next-line jsx-a11y/anchor-is-valid
             <a
                 href="#"
-                className="menu-item"
+                className="menu-item flex-justify-align"
                 onClick={() => handleSelectedCurrencyChange(currency.symbol)}
             >
                 <p>{currency.symbol}</p> <p>{currency.label}</p>

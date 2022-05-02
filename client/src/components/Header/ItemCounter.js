@@ -3,6 +3,10 @@ import "./ItemCounter.css";
 export default class ItemCounter extends Component {
     render() {
         const { amountOfItems } = this.props;
-        return <div className="item-counter">{amountOfItems}</div>;
+        return (
+            <div className="item-counter flex-justify-align">
+                {amountOfItems}
+            </div>
+        );
     }
 }

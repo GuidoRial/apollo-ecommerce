@@ -56,6 +56,7 @@ export default class CartOverlay extends Component {
 
         return (
             <div className="dropdown" id="cartOverlay">
+          
                 <div className="bag-count">
                     <p className="bold-text">My bag,</p>
                     {amountOfItems === 1 ? (

@@ -11,11 +11,11 @@
 4. selectedCurrency
     - App.js => ProductListingPage.js => Product.js
 
-
 ## Todo
 
 1. Create Cart
 2. Add LocalStorage
+3. Fix overflow on cartOverlay
 
 ## Functionality Requirements
 

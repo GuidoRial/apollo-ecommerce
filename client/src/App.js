@@ -232,7 +232,15 @@ class App extends Component {
                         />
                         <Route
                             path="/cart"
-                            element={<Cart cartItems={cartItems} />}
+                            element={
+                                <Cart
+                                    cartItems={cartItems}
+                                    handleAddProduct={this.handleAddProduct}
+                                    handleRemoveProduct={
+                                        this.handleRemoveProduct
+                                    }
+                                />
+                            }
                         />
                     </Routes>
                 </BrowserRouter>

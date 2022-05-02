@@ -12,3 +12,9 @@
 * {
     font-family: "Raleway", sans-serif;
 }
+
+.flex-justify-align {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -12,9 +12,6 @@
     cursor: pointer;
     width: 65px;
     height: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     border: 1px solid #1d1f22;
     background-color: var(--white);
 }

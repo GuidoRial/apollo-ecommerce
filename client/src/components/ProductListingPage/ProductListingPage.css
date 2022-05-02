@@ -81,9 +81,6 @@
     border-radius: 50%;
     border: none;
     background-color: var(--primary-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     cursor: pointer;
     transition: opacity 0.3s;
 }

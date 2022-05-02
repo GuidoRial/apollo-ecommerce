@@ -58,7 +58,7 @@ export default class Product extends Component {
                             onClick={() =>
                                 handleAddProduct(item, item.selectedAttributes)
                             }
-                            className="mini-add-to-cart-button"
+                            className="mini-add-to-cart-button flex-justify-align"
                         >
                             <img src={WhiteEmptyCart} alt="mini-cart" />
                         </button>
