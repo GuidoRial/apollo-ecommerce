@@ -96,21 +96,29 @@ export default class CartItem extends Component {
                             -
                         </button>
                     </div>
-                    <img
-                        src={item.gallery[carouselIndex]}
-                        alt="item preview"
-                        className="cart-overlay-image"
-                    />
-                    {item?.gallery?.length > 1 && (
-                        <div className="carousel-buttons">
-                            <button onClick={() => this.handleCarousel("prev")}>
-                                {"<"}
-                            </button>
-                            <button onClick={() => this.handleCarousel("next")}>
-                                {">"}
-                            </button>
-                        </div>
-                    )}
+                    <div className="carousel-container">
+                        <img
+                            src={item.gallery[carouselIndex]}
+                            alt="item preview"
+                            className="cart-overlay-image"
+                        />
+                        {item?.gallery?.length > 1 && (
+                            <div className="carousel-buttons flex-justify-align">
+                                <button
+                                    className="carousel-button  "
+                                    onClick={() => this.handleCarousel("prev")}
+                                >
+                                    {"<"}
+                                </button>
+                                <button
+                                    className="carousel-button  "
+                                    onClick={() => this.handleCarousel("next")}
+                                >
+                                    {">"}
+                                </button>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         );

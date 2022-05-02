@@ -14,7 +14,7 @@ export default class Cart extends Component {
             total,
             tax,
         } = this.props;
-        console.log(tax);
+
         return (
             <section className="flex-justify-align cart">
                 <div className="title-container">

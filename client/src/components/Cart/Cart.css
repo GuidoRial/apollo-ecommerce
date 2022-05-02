@@ -62,3 +62,32 @@
     justify-content: flex-start;
     width: 90%;
 }
+
+.carousel-container {
+    position: relative;
+}
+
+.carousel-buttons {
+    position: absolute;
+    z-index: 999;
+    bottom: 10px;
+    right: 10px;
+    gap: 0.5rem;
+}
+
+.carousel-button {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    background-color: var(--black);
+    color: var(--white);
+    border: 0.5px solid var(--black);
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-button:hover {
+    background-color: #434343;
+}
