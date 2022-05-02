@@ -10,8 +10,7 @@
     - App.js => Header.js => CartOverlay.js
 4. selectedCurrency
     - App.js => ProductListingPage.js => Product.js
-5. handleQuickAdd
-    - App.js => ProductListingPage.js => Product.js
+
 
 ## Todo
 

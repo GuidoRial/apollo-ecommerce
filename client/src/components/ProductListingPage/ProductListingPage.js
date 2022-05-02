@@ -8,7 +8,8 @@ export default class ProductListingPage extends Component {
             storeItems,
             currentCategory,
             selectedCurrency,
-            handleQuickAdd,
+
+            handleAddProduct,
         } = this.props;
 
         return (
@@ -22,7 +23,7 @@ export default class ProductListingPage extends Component {
                                   key={item.id}
                                   item={item}
                                   selectedCurrency={selectedCurrency}
-                                  handleQuickAdd={handleQuickAdd}
+                                  handleAddProduct={handleAddProduct}
                               />
                           ))
                         : "Loading..."}

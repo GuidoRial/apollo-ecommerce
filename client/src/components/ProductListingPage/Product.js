@@ -34,7 +34,7 @@ export default class Product extends Component {
     }
 
     render() {
-        const { item, handleQuickAdd } = this.props;
+        const { item, handleAddProduct } = this.props;
         return (
             <div
                 className="product-card"
@@ -55,7 +55,9 @@ export default class Product extends Component {
                 {item.attributes.length === 0 && item.inStock && (
                     <div className="button-container">
                         <button
-                            onClick={() => handleQuickAdd(item)}
+                            onClick={() =>
+                                handleAddProduct(item, item.selectedAttributes)
+                            }
                             className="mini-add-to-cart-button"
                         >
                             <img src={WhiteEmptyCart} alt="mini-cart" />

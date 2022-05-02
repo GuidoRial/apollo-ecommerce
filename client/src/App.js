@@ -26,7 +26,6 @@ class App extends Component {
         this.fetchCategories = this.fetchCategories.bind(this);
         this.fetchStoreItems = this.fetchStoreItems.bind(this);
         this.fetchCurrencies = this.fetchCurrencies.bind(this);
-        this.handleQuickAdd = this.handleQuickAdd.bind(this);
         this.updateCartQuantity = this.updateCartQuantity.bind(this);
         this.handleAddProduct = this.handleAddProduct.bind(this);
         this.handleRemoveProduct = this.handleRemoveProduct.bind(this);
@@ -81,37 +80,6 @@ class App extends Component {
 
     /* CART LOGIC  */
 
-    handleQuickAdd = (product) => {
-        //A much simpler add/updateQuantity function
-        //that will only work in products that
-        //don't have any attributes (see Product.js)
-        let updatedProductList;
-
-        let productAlreadyInCart = getProductFromCartByProduct(
-            this.state.cartItems,
-            product
-        );
-
-        if (productAlreadyInCart) {
-            const indexOfProduct =
-                this.state.cartItems.indexOf(productAlreadyInCart);
-            const products = [...this.state.cartItems];
-
-            products[indexOfProduct].quantity += 1;
-            return products;
-        } else {
-            updatedProductList = [
-                ...this.state.cartItems,
-                {
-                    ...product,
-                    selectedAttributes: [],
-                    quantity: 1,
-                },
-            ];
-        }
-        this.setState({ cartItems: updatedProductList });
-    };
-
     updateCartQuantity(operation, product, selectedAttributes) {
         const item = getProductFromCartByProduct(
             this.state.cartItems,
@@ -141,7 +109,7 @@ class App extends Component {
         );
         /*
             productAlreadyInCart would be a product that has the same id (i.e: "ps-5")
-            and that has the same attributes selected as the product I'm trying to add to the cart
+            and that has the same attributes selected as the product I'm trying to add to the cart (if it has them)
             because I should be able to buy a black ps5 for me and a white one for my brother 
             on the same buy :)
         */
@@ -249,7 +217,7 @@ class App extends Component {
                                     storeItems={storeItems}
                                     currentCategory={currentCategory}
                                     selectedCurrency={selectedCurrency}
-                                    handleQuickAdd={this.handleQuickAdd}
+                                    handleAddProduct={this.handleAddProduct}
                                 />
                             }
                         />
