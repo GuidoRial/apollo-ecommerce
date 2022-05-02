@@ -91,3 +91,14 @@
 .carousel-button:hover {
     background-color: #434343;
 }
+
+.cart-is-empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.cart-is-empty-link {
+    font-weight: 700;
+}

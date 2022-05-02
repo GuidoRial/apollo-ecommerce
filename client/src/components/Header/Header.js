@@ -63,6 +63,7 @@ export default class Header extends Component {
                                     ? {
                                           color: "#5ece7b",
                                           borderBottom: "2px solid #5ece7b",
+                                          paddingBottom: "3px"
                                       }
                                     : { color: "#000000" }
                             }

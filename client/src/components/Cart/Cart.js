@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CartItem from "./CartItem";
 import LineBreak from "./LineBreak";
 import "./Cart.css";
+import { Link } from "react-router-dom";
 
 export default class Cart extends Component {
     render() {
@@ -26,17 +27,26 @@ export default class Cart extends Component {
                     <p className="bold-text cart-text"> CART</p>
                 </div>
                 <LineBreak />
-                {cartItems.map((item) => (
-                    <>
-                        <CartItem
-                            item={item}
-                            handleAddProduct={handleAddProduct}
-                            handleRemoveProduct={handleRemoveProduct}
-                            selectedCurrency={selectedCurrency}
-                        />
-                        <LineBreak />
-                    </>
-                ))}
+                {cartItems.length > 0 ? (
+                    cartItems.map((item) => (
+                        <>
+                            <CartItem
+                                item={item}
+                                handleAddProduct={handleAddProduct}
+                                handleRemoveProduct={handleRemoveProduct}
+                                selectedCurrency={selectedCurrency}
+                            />
+                            <LineBreak />
+                        </>
+                    ))
+                ) : (
+                    <div className="cart-is-empty">
+                        <p>Cart seems to be empty right now, why don't you </p>
+                        <Link to="/" className="">
+                            <p className="cart-is-empty-link"> go do some shopping?</p>
+                        </Link>
+                    </div>
+                )}
                 <div className="cart-summary">
                     <div className="summary-item">
                         <p>Tax:</p>
