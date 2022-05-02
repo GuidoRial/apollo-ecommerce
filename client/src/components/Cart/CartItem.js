@@ -13,18 +13,6 @@ export default class CartItem extends Component {
     }
 
     handleCarousel = (operation) => {
-        /* 
-        if next
-            if nextIndex is bigger than this.props.item.gallery.length
-                index = 0
-            else 
-                index + 1
-        else
-            if prevIndex < 0
-                prevIndex = this.props.item.gallery.length
-            else
-                index -1
-        */
         if (operation === "next") {
             if (
                 this.state.carouselIndex + 1 >
@@ -42,15 +30,6 @@ export default class CartItem extends Component {
             } else {
                 this.setState({ carouselIndex: this.state.carouselIndex - 1 });
             }
-            /*
-            if (this.state.carouselIndex - 1 === 0) {
-                this.setState({
-                    carouselIndex: this.props.item.gallery.length - 1,
-                });
-            } else {
-                this.setState({ carouselIndex: this.state.carouselIndex - 1 });
-            }
-            */
         }
     };
 
@@ -65,8 +44,7 @@ export default class CartItem extends Component {
     render() {
         const { item, handleAddProduct, handleRemoveProduct } = this.props;
         const { productPrice, carouselIndex } = this.state;
-        console.log("gallery length:" + item.gallery.length);
-        console.log("current index:" + carouselIndex);
+
         return (
             <div key={item.id}>
                 <div className="cart-item-data">
