@@ -282,6 +282,7 @@ class App extends Component {
             <div className="App">
                 <BrowserRouter>
                     <Header
+                        currentCategory={currentCategory}
                         categories={categories}
                         handleCategoryChange={this.handleCategoryChange}
                         selectedCurrency={selectedCurrency}

@@ -48,14 +48,24 @@ export default class Header extends Component {
             handleRemoveProduct,
             amountOfItems,
             total,
+            currentCategory,
         } = this.props;
         const { dropdownMenu, cartOverlayMenu } = this.state;
+
         return (
             <nav className="nav-bar">
                 {cartOverlayMenu && <div className="curtain"></div>}
                 <ul className="categories">
                     {categories.map((category) => (
                         <li
+                            style={
+                                currentCategory === category.name
+                                    ? {
+                                          color: "#5ece7b",
+                                          borderBottom: "2px solid #5ece7b",
+                                      }
+                                    : { color: "#000000" }
+                            }
                             className="category"
                             key={category.name}
                             onClick={() => handleCategoryChange(category.name)}
