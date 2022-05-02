@@ -8,7 +8,6 @@ export default class ProductListingPage extends Component {
             storeItems,
             currentCategory,
             selectedCurrency,
-
             handleAddProduct,
         } = this.props;
 

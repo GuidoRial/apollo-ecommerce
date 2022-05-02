@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import uniqid from "uniqid";
 import MiniAttribute from "./MiniAttribute";
 import "./CartOverlayItem.css";
 import { getPrice } from "../../../utils";

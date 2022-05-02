@@ -18,7 +18,6 @@ export default class ProductDescriptionPage extends Component {
         };
         this.getId = this.getId.bind(this);
         this.fetchProduct = this.fetchProduct.bind(this);
-
         this.handleSelectedAttributes =
             this.handleSelectedAttributes.bind(this);
         this.handleAllAttributesAreSelected =
@@ -43,7 +42,7 @@ export default class ProductDescriptionPage extends Component {
 
         this.handleProductHasNoAttributes();
     };
-    /*
+    /**
      *useParams was banned because functional components are not allowed.
      *I thought about using a Higher Order Component but
      *by definition they are a function that takes a component as a parameter and returns a component,
@@ -55,7 +54,6 @@ export default class ProductDescriptionPage extends Component {
      *until it always return whatever is after /products/, therefore, returning the product id
      * @returns productId from URL
      */
-
     getId = () => {
         const idFromURL = window.location.pathname.toString().substring(10);
 
@@ -102,21 +100,22 @@ export default class ProductDescriptionPage extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if (this.props.selectedCurrency !== nextProps.selectedCurrency) {
+        const { selectedCurrency } = this.props;
+        const { individualProduct, selectedAttributes } = this.state;
+        if (selectedCurrency !== nextProps.selectedCurrency) {
             //Render correct currency on selectedCurrency change
-
             this.setState({
                 productPrice: getPrice(
-                    this.state.individualProduct.prices,
+                    individualProduct.prices,
                     nextProps.selectedCurrency
                 ),
             });
         }
 
         if (
-            this.state.selectedAttributes !== nextState.selectedAttributes &&
+            selectedAttributes !== nextState.selectedAttributes &&
             nextState.selectedAttributes.length ===
-                this.state.individualProduct.attributes.length
+                individualProduct.attributes.length
         ) {
             //If there's a change in selected attributes and user selected all attributes then...
             this.handleAllAttributesAreSelected();

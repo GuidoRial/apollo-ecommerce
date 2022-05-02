@@ -3,7 +3,6 @@ import uniqid from "uniqid";
 import CartOverlayItem from "./CartOverlayItem";
 import "./CartOverlay.css";
 import { Link } from "react-router-dom";
-import { getPrice } from "../../../utils";
 
 export default class CartOverlay extends Component {
     render() {

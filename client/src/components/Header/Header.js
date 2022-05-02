@@ -14,9 +14,8 @@ export default class Header extends Component {
         this.state = {
             dropdownMenu: false,
             cartOverlayMenu: false,
-
         };
-        
+
         this.alternateCartOverlayMenuStatus =
             this.alternateCartOverlayMenuStatus.bind(this);
     }
@@ -26,10 +25,6 @@ export default class Header extends Component {
             cartOverlayMenu: !this.state.cartOverlayMenu,
         });
     };
-
-
-
-
 
     shouldComponentUpdate(nextProps, nextState) {
         if (

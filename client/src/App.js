@@ -73,8 +73,6 @@ class App extends Component {
         this.setState({ total: totalPrice });
     };
 
-    getCorrectTaxes = (taxes, selectedCurrency) => {};
-
     /* INITIALIZING STORE  */
     fetchCategories = async () => {
         const result = await client.query({
@@ -104,26 +102,25 @@ class App extends Component {
     };
 
     componentDidMount() {
+        const { selectedCurrency, cartItems, amountOfItems, currentCategory } =
+            this.state;
         this.fetchCategories();
-        this.fetchStoreItems(this.state.currentCategory);
+        this.fetchStoreItems(currentCategory);
         this.fetchCurrencies();
-        this.calculateAmountOfItems(this.state.cartItems);
-        this.getTotalPrice(
-            this.state.selectedCurrency,
-            this.state.cartItems,
-            this.state.amountOfItems
-        );
-        this.setState({ tax: getPrice(taxes, this.state.selectedCurrency) });
+        this.calculateAmountOfItems(cartItems);
+        this.getTotalPrice(selectedCurrency, cartItems, amountOfItems);
+        this.setState({ tax: getPrice(taxes, selectedCurrency) });
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if (this.state.cartItems !== nextState.cartItems) {
+        const { cartItems, selectedCurrency, amountOfItems } = this.state;
+        if (cartItems !== nextState.cartItems) {
             this.calculateAmountOfItems(nextState.cartItems);
         }
         if (
-            this.state.cartItems !== nextState.cartItems ||
-            this.state.selectedCurrency !== nextState.selectedCurrency ||
-            this.state.amountOfItems !== nextState.amountOfItems
+            cartItems !== nextState.cartItems ||
+            selectedCurrency !== nextState.selectedCurrency ||
+            amountOfItems !== nextState.amountOfItems
         ) {
             this.getTotalPrice(
                 nextState.selectedCurrency,
@@ -131,7 +128,7 @@ class App extends Component {
                 nextState.amountOfItems
             );
         }
-        if (this.state.selectedCurrency !== nextState.selectedCurrency) {
+        if (selectedCurrency !== nextState.selectedCurrency) {
             this.setState({
                 tax: getPrice(taxes, nextState.selectedCurrency),
             });
@@ -142,6 +139,13 @@ class App extends Component {
 
     /* CART LOGIC  */
 
+    /**
+     * Find the product index, update its quantity
+     * @param {string} operation Corresponds to add or delete product
+     * @param {object} product Product I want to update
+     * @param {array} selectedAttributes Attributes of said product
+     * @returns Updated cart array
+     */
     updateCartQuantity(operation, product, selectedAttributes) {
         const item = getProductFromCart(
             this.state.cartItems,
@@ -162,6 +166,14 @@ class App extends Component {
         return products;
     }
 
+    /**
+     * @summary check if a product like this one exists in cart, if it does, update quantity, if it doesn't, add it
+     * productAlreadyInCart is a product with the same id and selectedAttributes as the ones I'm passing to this function.
+     * If this product is already in my cart, increase its quantity.
+     * If it doesn't exist, add it to my cart and use selectedAttributes to add a marker (isSelected = true) to make it easier to render.
+     * @param {object} product Product I want to update
+     * @param {array} selectedAttributes Attributes of said product
+     */
     handleAddProduct = (product, selectedAttributes) => {
         let updatedProductList;
         let productAlreadyInCart = getProductFromCart(
@@ -169,15 +181,7 @@ class App extends Component {
             product,
             selectedAttributes
         );
-        /*
-            productAlreadyInCart would be a product that has the same id (i.e: "ps-5")
-            and that has the same attributes selected as the product I'm trying to add to the cart (if it has them)
-            because I should be able to buy a black ps5 for me and a white one for my brother 
-            on the same buy :)
-        */
-
         if (productAlreadyInCart) {
-            //If there's already a product with these attributes, update it's quantity
             updatedProductList = this.updateCartQuantity(
                 "add",
                 productAlreadyInCart,
@@ -203,7 +207,7 @@ class App extends Component {
                             ...product.attributes[i].items[j],
                         };
 
-                        clone.isSelected = true; // add this marker so that it's easier to render later
+                        clone.isSelected = true;
                         modifiedProduct.attributes[i].items[j] = {
                             ...clone,
                         };
@@ -222,6 +226,11 @@ class App extends Component {
         this.setState({ cartItems: updatedProductList });
     };
 
+    /**
+     * Inverse of handleAddProduct
+     * @param {object} product Product I want to update
+     * @param {array} selectedAttributes Attributes of said product
+     */
     handleRemoveProduct = (product, selectedAttributes) => {
         let updatedProductList;
 
