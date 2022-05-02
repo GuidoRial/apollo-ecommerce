@@ -25,7 +25,7 @@ export default class CartOverlayItem extends Component {
         const { productPrice } = this.state;
 
         return (
-            <div className="cart-overlay-item">
+            <div className="cart-overlay-item" key={item.id}>
                 <div className="cart-overlay-item-data">
                     <div>
                         <p>{item.brand}</p>
