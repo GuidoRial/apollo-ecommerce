@@ -134,6 +134,7 @@ export default class ProductDescriptionPage extends Component {
             allAttributesAreSelected,
         } = this.state;
         const { handleAddProduct } = this.props;
+
         return (
             <section className="individual-product">
                 {individualProduct && individualProduct.gallery && (

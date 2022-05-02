@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import uniqid from "uniqid";
-import "./CartOverlayItem.css";
 
-export default class MiniAttribute extends Component {
+export default class CartAttribute extends Component {
     render() {
         const { attribute } = this.props;
         return (
@@ -35,17 +34,14 @@ export default class MiniAttribute extends Component {
                             ) : (
                                 <button
                                     style={
-                                        item.isSelected
+                                        !item.isSelected
                                             ? {
                                                   backgroundColor: "#1D1F22",
                                                   color: "#FFFFFF",
                                               }
-                                            : {
-                                                  backgroundColor: "#EDEDED",
-                                                  color: "#A6A6A6",
-                                              }
+                                            : null
                                     }
-                                    className="mini-attribute-button flex-justify-align"
+                                    className="attribute-button flex-justify-align"
                                 >
                                     {item.value}
                                 </button>

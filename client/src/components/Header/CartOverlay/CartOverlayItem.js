@@ -37,11 +37,7 @@ export default class CartOverlayItem extends Component {
                         </p>
                     </div>
                     {item?.attributes.map((attribute) => (
-                        <MiniAttribute
-                            key={uniqid()}
-                            attribute={attribute}
-                            selectedAttributes={item.selectedAttributes}
-                        />
+                        <MiniAttribute attribute={attribute} />
                     ))}
                 </div>
                 <div className="cart-overlay-buttons">

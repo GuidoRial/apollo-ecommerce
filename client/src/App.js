@@ -239,6 +239,7 @@ class App extends Component {
                                     handleRemoveProduct={
                                         this.handleRemoveProduct
                                     }
+                                    selectedCurrency={selectedCurrency}
                                 />
                             }
                         />
