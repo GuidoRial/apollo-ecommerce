@@ -108,7 +108,6 @@ export default class Header extends Component {
                             cartItems={cartItems}
                             selectedCurrency={selectedCurrency}
                             amountOfItems={amountOfItems}
-                            cartOverlayMenu={cartOverlayMenu}
                             alternateCartOverlayMenuStatus={
                                 this.alternateCartOverlayMenuStatus
                             }
@@ -121,7 +120,6 @@ export default class Header extends Component {
                             handleSelectedCurrencyChange={
                                 handleSelectedCurrencyChange
                             }
-                            dropdownMenu={dropdownMenu}
                         />
                     )}
                 </div>

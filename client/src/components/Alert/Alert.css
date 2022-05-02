@@ -1,0 +1,32 @@
+.alert {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.3rem;
+    border: 1px solid var(--primary-color);
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 0.3rem;
+    margin-top: 0.3rem;
+    font-size: 1rem;
+    animation: slideAlert 0.6s ease-in-out;
+}
+
+.type-alert {
+    font-weight: 700;
+}
+
+.alert-message {
+    font-size: 0.9rem;
+}
+
+@keyframes slideAlert {
+    from {
+        transform: translateY(50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

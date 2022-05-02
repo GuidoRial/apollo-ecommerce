@@ -4,6 +4,7 @@ import { client } from "../..";
 import { getProductById } from "../../queries";
 import Attribute from "./Attribute";
 import { getPrice } from "../../utils";
+import Alert from "../Alert/Alert";
 import "./ProductDescriptionPage.css";
 
 export default class ProductDescriptionPage extends Component {
@@ -132,7 +133,8 @@ export default class ProductDescriptionPage extends Component {
             productPrice,
             allAttributesAreSelected,
         } = this.state;
-        const { handleAddProduct } = this.props;
+        const { handleAddProduct, successAlert, handleSuccessAlert } =
+            this.props;
 
         return (
             <section className="individual-product">
@@ -180,17 +182,20 @@ export default class ProductDescriptionPage extends Component {
                         {productPrice?.currency?.symbol}
                         {productPrice?.amount}
                     </p>
+
                     <button
-                        onClick={() =>
+                        onClick={() => {
                             handleAddProduct(
                                 individualProduct,
                                 selectedAttributes
-                            )
-                        }
+                            );
+                            handleSuccessAlert();
+                        }}
                         className="add-to-cart-button"
                         disabled={
                             !individualProduct.inStock ||
-                            !allAttributesAreSelected
+                            !allAttributesAreSelected ||
+                            successAlert
                         }
                         style={
                             individualProduct.inStock &&
@@ -203,6 +208,7 @@ export default class ProductDescriptionPage extends Component {
                             ? "ADD TO CART"
                             : "OUT OF STOCK"}
                     </button>
+                    {successAlert && <Alert />}
                     <div
                         className="product-description"
                         dangerouslySetInnerHTML={{

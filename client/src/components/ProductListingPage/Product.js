@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { getPrice } from "../../utils";
 import WhiteEmptyCart from "../../Assets/Icons/WhiteEmptyCart.svg";
+import Alert from "../Alert/Alert";
 
 export default class Product extends Component {
     constructor(props) {
@@ -34,7 +35,8 @@ export default class Product extends Component {
     }
 
     render() {
-        const { item, handleAddProduct } = this.props;
+        const { item, handleAddProduct, handleSuccessAlert, successAlert } =
+            this.props;
         return (
             <div
                 className="product-card"
@@ -55,9 +57,10 @@ export default class Product extends Component {
                 {item.attributes.length === 0 && item.inStock && (
                     <div className="button-container">
                         <button
-                            onClick={() =>
-                                handleAddProduct(item, item.selectedAttributes)
-                            }
+                            onClick={() => {
+                                handleAddProduct(item, item.selectedAttributes);
+                                handleSuccessAlert();
+                            }}
                             className="mini-add-to-cart-button flex-justify-align"
                         >
                             <img src={WhiteEmptyCart} alt="mini-cart" />
@@ -73,6 +76,9 @@ export default class Product extends Component {
                             {this.state.productPrice?.currency?.symbol}
                             {this.state.productPrice.amount}
                         </p>
+                        {item.attributes.length === 0 &&
+                            item.inStock &&
+                            successAlert && <Alert />}
                     </div>
                 </Link>
             </div>

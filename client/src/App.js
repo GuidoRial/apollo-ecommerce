@@ -25,6 +25,7 @@ class App extends Component {
             //it's not clear to me if I should make the conversion to another currency or not
             //So I'll do it anyways, but I will not add it to the total
             //because it's kept separated in Figma
+            successAlert: false,
         };
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleSelectedCurrencyChange =
@@ -37,6 +38,7 @@ class App extends Component {
         this.handleRemoveProduct = this.handleRemoveProduct.bind(this);
         this.calculateAmountOfItems = this.calculateAmountOfItems.bind(this);
         this.getTotalPrice = this.getTotalPrice.bind(this);
+        this.handleSuccessAlert = this.handleSuccessAlert.bind(this);
     }
 
     /* MAKING THE STORE DYNAMIC */
@@ -71,6 +73,13 @@ class App extends Component {
 
         totalPrice = parseFloat(totalPrice.toFixed(2));
         this.setState({ total: totalPrice });
+    };
+
+    handleSuccessAlert = () => {
+        this.setState({ successAlert: true });
+        setTimeout(() => {
+            this.setState({ successAlert: false });
+        }, 4000);
     };
 
     /* INITIALIZING STORE  */
@@ -267,6 +276,7 @@ class App extends Component {
             amountOfItems,
             total,
             tax,
+            successAlert,
         } = this.state;
         return (
             <div className="App">
@@ -294,6 +304,8 @@ class App extends Component {
                                     currentCategory={currentCategory}
                                     selectedCurrency={selectedCurrency}
                                     handleAddProduct={this.handleAddProduct}
+                                    handleSuccessAlert={this.handleSuccessAlert}
+                                    successAlert={successAlert}
                                 />
                             }
                         />
@@ -303,6 +315,8 @@ class App extends Component {
                                 <ProductDescriptionPage
                                     selectedCurrency={selectedCurrency}
                                     handleAddProduct={this.handleAddProduct}
+                                    handleSuccessAlert={this.handleSuccessAlert}
+                                    successAlert={successAlert}
                                 />
                             }
                         />

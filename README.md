@@ -13,11 +13,11 @@
 
 ## Todo
 
-1. Create Cart
-2. Add LocalStorage
-3. Fix overflow on cartOverlay
-4. Category active color
-5. useContext candidates
+1. Category active color
+2. useContext candidates
+3. Visual feedback when you add something to cart
+4. Add LocalStorage
+5. Fix overflow on cartOverlay
 
 ## Functionality Requirements
 
