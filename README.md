@@ -15,7 +15,6 @@
 
 1. Category active color
 2. useContext candidates
-3. Visual feedback when you add something to cart
 4. Add LocalStorage
 5. Fix overflow on cartOverlay
 

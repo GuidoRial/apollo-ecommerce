@@ -40,6 +40,13 @@
     border: 1px solid var(--black);
     background-color: var(--white);
     color: var(--black);
+    transition: background-color 0.3s ease-in-out;
+}
+
+#viewBagButton:hover {
+    border: 1px solid var(--white);
+    color: var(--white);
+    background-color: var(--black);
 }
 
 #checkOutButton {
