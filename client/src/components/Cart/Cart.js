@@ -10,10 +10,16 @@ export default class Cart extends Component {
             handleAddProduct,
             handleRemoveProduct,
             selectedCurrency,
+            amountOfItems,
+            total,
+            tax,
         } = this.props;
+        console.log(tax);
         return (
-            <section>
-                <div>CART</div>
+            <section className="flex-justify-align cart">
+                <div className="title-container">
+                    <p className="bold-text cart-text"> CART</p>
+                </div>
                 <LineBreak />
                 {cartItems.map((item) => (
                     <>
@@ -26,6 +32,32 @@ export default class Cart extends Component {
                         <LineBreak />
                     </>
                 ))}
+                <div className="cart-summary">
+                    <div className="summary-item">
+                        <p>Tax:</p>
+                        <span className="bold-text">
+                            {tax?.currency?.symbol}
+                            {tax?.amount}
+                        </span>
+                    </div>
+                    <div className="summary-item">
+                        <p>Qty:</p>
+                        <span className="bold-text">{amountOfItems}</span>
+                    </div>
+                    <div className="summary-item">
+                        <p>Total:</p>
+                        <span className="bold-text">
+                            {selectedCurrency}
+                            {total}
+                        </span>
+                    </div>
+                    <button
+                        className="cart-overlay-action-buttons"
+                        id="checkOutButton"
+                    >
+                        ORDER
+                    </button>
+                </div>
             </section>
         );
     }

@@ -16,6 +16,8 @@
 1. Create Cart
 2. Add LocalStorage
 3. Fix overflow on cartOverlay
+4. Category active color
+5. useContext candidates
 
 ## Functionality Requirements
 

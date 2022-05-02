@@ -14,9 +14,9 @@ export default class Header extends Component {
         this.state = {
             dropdownMenu: false,
             cartOverlayMenu: false,
-            amountOfItems: 0,
+
         };
-        this.calculateAmountOfItems = this.calculateAmountOfItems.bind(this);
+        
         this.alternateCartOverlayMenuStatus =
             this.alternateCartOverlayMenuStatus.bind(this);
     }
@@ -27,18 +27,9 @@ export default class Header extends Component {
         });
     };
 
-    calculateAmountOfItems = (cartItems) => {
-        let initialValue = 0;
-        for (let item of cartItems) {
-            initialValue += item.quantity;
-        }
 
-        this.setState({ amountOfItems: initialValue });
-    };
 
-    componentDidMount() {
-        this.calculateAmountOfItems(this.props.cartItems);
-    }
+
 
     shouldComponentUpdate(nextProps, nextState) {
         if (
@@ -46,9 +37,6 @@ export default class Header extends Component {
             this.state.dropdownMenu === true
         ) {
             nextState.dropdownMenu = false;
-        }
-        if (this.props.cartItems !== nextProps.cartItems) {
-            this.calculateAmountOfItems(nextProps.cartItems);
         }
 
         return true;
@@ -63,8 +51,10 @@ export default class Header extends Component {
             cartItems,
             handleAddProduct,
             handleRemoveProduct,
+            amountOfItems,
+            total,
         } = this.props;
-        const { dropdownMenu, cartOverlayMenu, amountOfItems } = this.state;
+        const { dropdownMenu, cartOverlayMenu } = this.state;
         return (
             <nav className="nav-bar">
                 {cartOverlayMenu && <div className="curtain"></div>}
@@ -127,6 +117,7 @@ export default class Header extends Component {
                             alternateCartOverlayMenuStatus={
                                 this.alternateCartOverlayMenuStatus
                             }
+                            total={total}
                         />
                     )}
                     {dropdownMenu && (

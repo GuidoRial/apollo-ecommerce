@@ -21,7 +21,7 @@ export const allAttributesAreTheSame = (firstArray, secondArray) => {
     }
 };
 
-export const getProductFromCartByProduct = (
+export const getProductFromCart = (
     cart,
     product,
     selectedAttributes
@@ -50,3 +50,11 @@ export const getPrice = (prices, currency) => {
 
     return correctPrice;
 };
+
+export const taxes = [
+    { amount: 15, currency: { label: "USD", symbol: "$" } },
+    { amount: 11.99, currency: { label: "GBP", symbol: "£" } },
+    { amount: 21.25, currency: { label: "AUD", symbol: "A$" } },
+    { amount: 1952.16, currency: { label: "JPY", symbol: "¥" } },
+    { amount: 1068.75, currency: { label: "RUB", symbol: "₽" } },
+];

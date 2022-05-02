@@ -41,12 +41,24 @@ export default class CartItem extends Component {
             ),
         });
     }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props.selectedCurrency !== nextProps.selectedCurrency) {
+            this.setState({
+                productPrice: getPrice(
+                    this.props.item.prices,
+                    nextProps.selectedCurrency
+                ),
+            });
+        }
+        return true;
+    }
     render() {
         const { item, handleAddProduct, handleRemoveProduct } = this.props;
         const { productPrice, carouselIndex } = this.state;
-
+        console.log(item);
         return (
-            <div key={item.id}>
+            <div key={item.id} className="cart-item">
                 <div className="cart-item-data">
                     <div>
                         <p>{item.brand}</p>
@@ -60,26 +72,30 @@ export default class CartItem extends Component {
                         <CartAttribute attribute={attribute} />
                     ))}
                 </div>
-                <div className="cart-item-buttons">
-                    <button
-                        className="cart-overlay-button flex-justify-align"
-                        onClick={() =>
-                            handleAddProduct(item, item.selectedAttributes)
-                        }
-                    >
-                        +
-                    </button>
-                    <p className="bold-text">{item.quantity}</p>
-                    <button
-                        className="cart-overlay-button flex-justify-align"
-                        onClick={() =>
-                            handleRemoveProduct(item, item.selectedAttributes)
-                        }
-                    >
-                        -
-                    </button>
-                </div>
-                <div className="cart-item-carousel">
+
+                <div className="cart-item-carousel-and-buttons">
+                    <div className="cart-item-buttons">
+                        <button
+                            className="cart-overlay-button flex-justify-align"
+                            onClick={() =>
+                                handleAddProduct(item, item.selectedAttributes)
+                            }
+                        >
+                            +
+                        </button>
+                        <p className="bold-text">{item.quantity}</p>
+                        <button
+                            className="cart-overlay-button flex-justify-align"
+                            onClick={() =>
+                                handleRemoveProduct(
+                                    item,
+                                    item.selectedAttributes
+                                )
+                            }
+                        >
+                            -
+                        </button>
+                    </div>
                     <img
                         src={item.gallery[carouselIndex]}
                         alt="item preview"

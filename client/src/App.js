@@ -4,7 +4,7 @@ import ProductListingPage from "./components/ProductListingPage/ProductListingPa
 import ProductDescriptionPage from "./components/ProductDescriptionPage/ProductDescriptionPage";
 import Cart from "./components/Cart/Cart";
 import Header from "./components/Header/Header";
-import { getProductFromCartByProduct } from "./utils";
+import { getPrice, getProductFromCart, taxes } from "./utils";
 import { client } from "./index";
 import { getProductsByCategory, getCategories, getCurrencies } from "./queries";
 import "./App.css";
@@ -19,6 +19,12 @@ class App extends Component {
             selectedCurrency: "$",
             cartItems: [],
             storeItems: [],
+            amountOfItems: 0,
+            total: 0,
+            tax: 0, //The default taxes are $15,
+            //it's not clear to me if I should make the conversion to another currency or not
+            //So I'll do it anyways, but I will not add it to the total
+            //because it's kept separated in Figma
         };
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleSelectedCurrencyChange =
@@ -29,6 +35,8 @@ class App extends Component {
         this.updateCartQuantity = this.updateCartQuantity.bind(this);
         this.handleAddProduct = this.handleAddProduct.bind(this);
         this.handleRemoveProduct = this.handleRemoveProduct.bind(this);
+        this.calculateAmountOfItems = this.calculateAmountOfItems.bind(this);
+        this.getTotalPrice = this.getTotalPrice.bind(this);
     }
 
     /* MAKING THE STORE DYNAMIC */
@@ -43,6 +51,29 @@ class App extends Component {
             selectedCurrency: newSelectedCurrency,
         });
     };
+
+    calculateAmountOfItems = (cartItems) => {
+        let initialValue = 0;
+        for (let item of cartItems) {
+            initialValue += item.quantity;
+        }
+
+        this.setState({ amountOfItems: initialValue });
+    };
+
+    getTotalPrice = (selectedCurrency, cart) => {
+        let totalPrice = 0;
+
+        for (let item of cart) {
+            const correctPrice = getPrice(item.prices, selectedCurrency);
+            totalPrice += correctPrice.amount * item.quantity;
+        }
+
+        totalPrice = parseFloat(totalPrice.toFixed(2));
+        this.setState({ total: totalPrice });
+    };
+
+    getCorrectTaxes = (taxes, selectedCurrency) => {};
 
     /* INITIALIZING STORE  */
     fetchCategories = async () => {
@@ -76,12 +107,43 @@ class App extends Component {
         this.fetchCategories();
         this.fetchStoreItems(this.state.currentCategory);
         this.fetchCurrencies();
+        this.calculateAmountOfItems(this.state.cartItems);
+        this.getTotalPrice(
+            this.state.selectedCurrency,
+            this.state.cartItems,
+            this.state.amountOfItems
+        );
+        this.setState({ tax: getPrice(taxes, this.state.selectedCurrency) });
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.state.cartItems !== nextState.cartItems) {
+            this.calculateAmountOfItems(nextState.cartItems);
+        }
+        if (
+            this.state.cartItems !== nextState.cartItems ||
+            this.state.selectedCurrency !== nextState.selectedCurrency ||
+            this.state.amountOfItems !== nextState.amountOfItems
+        ) {
+            this.getTotalPrice(
+                nextState.selectedCurrency,
+                nextState.cartItems,
+                nextState.amountOfItems
+            );
+        }
+        if (this.state.selectedCurrency !== nextState.selectedCurrency) {
+            this.setState({
+                tax: getPrice(taxes, nextState.selectedCurrency),
+            });
+        }
+
+        return true;
     }
 
     /* CART LOGIC  */
 
     updateCartQuantity(operation, product, selectedAttributes) {
-        const item = getProductFromCartByProduct(
+        const item = getProductFromCart(
             this.state.cartItems,
             product,
             selectedAttributes
@@ -102,7 +164,7 @@ class App extends Component {
 
     handleAddProduct = (product, selectedAttributes) => {
         let updatedProductList;
-        let productAlreadyInCart = getProductFromCartByProduct(
+        let productAlreadyInCart = getProductFromCart(
             this.state.cartItems,
             product,
             selectedAttributes
@@ -163,7 +225,7 @@ class App extends Component {
     handleRemoveProduct = (product, selectedAttributes) => {
         let updatedProductList;
 
-        let productAlreadyInCart = getProductFromCartByProduct(
+        let productAlreadyInCart = getProductFromCart(
             this.state.cartItems,
             product,
             selectedAttributes
@@ -193,6 +255,9 @@ class App extends Component {
             currencies,
             cartItems,
             storeItems,
+            amountOfItems,
+            total,
+            tax,
         } = this.state;
         return (
             <div className="App">
@@ -208,6 +273,8 @@ class App extends Component {
                         cartItems={cartItems}
                         handleAddProduct={this.handleAddProduct}
                         handleRemoveProduct={this.handleRemoveProduct}
+                        amountOfItems={amountOfItems}
+                        total={total}
                     />
                     <Routes>
                         <Route
@@ -240,6 +307,9 @@ class App extends Component {
                                         this.handleRemoveProduct
                                     }
                                     selectedCurrency={selectedCurrency}
+                                    amountOfItems={amountOfItems}
+                                    total={total}
+                                    tax={tax}
                                 />
                             }
                         />

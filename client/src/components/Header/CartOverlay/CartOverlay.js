@@ -6,43 +6,6 @@ import { Link } from "react-router-dom";
 import { getPrice } from "../../../utils";
 
 export default class CartOverlay extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { total: 0 };
-        this.getTotalPrice = this.getTotalPrice.bind(this);
-    }
-
-    getTotalPrice = (selectedCurrency, cart) => {
-        let totalPrice = 0;
-
-        for (let item of cart) {
-            const correctPrice = getPrice(item.prices, selectedCurrency);
-            totalPrice += correctPrice.amount * item.quantity;
-        }
-
-        totalPrice = parseFloat(totalPrice.toFixed(2));
-        this.setState({ total: totalPrice });
-    };
-
-    componentDidMount() {
-        this.getTotalPrice(
-            this.props.selectedCurrency,
-            this.props.cartItems,
-            this.props.amountOfItems
-        );
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        if (this.props.cartItems !== nextProps.cartItems) {
-            this.getTotalPrice(
-                this.props.selectedCurrency,
-                nextProps.cartItems,
-                this.props.amountOfItems
-            );
-        }
-        return true;
-    }
-
     render() {
         const {
             cartItems,
@@ -51,12 +14,11 @@ export default class CartOverlay extends Component {
             alternateCartOverlayMenuStatus,
             handleAddProduct,
             handleRemoveProduct,
+            total,
         } = this.props;
-        const { total } = this.state;
 
         return (
             <div className="dropdown" id="cartOverlay">
-          
                 <div className="bag-count">
                     <p className="bold-text">My bag,</p>
                     {amountOfItems === 1 ? (
@@ -67,7 +29,8 @@ export default class CartOverlay extends Component {
                 </div>
 
                 {cartItems?.map((item) => (
-                    //Had to add uniqid because header and PLP render the same item with the same id
+                    //Had to add uniqid because header and 
+                    //PLP render the same item with the same id
                     <CartOverlayItem
                         key={uniqid()}
                         item={item}

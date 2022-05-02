@@ -41,7 +41,7 @@ export default class CartAttribute extends Component {
                                               }
                                             : null
                                     }
-                                    className="attribute-button flex-justify-align"
+                                    className="cart-attribute-button flex-justify-align"
                                 >
                                     {item.value}
                                 </button>
