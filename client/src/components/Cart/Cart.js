@@ -44,7 +44,6 @@ export default class Cart extends Component {
                         <p>Cart seems to be empty right now, why don't you </p>
                         <Link to="/" className="">
                             <p className="cart-is-empty-link">
-                                {" "}
                                 go do some shopping?
                             </p>
                         </Link>

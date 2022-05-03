@@ -75,6 +75,11 @@ class App extends Component {
         this.setState({ total: totalPrice });
     };
 
+    /**
+     * Create an alert to give feedback to the user
+     * and during these 4s disable buy button to prevent users from
+     * making mistakes when adding things to cart
+     */
     handleSuccessAlert = () => {
         this.setState({ successAlert: true });
         setTimeout(() => {
@@ -116,6 +121,12 @@ class App extends Component {
         this.fetchCategories();
         this.fetchStoreItems(currentCategory);
         this.fetchCurrencies();
+
+        const data = localStorage.getItem("products");
+        if (data) {
+            this.setState({ cartItems: JSON.parse(data) });
+        }
+
         this.calculateAmountOfItems(cartItems);
         this.getTotalPrice(selectedCurrency, cartItems, amountOfItems);
         this.setState({ tax: getPrice(taxes, selectedCurrency) });
@@ -150,7 +161,7 @@ class App extends Component {
 
     /**
      * Find the product index, update its quantity
-     * @param {string} operation Corresponds to add or delete product
+     * @param {string} operation Add or delete product
      * @param {object} product Product I want to update
      * @param {array} selectedAttributes Attributes of said product
      * @returns Updated cart array
@@ -181,7 +192,7 @@ class App extends Component {
      * If this product is already in my cart, increase its quantity.
      * If it doesn't exist, add it to my cart and use selectedAttributes to add a marker (isSelected = true) to make it easier to render.
      * @param {object} product Product I want to update
-     * @param {array} selectedAttributes Attributes of said product
+     * @param {array} selectedAttributes Attributes of said product (selected by user)
      */
     handleAddProduct = (product, selectedAttributes) => {
         let updatedProductList;
@@ -197,7 +208,7 @@ class App extends Component {
                 selectedAttributes
             );
         } else {
-            //Create a productClone that let's me update it
+            //Make a deep clone of product that I can edit
             let modifiedProduct = JSON.parse(JSON.stringify(product));
             let clone;
 
@@ -233,6 +244,7 @@ class App extends Component {
             ];
         }
         this.setState({ cartItems: updatedProductList });
+        localStorage.setItem("products", JSON.stringify(updatedProductList));
     };
 
     /**
@@ -263,6 +275,7 @@ class App extends Component {
         }
 
         this.setState({ cartItems: updatedProductList });
+        localStorage.setItem("products", JSON.stringify(updatedProductList));
     };
 
     render() {

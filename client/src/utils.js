@@ -30,7 +30,7 @@ export const allAttributesAreTheSame = (firstArray, secondArray) => {
 };
 
 /**
- * If the user didn't send selectedAttributes (AirTag) then only look for the matching id.
+ * If the user didn't send selectedAttributes (i.e: AirTag) then only look for the matching id.
  * If he did, look for an object in cart that matches the product.id and selectedAttributes
  * (user should be able to buy a blue and a black PS5 in the same session if he wanted to)
  * @param {array} cart Store cart
