@@ -5,6 +5,29 @@ import "./CartOverlay.css";
 import { Link } from "react-router-dom";
 
 export default class CartOverlay extends Component {
+    constructor(props) {
+        super(props);
+        this.cartOverlayRef = React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+    }
+
+    componentDidMount() {
+        document.addEventListener("mousedown", this.handleClickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("mousedown", this.handleClickOutside);
+    }
+
+    handleClickOutside(event) {
+        if (
+            this.cartOverlayRef &&
+            !this.cartOverlayRef.current.contains(event.target)
+        ) {
+            this.props.alternateCartOverlayMenuStatus();
+        }
+    }
+
     render() {
         const {
             cartItems,
@@ -17,7 +40,11 @@ export default class CartOverlay extends Component {
         } = this.props;
 
         return (
-            <div className="dropdown" id="cartOverlay">
+            <div
+                className="dropdown"
+                id="cartOverlay"
+                ref={this.cartOverlayRef}
+            >
                 <div className="bag-count">
                     <p className="bold-text">My bag,</p>
                     {amountOfItems === 1 ? (
@@ -28,7 +55,7 @@ export default class CartOverlay extends Component {
                 </div>
 
                 {cartItems?.map((item) => (
-                    //Had to add uniqid because header and 
+                    //Had to add uniqid because header and
                     //PLP render the same item with the same id
                     <CartOverlayItem
                         key={uniqid()}

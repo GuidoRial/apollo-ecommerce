@@ -18,12 +18,18 @@ export default class Header extends Component {
 
         this.alternateCartOverlayMenuStatus =
             this.alternateCartOverlayMenuStatus.bind(this);
+        this.alternateDropdownCurrencyMenuStatus =
+            this.alternateDropdownCurrencyMenuStatus.bind(this);
     }
 
     alternateCartOverlayMenuStatus = () => {
         this.setState({
             cartOverlayMenu: !this.state.cartOverlayMenu,
         });
+    };
+
+    alternateDropdownCurrencyMenuStatus = () => {
+        this.setState({ dropdownMenu: !this.state.dropdownMenu });
     };
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -63,7 +69,7 @@ export default class Header extends Component {
                                     ? {
                                           color: "#5ece7b",
                                           borderBottom: "2px solid #5ece7b",
-                                          paddingBottom: "3px"
+                                          paddingBottom: "3px",
                                       }
                                     : { color: "#000000" }
                             }
@@ -79,21 +85,11 @@ export default class Header extends Component {
                     <img className="e-logo" src={Logo} alt="e-commerce-logo" />
                 </Link>
                 <div className="currency-cart flex-justify-align">
-                    <p
-                        onClick={() =>
-                            this.setState({
-                                dropdownMenu: !dropdownMenu,
-                            })
-                        }
-                    >
+                    <p onClick={this.alternateDropdownCurrencyMenuStatus}>
                         {selectedCurrency}
                     </p>
                     <img
-                        onClick={() =>
-                            this.setState({
-                                dropdownMenu: !dropdownMenu,
-                            })
-                        }
+                        onClick={this.alternateDropdownCurrencyMenuStatus}
                         style={
                             dropdownMenu === false
                                 ? null
@@ -127,6 +123,9 @@ export default class Header extends Component {
                     )}
                     {dropdownMenu && (
                         <DropdownCurrencyMenu
+                            alternateDropdownCurrencyMenuStatus={
+                                this.alternateDropdownCurrencyMenuStatus
+                            }
                             currencies={currencies}
                             handleSelectedCurrencyChange={
                                 handleSelectedCurrencyChange

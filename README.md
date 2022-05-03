@@ -14,9 +14,7 @@
 ## Todo
 
 1. useContext candidates
-2. Add LocalStorage
-3. Fix overflow on cartOverlay
-4. Close cart if I click outside of it
+2. Fix overflow on cartOverlay
 
 ## Functionality Requirements
 
