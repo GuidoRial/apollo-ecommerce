@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import uniqid from "uniqid";
 import { getPrice } from "../../utils";
 import CartAttribute from "./CartAttribute";
 
@@ -56,7 +57,7 @@ export default class CartItem extends Component {
         const { item, handleAddProduct, handleRemoveProduct } = this.props;
         const { productPrice, carouselIndex } = this.state;
         return (
-            <div key={item.id} className="cart-item">
+            <div className="cart-item">
                 <div className="cart-item-data">
                     <div>
                         <p>{item.brand}</p>
@@ -67,7 +68,7 @@ export default class CartItem extends Component {
                         </p>
                     </div>
                     {item?.attributes.map((attribute) => (
-                        <CartAttribute attribute={attribute} />
+                        <CartAttribute attribute={attribute} key={uniqid()}/>
                     ))}
                 </div>
 

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import uniqid from "uniqid";
 import CartItem from "./CartItem";
 import LineBreak from "./LineBreak";
 import "./Cart.css";
@@ -29,7 +30,7 @@ export default class Cart extends Component {
                 <LineBreak />
                 {cartItems.length > 0 ? (
                     cartItems.map((item) => (
-                        <>
+                        <React.Fragment key={uniqid()}>
                             <CartItem
                                 item={item}
                                 handleAddProduct={handleAddProduct}
@@ -37,7 +38,7 @@ export default class Cart extends Component {
                                 selectedCurrency={selectedCurrency}
                             />
                             <LineBreak />
-                        </>
+                        </React.Fragment>
                     ))
                 ) : (
                     <div className="flex-justify-align cart-is-empty">
