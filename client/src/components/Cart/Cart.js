@@ -70,6 +70,13 @@ export default class Cart extends Component {
                         </span>
                     </div>
                     <button
+                        onClick={() =>
+                            alert(
+                                `Thank you for buying here, your total is ${selectedCurrency}${
+                                    total + tax.amount
+                                } :)`
+                            )
+                        }
                         className="cart-overlay-action-buttons"
                         id="checkOutButton"
                     >
