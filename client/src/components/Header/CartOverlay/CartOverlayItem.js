@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import uniqid from "uniqid";
 import MiniAttribute from "./MiniAttribute";
 import "./CartOverlayItem.css";
 import { getPrice } from "../../../utils";
@@ -36,7 +37,7 @@ export default class CartOverlayItem extends Component {
                         </p>
                     </div>
                     {item?.attributes.map((attribute) => (
-                        <MiniAttribute attribute={attribute} />
+                        <MiniAttribute attribute={attribute} key={uniqid()} />
                     ))}
                 </div>
                 <div className="cart-overlay-buttons">

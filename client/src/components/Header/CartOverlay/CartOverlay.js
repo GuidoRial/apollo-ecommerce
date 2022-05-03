@@ -30,12 +30,12 @@ export default class CartOverlay extends Component {
 
     render() {
         const {
+            handleAddProduct,
+            handleRemoveProduct,
             cartItems,
             selectedCurrency,
             amountOfItems,
             alternateCartOverlayMenuStatus,
-            handleAddProduct,
-            handleRemoveProduct,
             total,
         } = this.props;
 
@@ -55,8 +55,6 @@ export default class CartOverlay extends Component {
                 </div>
 
                 {cartItems?.map((item) => (
-                    //Had to add uniqid because header and
-                    //PLP render the same item with the same id
                     <CartOverlayItem
                         key={uniqid()}
                         item={item}

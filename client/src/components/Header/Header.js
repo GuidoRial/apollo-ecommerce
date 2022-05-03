@@ -44,6 +44,7 @@ export default class Header extends Component {
     }
     render() {
         const {
+            currentCategory,
             categories,
             handleCategoryChange,
             selectedCurrency,
@@ -54,7 +55,6 @@ export default class Header extends Component {
             handleRemoveProduct,
             amountOfItems,
             total,
-            currentCategory,
         } = this.props;
         const { dropdownMenu, cartOverlayMenu } = this.state;
 

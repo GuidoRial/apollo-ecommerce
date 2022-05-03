@@ -118,7 +118,8 @@ export default class ProductDescriptionPage extends Component {
             nextState.selectedAttributes.length ===
                 individualProduct.attributes.length
         ) {
-            //If there's a change in selected attributes and user selected all attributes then...
+            //If there's a change in selected attributes
+            //and user selected all attributes then...
             this.handleAllAttributesAreSelected();
         }
 
