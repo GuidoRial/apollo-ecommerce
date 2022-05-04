@@ -68,7 +68,7 @@ export default class CartItem extends Component {
                         </p>
                     </div>
                     {item?.attributes.map((attribute) => (
-                        <CartAttribute attribute={attribute} key={uniqid()}/>
+                        <CartAttribute attribute={attribute} key={uniqid()} />
                     ))}
                 </div>
 

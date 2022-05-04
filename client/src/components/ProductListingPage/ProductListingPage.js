@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import StoreContext from "../../Context/StoreContext";
 import Product from "./Product";
 import "./ProductListingPage.css";
 
@@ -10,6 +9,8 @@ export default class ProductListingPage extends Component {
             currentCategory,
             selectedCurrency,
             handleAddProduct,
+            handleSuccessAlert,
+            successAlert,
         } = this.props;
 
         return (
@@ -24,6 +25,8 @@ export default class ProductListingPage extends Component {
                                   item={item}
                                   selectedCurrency={selectedCurrency}
                                   handleAddProduct={handleAddProduct}
+                                  handleSuccessAlert={handleSuccessAlert}
+                                  successAlert={successAlert}
                               />
                           ))
                         : "Loading..."}

@@ -2,13 +2,6 @@
 
 ## Todo
 
-1. useContext candidates
-    - successAlert [DONE]
-    - categories
-    - currencies
-    - storeItems
-
-NOT - selectedCurrency, cartItems, amountOfItems 2. Fix overflow on cartOverlay
 
 ## Project Description
 

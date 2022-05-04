@@ -6,10 +6,8 @@ import Attribute from "./Attribute";
 import { getPrice } from "../../utils";
 import Alert from "../Alert/Alert";
 import "./ProductDescriptionPage.css";
-import StoreContext from "../../Context/StoreContext";
 
 export default class ProductDescriptionPage extends Component {
-    static contextType = StoreContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -136,8 +134,8 @@ export default class ProductDescriptionPage extends Component {
             productPrice,
             allAttributesAreSelected,
         } = this.state;
-        const { handleAddProduct } = this.props;
-        const { successAlert, handleSuccessAlert } = this.context;
+        const { handleAddProduct, successAlert, handleSuccessAlert } =
+            this.props;
 
         return (
             <section className="individual-product">

@@ -6,14 +6,14 @@ import Cart from "./components/Cart/Cart";
 import Header from "./components/Header/Header";
 import { getPrice, getProductFromCart, taxes } from "./utils";
 import { client } from "./index";
-import { getProductsByCategory, getCurrencies } from "./queries";
+import { getProductsByCategory, getCategories, getCurrencies } from "./queries";
 import "./App.css";
-import StoreContext, { StoreProvider } from "./Context/StoreContext";
 
 class App extends Component {
     constructor() {
         super();
         this.state = {
+            categories: [],
             currentCategory: "all",
             currencies: [],
             selectedCurrency: "$",
@@ -25,11 +25,12 @@ class App extends Component {
             //it's not clear to me if I should make the conversion to another currency or not
             //So I'll do it anyways, but I will not add it to the total
             //because it's kept separated in Figma
+            successAlert: false,
         };
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleSelectedCurrencyChange =
             this.handleSelectedCurrencyChange.bind(this);
-
+        this.fetchCategories = this.fetchCategories.bind(this);
         this.fetchStoreItems = this.fetchStoreItems.bind(this);
         this.fetchCurrencies = this.fetchCurrencies.bind(this);
         this.updateCartQuantity = this.updateCartQuantity.bind(this);
@@ -37,6 +38,7 @@ class App extends Component {
         this.handleRemoveProduct = this.handleRemoveProduct.bind(this);
         this.calculateAmountOfItems = this.calculateAmountOfItems.bind(this);
         this.getTotalPrice = this.getTotalPrice.bind(this);
+        this.handleSuccessAlert = this.handleSuccessAlert.bind(this);
     }
 
     /* MAKING THE STORE DYNAMIC */
@@ -73,7 +75,27 @@ class App extends Component {
         this.setState({ total: totalPrice });
     };
 
+    /**
+     * Create an alert to give feedback to the user
+     * and during these 4s disable buy button to prevent users from
+     * making mistakes when adding things to cart
+     */
+    handleSuccessAlert = () => {
+        this.setState({ successAlert: true });
+        setTimeout(() => {
+            this.setState({ successAlert: false });
+        }, 4000);
+    };
+
     /* INITIALIZING STORE  */
+    fetchCategories = async () => {
+        const result = await client.query({
+            query: getCategories,
+        });
+
+        const categories = await result.data.categories;
+        this.setState({ categories: categories });
+    };
 
     fetchStoreItems = async (category) => {
         const result = await client.query({
@@ -96,6 +118,7 @@ class App extends Component {
     componentDidMount() {
         const { selectedCurrency, cartItems, amountOfItems, currentCategory } =
             this.state;
+        this.fetchCategories();
         this.fetchStoreItems(currentCategory);
         this.fetchCurrencies();
 
@@ -257,6 +280,7 @@ class App extends Component {
 
     render() {
         const {
+            categories,
             currentCategory,
             selectedCurrency,
             currencies,
@@ -265,64 +289,68 @@ class App extends Component {
             amountOfItems,
             total,
             tax,
+            successAlert,
         } = this.state;
         return (
             <div className="App">
                 <BrowserRouter>
-                    <StoreProvider>
-                        <Header
-                            currentCategory={currentCategory}
-                            handleCategoryChange={this.handleCategoryChange}
-                            selectedCurrency={selectedCurrency}
-                            currencies={currencies}
-                            handleSelectedCurrencyChange={
-                                this.handleSelectedCurrencyChange
+                    <Header
+                        currentCategory={currentCategory}
+                        categories={categories}
+                        handleCategoryChange={this.handleCategoryChange}
+                        selectedCurrency={selectedCurrency}
+                        currencies={currencies}
+                        handleSelectedCurrencyChange={
+                            this.handleSelectedCurrencyChange
+                        }
+                        cartItems={cartItems}
+                        handleAddProduct={this.handleAddProduct}
+                        handleRemoveProduct={this.handleRemoveProduct}
+                        amountOfItems={amountOfItems}
+                        total={total}
+                    />
+                    <Routes>
+                        <Route
+                            path="/"
+                            element={
+                                <ProductListingPage
+                                    storeItems={storeItems}
+                                    currentCategory={currentCategory}
+                                    selectedCurrency={selectedCurrency}
+                                    handleAddProduct={this.handleAddProduct}
+                                    handleSuccessAlert={this.handleSuccessAlert}
+                                    successAlert={successAlert}
+                                />
                             }
-                            cartItems={cartItems}
-                            handleAddProduct={this.handleAddProduct}
-                            handleRemoveProduct={this.handleRemoveProduct}
-                            amountOfItems={amountOfItems}
-                            total={total}
                         />
-                        <Routes>
-                            <Route
-                                path="/"
-                                element={
-                                    <ProductListingPage
-                                        storeItems={storeItems}
-                                        currentCategory={currentCategory}
-                                        selectedCurrency={selectedCurrency}
-                                        handleAddProduct={this.handleAddProduct}
-                                    />
-                                }
-                            />
-                            <Route
-                                path="/products/:id"
-                                element={
-                                    <ProductDescriptionPage
-                                        selectedCurrency={selectedCurrency}
-                                        handleAddProduct={this.handleAddProduct}
-                                    />
-                                }
-                            />
-                            <Route
-                                path="/cart"
-                                element={
-                                    <Cart
-                                        cartItems={cartItems}
-                                        handleAddProduct={this.handleAddProduct}
-                                        handleRemoveProduct={
-                                            this.handleRemoveProduct
-                                        }
-                                        selectedCurrency={selectedCurrency}
-                                        amountOfItems={amountOfItems}
-                                        total={total}
-                                        tax={tax}
-                                    />
-                                }
-                            />
-                        </Routes>
-                    </StoreProvider>
+                        <Route
+                            path="/products/:id"
+                            element={
+                                <ProductDescriptionPage
+                                    selectedCurrency={selectedCurrency}
+                                    handleAddProduct={this.handleAddProduct}
+                                    handleSuccessAlert={this.handleSuccessAlert}
+                                    successAlert={successAlert}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/cart"
+                            element={
+                                <Cart
+                                    cartItems={cartItems}
+                                    handleAddProduct={this.handleAddProduct}
+                                    handleRemoveProduct={
+                                        this.handleRemoveProduct
+                                    }
+                                    selectedCurrency={selectedCurrency}
+                                    amountOfItems={amountOfItems}
+                                    total={total}
+                                    tax={tax}
+                                />
+                            }
+                        />
+                    </Routes>
                 </BrowserRouter>
             </div>
         );

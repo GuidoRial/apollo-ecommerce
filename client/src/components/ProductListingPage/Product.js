@@ -3,10 +3,8 @@ import { Link } from "react-router-dom";
 import { getPrice } from "../../utils";
 import WhiteEmptyCart from "../../Assets/Icons/WhiteEmptyCart.svg";
 import Alert from "../Alert/Alert";
-import StoreContext from "../../Context/StoreContext";
 
 export default class Product extends Component {
-    static contextType = StoreContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -37,8 +35,8 @@ export default class Product extends Component {
     }
 
     render() {
-        const { item, handleAddProduct } = this.props;
-        const { handleSuccessAlert, successAlert } = this.context;
+        const { item, handleAddProduct, handleSuccessAlert, successAlert } =
+            this.props;
         return (
             <div
                 className="product-card"
