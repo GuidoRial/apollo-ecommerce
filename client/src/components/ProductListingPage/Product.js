@@ -57,6 +57,7 @@ export default class Product extends Component {
                 {item.attributes.length === 0 && item.inStock && (
                     <div className="button-container">
                         <button
+                            disabled={successAlert}
                             onClick={() => {
                                 handleAddProduct(item, item.selectedAttributes);
                                 handleSuccessAlert();
