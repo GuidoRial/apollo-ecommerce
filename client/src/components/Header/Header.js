@@ -7,8 +7,10 @@ import EmptyCart from "../../Assets/Icons/EmptyCart.svg";
 import DropdownOff from "../../Assets/Icons/DropdownOff.svg";
 import "./Header.css";
 import ItemCounter from "./ItemCounter";
+import StoreContext from "../../Context/StoreContext";
 
 export default class Header extends Component {
+    static contextType = StoreContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -45,7 +47,7 @@ export default class Header extends Component {
     render() {
         const {
             currentCategory,
-            categories,
+
             handleCategoryChange,
             selectedCurrency,
             currencies,
@@ -57,6 +59,7 @@ export default class Header extends Component {
             total,
         } = this.props;
         const { dropdownMenu, cartOverlayMenu } = this.state;
+        const { categories } = this.context;
 
         return (
             <nav className="nav-bar">

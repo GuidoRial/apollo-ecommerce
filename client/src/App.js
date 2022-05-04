@@ -6,15 +6,14 @@ import Cart from "./components/Cart/Cart";
 import Header from "./components/Header/Header";
 import { getPrice, getProductFromCart, taxes } from "./utils";
 import { client } from "./index";
-import { getProductsByCategory, getCategories, getCurrencies } from "./queries";
+import { getProductsByCategory, getCurrencies } from "./queries";
 import "./App.css";
-import StoreContext, {StoreProvider} from "./Context/StoreContext";
+import StoreContext, { StoreProvider } from "./Context/StoreContext";
 
 class App extends Component {
     constructor() {
         super();
         this.state = {
-            categories: [],
             currentCategory: "all",
             currencies: [],
             selectedCurrency: "$",
@@ -30,7 +29,7 @@ class App extends Component {
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleSelectedCurrencyChange =
             this.handleSelectedCurrencyChange.bind(this);
-        this.fetchCategories = this.fetchCategories.bind(this);
+
         this.fetchStoreItems = this.fetchStoreItems.bind(this);
         this.fetchCurrencies = this.fetchCurrencies.bind(this);
         this.updateCartQuantity = this.updateCartQuantity.bind(this);
@@ -75,14 +74,6 @@ class App extends Component {
     };
 
     /* INITIALIZING STORE  */
-    fetchCategories = async () => {
-        const result = await client.query({
-            query: getCategories,
-        });
-
-        const categories = await result.data.categories;
-        this.setState({ categories: categories });
-    };
 
     fetchStoreItems = async (category) => {
         const result = await client.query({
@@ -105,7 +96,6 @@ class App extends Component {
     componentDidMount() {
         const { selectedCurrency, cartItems, amountOfItems, currentCategory } =
             this.state;
-        this.fetchCategories();
         this.fetchStoreItems(currentCategory);
         this.fetchCurrencies();
 
@@ -267,7 +257,6 @@ class App extends Component {
 
     render() {
         const {
-            categories,
             currentCategory,
             selectedCurrency,
             currencies,
@@ -283,7 +272,6 @@ class App extends Component {
                     <StoreProvider>
                         <Header
                             currentCategory={currentCategory}
-                            categories={categories}
                             handleCategoryChange={this.handleCategoryChange}
                             selectedCurrency={selectedCurrency}
                             currencies={currencies}
