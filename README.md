@@ -29,7 +29,7 @@ This project was made as part of the hiring process for Scandiweb, it took me ro
 
 There were three main challenges in this project
 
-1. I didn't even know what GraphQL was when I received the instructions, so I had to dedicate at least a day to familiarize with its main concepts and understand why someone would choose to work with it as opposed to a REST-API
+1. I didn't even know what GraphQL was when I received the instructions, so I had to dedicate at least a day to familiarize myself with its main concepts and understand why someone would choose to work with it as opposed to a REST-API
 2. I haven't worked with React Class Components in months, so even if I knew what I had to do, all my experience was based on functional components so I had to re-learn class components
 3. Given that I can't use functional components, useParams wasn't an option go get the productId in PDP, and all the solutions I could find online included the use of functional components as well, so I had to get creative and converted the URL object to string and trimmed everything that wasn't the productId to be able to fetch the individual products.
 
