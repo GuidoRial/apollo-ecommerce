@@ -6,7 +6,7 @@
  * product of the one he has in cart, therefore return true
  * @param {array} firstArray Array of user preferences (selectedAttributes)
  * @param {array} secondArray Array of possible attributes for each product
- * @returns true if the product the user is trying to add to cart and the one in cart has the same attributes
+ * @returns {boolean} => true if the product the user is trying to add to cart and the one in cart has the same attributes
  */
 export const allAttributesAreTheSame = (firstArray, secondArray) => {
     const objectsAreEqual = (o1, o2) =>
@@ -36,7 +36,7 @@ export const allAttributesAreTheSame = (firstArray, secondArray) => {
  * @param {array} cart Store cart
  * @param {object} product Object I want to see if it exists in cart or not
  * @param {array} selectedAttributes Array of selectedAttributes that come from users input
- * @returns A matching item in cart
+ * @returns {object} A matching item in cart
  */
 export const getProductFromCart = (cart, product, selectedAttributes) => {
     let item;

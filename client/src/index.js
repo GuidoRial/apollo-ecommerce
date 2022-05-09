@@ -3,16 +3,11 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import {
-    ApolloClient,
-    InMemoryCache,
-    ApolloProvider,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 export const client = new ApolloClient({
     uri: "http://localhost:4000",
-    //This line would need to be changed if 
-    //
+    //This line would need to be changed for production
     cache: new InMemoryCache(),
 });
 

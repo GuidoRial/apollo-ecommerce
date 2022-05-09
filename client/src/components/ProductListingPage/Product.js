@@ -23,7 +23,6 @@ export default class Product extends Component {
 
     shouldComponentUpdate(nextProps) {
         if (this.props.selectedCurrency !== nextProps.selectedCurrency) {
-            //If selectedCurrency changes, auto-update everything related to this :)
             this.setState({
                 productPrice: getPrice(
                     this.props.item.prices,

@@ -164,7 +164,7 @@ class App extends Component {
      * @param {string} operation Add or delete product
      * @param {object} product Product I want to update
      * @param {array} selectedAttributes Attributes of said product
-     * @returns Updated cart array
+     * @returns {array} Updated cart array
      */
     updateCartQuantity(operation, product, selectedAttributes) {
         const item = getProductFromCart(
