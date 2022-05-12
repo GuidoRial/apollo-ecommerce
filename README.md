@@ -24,9 +24,9 @@ npm start
 ## TODO
 
 1. Header nav not working from PDP, Cart page [DON'T UNDERSTAND]
-2. Price should have 2 digits after dot [EASY]
+2. Price should have 2 digits after dot [EASY] [DONE]
 3. Cart Overlay should have a scrollbar if there are so many products it doesn't fit the screen. [HARD]
-4. Products should be aligned to the left in PLP row [EASY]
+4. Products should be aligned to the left in PLP row [EASY] [DONE]
 5. Quickshop should appear only on hover and for each product in stock
    There are three options:
 
