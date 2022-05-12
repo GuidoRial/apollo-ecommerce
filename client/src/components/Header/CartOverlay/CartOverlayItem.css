@@ -60,8 +60,8 @@
 
 .cart-overlay-image {
     width: 150px;
-    height: 200px;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
 }
 
 @media (max-width: 500px) {

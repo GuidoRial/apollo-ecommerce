@@ -11,7 +11,7 @@
 .mini-picture {
     width: 8rem;
     height: 8rem;
-    object-fit: cover;
+    object-fit: contain;
 }
 .mini-pictures {
     display: flex;
