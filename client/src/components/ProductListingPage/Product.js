@@ -40,8 +40,8 @@ export default class Product extends Component {
         const { hover } = this.state;
         return (
             <div
-                onMouseOver={() => this.setState({ hover: true })}
-                onMouseOut={() => this.setState({ hover: false })}
+                onMouseEnter={() => this.setState({ hover: true })}
+                onMouseLeave={() => this.setState({ hover: false })}
                 className="product-card"
                 style={!item.inStock ? { opacity: "0.55" } : { opacity: "1" }}
             >
@@ -57,7 +57,7 @@ export default class Product extends Component {
                         />
                     </div>
                 </Link>
-                {item.inStock && (
+                {hover && item.inStock && (
                     <div
                         className="button-container"
                         onClick={() => {
