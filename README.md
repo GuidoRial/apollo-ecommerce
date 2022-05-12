@@ -30,8 +30,6 @@ npm start
 
 4. Missing bullets for `<ul>` element (Xbox product) [EASY]
 
-5. Minicart should open even on it’s badge click [EASY]
-
 ## Project Description
 
 This project was made as part of the hiring process for Scandiweb, it took me roughly 3 weeks of work and it's meant to test my knowledge of React

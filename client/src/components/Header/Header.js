@@ -105,7 +105,12 @@ export default class Header extends Component {
                     />
 
                     {cartItems.length > 0 && (
-                        <ItemCounter amountOfItems={amountOfItems} />
+                        <ItemCounter
+                            amountOfItems={amountOfItems}
+                            alternateCartOverlayMenuStatus={
+                                this.alternateCartOverlayMenuStatus
+                            }
+                        />
                     )}
 
                     {cartOverlayMenu && (
