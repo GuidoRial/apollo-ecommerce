@@ -291,6 +291,7 @@ class App extends Component {
             tax,
             successAlert,
         } = this.state;
+        console.log(tax);
         return (
             <div className="App">
                 <BrowserRouter>

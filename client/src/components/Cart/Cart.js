@@ -55,7 +55,7 @@ export default class Cart extends Component {
                         <p>Tax:</p>
                         <span className="bold-text">
                             {tax?.currency?.symbol}
-                            {tax?.amount}
+                            {tax?.amount?.toFixed(2)}
                         </span>
                     </div>
                     <div className="summary-item">

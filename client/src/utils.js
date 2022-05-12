@@ -71,7 +71,7 @@ export const getPrice = (prices, currency) => {
 };
 
 export const taxes = [
-    { amount: 15, currency: { label: "USD", symbol: "$" } },
+    { amount: 15.00, currency: { label: "USD", symbol: "$" } },
     { amount: 11.99, currency: { label: "GBP", symbol: "£" } },
     { amount: 21.25, currency: { label: "AUD", symbol: "A$" } },
     { amount: 1952.16, currency: { label: "JPY", symbol: "¥" } },
