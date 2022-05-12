@@ -9,6 +9,7 @@ export default class Product extends Component {
         super(props);
         this.state = {
             productPrice: "",
+            hover: false,
         };
     }
 
@@ -36,8 +37,11 @@ export default class Product extends Component {
     render() {
         const { item, handleAddProduct, handleSuccessAlert, successAlert } =
             this.props;
+        const { hover } = this.state;
         return (
             <div
+                onMouseOver={() => this.setState({ hover: true })}
+                onMouseOut={() => this.setState({ hover: false })}
                 className="product-card"
                 style={!item.inStock ? { opacity: "0.55" } : { opacity: "1" }}
             >
@@ -53,17 +57,29 @@ export default class Product extends Component {
                         />
                     </div>
                 </Link>
-                {item.attributes.length === 0 && item.inStock && (
-                    <div className="button-container">
-                        <button
-                            disabled={successAlert}
-                            onClick={() => {
+                {item.inStock && (
+                    <div
+                        className="button-container"
+                        onClick={() => {
+                            if (item.attributes.length === 0) {
                                 handleAddProduct(item, item.selectedAttributes);
                                 handleSuccessAlert();
-                            }}
+                            }
+                        }}
+                    >
+                        <button
+                            disabled={successAlert}
                             className="mini-add-to-cart-button flex-justify-align"
                         >
-                            <img src={WhiteEmptyCart} alt="mini-cart" />
+                            <Link
+                                to={
+                                    item.attributes.length !== 0
+                                        ? `/products/${item.id}`
+                                        : "/"
+                                }
+                            >
+                                <img src={WhiteEmptyCart} alt="mini-cart" />
+                            </Link>
                         </button>
                     </div>
                 )}
