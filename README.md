@@ -21,6 +21,27 @@ npm install
 npm start
 ```
 
+## TODO
+
+1. Header nav not working from PDP, Cart page [DON'T UNDERSTAND]
+2. Price should have 2 digits after dot [EASY]
+3. Cart Overlay should have a scrollbar if there are so many products it doesn't fit the screen. [HARD]
+4. Products should be aligned to the left in PLP row [EASY]
+5. Quickshop should appear only on hover and for each product in stock
+   There are three options:
+
+-   User can add any product to the cart, default values are selected.
+-   User can add only the product that doesn't have any attributes (Apple AirTag) otherwise is redirected to PDP page [EASY]
+-   User can add any product to the cart, but an attribute selection popup appears. It doesn't have a design.
+
+6. Out-Of-Stock product should have the "Out of stock" label on both PLP and PDP [EASY]
+
+7. Images on the project shouldn't be distorted, stretched, or shrunk. [MEDIUM] [DONE]
+
+8. Missing bullets for `<ul>` element (Xbox product) [EASY]
+
+9. Minicart should open even on it’s badge click [EASY]
+
 ## Project Description
 
 This project was made as part of the hiring process for Scandiweb, it took me roughly 3 weeks of work and it's meant to test my knowledge of React
