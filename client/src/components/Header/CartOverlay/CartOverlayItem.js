@@ -8,22 +8,27 @@ export default class CartOverlayItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            productPrice: "",
+            productCurrency: "",
+            productPrice: 0,
         };
     }
 
     componentDidMount() {
+        let price = getPrice(
+            this.props.item.prices,
+            this.props.selectedCurrency
+        );
+        let symbol = price.currency.symbol;
+        let number = price.amount.toFixed(2);
         this.setState({
-            productPrice: getPrice(
-                this.props.item.prices,
-                this.props.selectedCurrency
-            ),
+            productPrice: number,
+            productCurrency: symbol,
         });
     }
 
     render() {
         const { item, handleAddProduct, handleRemoveProduct } = this.props;
-        const { productPrice } = this.state;
+        const { productPrice, productCurrency } = this.state;
 
         return (
             <div className="cart-overlay-item" key={item.id}>
@@ -32,8 +37,8 @@ export default class CartOverlayItem extends Component {
                         <p>{item.brand}</p>
                         <p>{item.name}</p>
                         <p className="bold-text">
-                            {productPrice?.currency?.symbol}
-                            {productPrice?.amount}
+                            {productCurrency}
+                            {productPrice}
                         </p>
                     </div>
                     {item?.attributes.map((attribute) => (

@@ -8,27 +8,36 @@ export default class Product extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            productPrice: "",
+            productCurrency: "",
+            productPrice: 0,
             hover: false,
         };
     }
 
     componentDidMount() {
+        let price = getPrice(
+            this.props.item.prices,
+            this.props.selectedCurrency
+        );
+        let symbol = price.currency.symbol;
+        let number = price.amount.toFixed(2);
         this.setState({
-            productPrice: getPrice(
-                this.props.item.prices,
-                this.props.selectedCurrency
-            ),
+            productPrice: number,
+            productCurrency: symbol,
         });
     }
 
     shouldComponentUpdate(nextProps) {
         if (this.props.selectedCurrency !== nextProps.selectedCurrency) {
+            let price = getPrice(
+                this.props.item.prices,
+                nextProps.selectedCurrency
+            );
+            let symbol = price.currency.symbol;
+            let number = price.amount.toFixed(2);
             this.setState({
-                productPrice: getPrice(
-                    this.props.item.prices,
-                    nextProps.selectedCurrency
-                ),
+                productPrice: number,
+                productCurrency: symbol,
             });
         }
         return true;
@@ -37,7 +46,7 @@ export default class Product extends Component {
     render() {
         const { item, handleAddProduct, handleSuccessAlert, successAlert } =
             this.props;
-        const { hover } = this.state;
+        const { hover, productPrice, productCurrency } = this.state;
         return (
             <div
                 onMouseEnter={() => this.setState({ hover: true })}
@@ -89,8 +98,8 @@ export default class Product extends Component {
                             {item.brand} {item.name}
                         </p>
                         <p className="product-price">
-                            {this.state.productPrice?.currency?.symbol}
-                            {this.state.productPrice.amount}
+                            {productCurrency}
+                            {productPrice}
                         </p>
                         {item.attributes.length === 0 &&
                             item.inStock &&
