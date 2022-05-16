@@ -23,12 +23,12 @@ npm start
 
 ## TODO
 
-1. Header nav not working from PDP, Cart page [DON'T UNDERSTAND]
-2. Cart Overlay should have a scrollbar if there are so many products it doesn't fit the screen. [HARD]
+1. Header nav not working from PDP, Cart page [EASY] [DONE]
+2. Price should have two digits after dot (airpods pro and Nike Air Huarache) [EASY]
+3. Cart Overlay should have a scrollbar if there are so many products it doesn't fit the screen. [HARD]
+4. Out-Of-Stock product should have the "Out of stock" label on both PLP and PDP [EASY]
 
-3. Out-Of-Stock product should have the "Out of stock" label on both PLP and PDP [EASY]
-
-4. Missing bullets for `<ul>` element (Xbox product) [EASY]
+5. Missing bullets for `<ul>` element (Xbox product) [EASY]
 
 ## Project Description
 

@@ -77,7 +77,8 @@ export default class Header extends Component {
                             key={category.name}
                             onClick={() => handleCategoryChange(category.name)}
                         >
-                            {category.name}
+                           
+                            <Link to="/">{category.name}</Link>
                         </li>
                     ))}
                 </ul>
