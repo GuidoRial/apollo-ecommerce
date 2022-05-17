@@ -140,7 +140,14 @@ export default class ProductDescriptionPage extends Component {
         return (
             <section className="individual-product">
                 {individualProduct && individualProduct.gallery && (
-                    <div className="product-showcase">
+                    <div
+                        className="product-showcase"
+                        style={
+                            !individualProduct.inStock
+                                ? { opacity: "0.55" }
+                                : { opacity: "1" }
+                        }
+                    >
                         <div className="mini-pictures">
                             {individualProduct.gallery.map((image, index) => (
                                 <img
@@ -162,6 +169,11 @@ export default class ProductDescriptionPage extends Component {
                             src={individualProduct.gallery[selectedImage]}
                             alt={`${individualProduct.brand}, ${individualProduct.name}`}
                         />
+                        {!individualProduct.inStock && (
+                            <p className="out-of-stock-sign-pdp">
+                                OUT OF STOCK
+                            </p>
+                        )}
                     </div>
                 )}
 
