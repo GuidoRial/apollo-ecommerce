@@ -24,8 +24,6 @@ npm start
 ## TODO
 
 1. Cart Overlay should have a scrollbar if there are so many products it doesn't fit the screen. [HARD]
-2. Out-Of-Stock product should have the "Out of stock" label on both PLP and PDP [EASY]
-3. Missing bullets for `<ul>` element (Xbox product) [EASY]
 
 ## Project Description
 
