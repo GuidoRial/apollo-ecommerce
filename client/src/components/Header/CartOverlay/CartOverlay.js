@@ -54,15 +54,20 @@ export default class CartOverlay extends Component {
                     )}
                 </div>
 
-                {cartItems?.map((item) => (
-                    <CartOverlayItem
-                        key={uniqid()}
-                        item={item}
-                        selectedCurrency={selectedCurrency}
-                        handleAddProduct={handleAddProduct}
-                        handleRemoveProduct={handleRemoveProduct}
-                    />
-                ))}
+                {cartItems.length > 0 && (
+                    <div className="cart-overlay-item-container">
+                        {cartItems?.map((item) => (
+                            <CartOverlayItem
+                                key={uniqid()}
+                                item={item}
+                                selectedCurrency={selectedCurrency}
+                                handleAddProduct={handleAddProduct}
+                                handleRemoveProduct={handleRemoveProduct}
+                            />
+                        ))}
+                    </div>
+                )}
+
                 <div className="cart-overlay-total-price">
                     <p className="bold-text">Total</p>
                     <p className="bold-text">

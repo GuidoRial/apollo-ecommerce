@@ -21,10 +21,6 @@ npm install
 npm start
 ```
 
-## TODO
-
-1. Cart Overlay should have a scrollbar if there are so many products it doesn't fit the screen. [HARD]
-
 ## Project Description
 
 This project was made as part of the hiring process for Scandiweb, it took me roughly 3 weeks of work and it's meant to test my knowledge of React
