@@ -6,8 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 export const client = new ApolloClient({
-    uri: "http://localhost:4000",
-    //This line would need to be changed for production
+    uri: "https://graphql-server-scandiweb.herokuapp.com/",
     cache: new InMemoryCache(),
 });
 
