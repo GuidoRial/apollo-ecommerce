@@ -1,5 +1,8 @@
 # Scandiweb Jr. React Developer TEST - Guido Rial
 
+## Live Preview
+https://scandiweb-react-developer-test-guido-rial.vercel.app/
+
 ## How to run this project locally?
 
 To run this project locally you need to run both the back and the front-end at the same time, so you have to:
@@ -59,7 +62,7 @@ Besides that, I realize now how important working with Redux or some other state
 1. React
 2. React Router
 3. CSS
-4. Apollo
+4. Apollo Server
 
 ## What I learned
 
