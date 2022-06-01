@@ -1,7 +1,7 @@
-# Scandiweb Jr. React Developer TEST - Guido Rial
+# Apollo e-commerce
 
 ## Live Preview
-https://scandiweb-react-developer-test-guido-rial.vercel.app/
+https://apollo-ecommerce.vercel.app/
 
 ## How to run this project locally?
 
@@ -23,10 +23,6 @@ cd client
 npm install
 npm start
 ```
-
-## Project Description
-
-This project was made as part of the hiring process for Scandiweb, it took me roughly 3 weeks of work and it's meant to test my knowledge of React
 
 ## Challenges
 
@@ -62,7 +58,7 @@ Besides that, I realize now how important working with Redux or some other state
 1. React
 2. React Router
 3. CSS
-4. Apollo Server
+4. Apollo GraphQL
 
 ## What I learned
 
